@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="~/lte/dist/img/logo.png">
+    <title> @ViewBag.Title | Redes De Solidaridad</title> <!-- Titulo de la pagina-->
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- CSS Generales-->
+    <link rel="stylesheet" href="~/lte/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/lte/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/lte/bower_components/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="~/lte/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="~/lte/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" type="text/css" href="~/lte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="~/lte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="~/lte/bower_components/vectormap/jquery-jvectormap.css">
+</head>
+<body class="hold-transition skin-blue sidebar-mini fixed">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        <!--inicio header-->
+        @Html.Partial("~/Areas/LTE/Views/Shared/_Hearder.cshtml")
+        <!--fin header -->
+        <!--inicio aside -->
+        @Html.Partial("~/Areas/LTE/Views/Shared/_Aside.cshtml")
+        <!--fin aside -->
+    </div>
+    <div class="content-wrapper">
+        <section class="content-header">
+
+            <!-- Inicio de Modales-->
+            <!-- Estudiantes-->
+            @Html.Partial("~/Areas/Estudiante/Views/Agregar.cshtml")
+            <!--Asignaturas-->
+            @Html.Partial("~/Areas/Asignaturas/Views/Agregar.cshtml")
+            @Html.Partial("~/Areas/Asignaturas/Views/Editar.cshtml")
+            @Html.Partial("~/Areas/Asignaturas/Views/Eliminar.cshtml")
+
+
+            <!-- Docentes-->
+            @Html.Partial("~/Areas/Docente/Views/Agregar.cshtml")
+
+
+
+            <!-- Inicio de Modales-->
+            <!-- Fin-->
+
+            @RenderBody()
+        </section>
+
+
+    </div>
+    <!--inicio footer -->
+    <div>
+        @Html.Partial("~/Areas/LTE/Views/Shared/_Footer.cshtml")
+    </div>
+    <!--fin footer -->
+
+    <script type="text/javascript" src="~/lte/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/lte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/lte/dist/js/adminlte.min.js"></script>
+    <script type="text/javascript" src="~/lte/bower_components/fastclick/lib/fastclick.js"></script>
+    <script type="text/javascript" src="~/lte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="~/lte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="~/lte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+    <!--Modales Agregar-->
+    <!--Asignaturas-->
+    <script type="text/javascript" src="js/js-redes/Materia/agregar.js"></script> <!-- escript para validar datos requeridos-->
+    <script type="text/javascript" src="~/js/js-redes/Materia/crear.js"></script> <!-- escript para ingresar datos por ajax-->
+
+
+
+    @RenderSection("Scripts", required: false)
+
+
+</body>
+</html>

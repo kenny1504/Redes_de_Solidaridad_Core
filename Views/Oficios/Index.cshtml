@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Redes_De_Solidaridad.Models.Oficios>
+
+@{
+    Layout = "~/Areas/LTE/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Asignaturas";
+}
+
+<div class="box">
+    <div class="box-header">
+        <h2 class="box-title text-light-blue">Asignaturas</h2>
+        <a href="#" data-toggle="modal" data-target="#modal_Materia" class="btn btn-warning btn-sm pull-right" id="m2">Agregar asignatura</a>
+    </div><!-- /.box-header -->
+    <div class="box-body panel box box-primary">
+        <table id="asignaturas" class="table table-bordered table-hover">
+            <thead>
+                <!--Header de la tabla -->
+                <tr>
+                    <th>Nombre Asignatura</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td style="padding-top:0.1%; padding-bottom:0.1%;">
+                            <button class="btn btn-success " onclick="editar_Materia(this);" data-id="@item.Id" data-Nombre="@item.Nombre"><i class=" fa fa-fw fa-pencil"></i></button>  <!--botton para editar -->
+                            <button class="btn btn-info" onclick='eliminar(this);' data-id="@item.Id" data-Nombre="@item.Nombre"><i class="fa fa-fw fa-trash "></i></button>  <!--botton para eliminar-->
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <div class="panel box box-primary"></div><!-- /.box-body -->
+</div>
