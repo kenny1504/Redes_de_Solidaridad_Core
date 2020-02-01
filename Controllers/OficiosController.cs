@@ -22,7 +22,13 @@ namespace Redes_De_Solidaridad.Controllers
         // GET: Oficios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Oficios.ToListAsync());
+            if( TempData.Peek("usuario")!=null)
+            {
+
+                return View(await _context.Oficios.ToListAsync());
+            }
+            else
+                return View("~/Views/index.cshtml");
         }
 
         // GET: Oficios/Details/5

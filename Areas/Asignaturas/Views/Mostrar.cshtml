@@ -35,11 +35,18 @@
                     </tr>
                 }
 
+
             </tbody>
+            <h3>Usuario: @TempData.Peek("usuario")</h3>
         </table>
     </div>
     <div class="panel box box-primary"></div><!-- /.box-body -->
 </div>
+
+<!--Modales-->
+
+@Html.Partial("~/Areas/Asignaturas/Views/Editar.cshtml")
+@Html.Partial("~/Areas/Asignaturas/Views/Eliminar.cshtml")
 
 @section Scripts {
 

@@ -36,11 +36,15 @@ namespace Redes_De_Solidaridad
             services.AddDbContext<RedesDeSolidaridadContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+          services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
+
+           services.AddControllersWithViews();
             services.AddRazorPages()
-                .AddRazorRuntimeCompilation();
+                .AddRazorRuntimeCompilation()
+            .AddSessionStateTempDataProvider();
+
+            services.AddSession();
 
         }
 
@@ -65,6 +69,8 @@ namespace Redes_De_Solidaridad
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
+
 
             app.UseEndpoints(endpoints =>
             {

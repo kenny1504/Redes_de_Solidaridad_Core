@@ -2,7 +2,7 @@
 
 @{
     Layout = "~/Areas/LTE/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Asignaturas";
+    ViewData["Title"] = "Oficios";
 }
 
 <div class="box">
@@ -20,18 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nombre)
-                        </td>
-                        <td style="padding-top:0.1%; padding-bottom:0.1%;">
-                            <button class="btn btn-success " onclick="editar_Materia(this);" data-id="@item.Id" data-Nombre="@item.Nombre"><i class=" fa fa-fw fa-pencil"></i></button>  <!--botton para editar -->
-                            <button class="btn btn-info" onclick='eliminar(this);' data-id="@item.Id" data-Nombre="@item.Nombre"><i class="fa fa-fw fa-trash "></i></button>  <!--botton para eliminar-->
-                        </td>
-                    </tr>
-                }
+              
 
             </tbody>
         </table>

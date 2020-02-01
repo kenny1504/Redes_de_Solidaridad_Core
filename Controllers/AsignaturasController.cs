@@ -20,9 +20,11 @@ namespace Redes_De_Solidaridad.Controllers
             _context = context;
         }
 
+
         // GET: Asignaturas
         public async Task<IActionResult> Index()
         {
+           
             var data = await _context.Asignaturas.ToListAsync();
            // var data = await _context.Asignaturas.Include(x => x.Detallematriculas).ToListAsync();
            /* ViewBag.pepa = (from i in _context.Personas
@@ -66,7 +68,8 @@ namespace Redes_De_Solidaridad.Controllers
         public async Task<IActionResult> Create([Bind("Id,Nombre")] Asignaturas asignaturas)
         {
             if (ModelState.IsValid)
-            {
+            {if (asignaturas.Id <= 0)
+                    ModelState.AddModelError("Id", "El id esta malo");
                 _context.Add(asignaturas);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -11,9 +11,14 @@ namespace Redes_De_Solidaridad.Areas.LTE.Controllers
     public class HomeController : Controller
     {
 
-      //  [Route ("index")]
+
+        [TempData]
+        public string usuario { get; set; }
+
+        //  [Route ("index")]
         public IActionResult Index()
         {
+            usuario = "kenny 1504";
             return View();
         }
     }
