@@ -11,4 +11,16 @@ namespace Redes_De_Solidaridad.Models
         public string Cedula { get; set; }
         public string NombreDeUsuario { get; set; }
     }
+    class  usuariosview
+    {
+        public string ClaveDeUsuario { get; set; }
+        public string NombreDeUsuario { get; set; }
+        public string Nombre{ get; set; }
+        public string Cedula { get; set; }
+        public string Descripcion { get; set; }
+        public DateTime FechaDeVencimiento { get; set; }
+        public Boolean login_in { get; set; }
+
+
+    }
 }

@@ -24,10 +24,4 @@ namespace Redes_De_Solidaridad.Models
         public virtual Secciones Seccion { get; set; }
         public virtual ICollection<Matriculas> Matriculas { get; set; }
     }
-
-    public class OfertaView
-    {
-        public string NombreDocente { get; set; }
-        public string DescripcionOferta { get; set; }
-    }
 }
