@@ -23,4 +23,10 @@ namespace Redes_De_Solidaridad.Models
 
 
     }
+    public class userview
+    {
+        public string password { get; set; }
+        public string username { get; set; }
+
+    }
 }

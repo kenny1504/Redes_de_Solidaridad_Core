@@ -18,17 +18,28 @@ namespace Redes_De_Solidaridad
         {
             _context = context;
         }
+        //Declaracion de varible para manejo de sesiones
         [TempData]
-        public string[] Usuario { get; set; } = new string[6];
-        [HttpPost]
-        public async Task<IActionResult> Autenticacion(string usuario, string contraseña)
+        public string[] Usuario { get; set; }
+
+
+        public IActionResult Index() //Envia vista de inicio de sesion
         {
+            
+            return View("~/Areas/Inicio de sesion/Views/login.cshtml");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Autenticacion([Bind("username,password")] userview usuario)
+        {
+
 
             var valor =  -1;
             //Consulta a base de datos - Consulta linq
             var Data =(from i in _context.Funcionesasignada
                            join x in _context.Funcionesdeacceso on i.IdFuncionAcceso equals x.IdFuncionAcceso
                            join y in _context.Usuarios on i.IdUsuarios equals y.IdUsuarios
+                           where usuario.password ==y.ClaveDeUsuario && usuario.username ==y.NombreDeUsuario
                            select new usuariosview{ 
                                ClaveDeUsuario=y.ClaveDeUsuario,
                                NombreDeUsuario=y.NombreDeUsuario,
@@ -44,14 +55,14 @@ namespace Redes_De_Solidaridad
             {
                 foreach (usuariosview users in Data) { // recorre arreglo para asignar valores a varible de session
                   
-               var fechaUser =users.FechaDeVencimiento.ToString(); //captura fecha del usuario que intenta ingresar
-               var anio =fechaUser[0]+fechaUser[1]+fechaUser[2]+fechaUser[3]; // variable que guarda año
-               var mes =fechaUser[5]+fechaUser[6]; // variable que guarda mes
-               var dia =fechaUser[8]+fechaUser[9];// variable que guarda dia
+               var fechaUser =DateTime.Parse(users.FechaDeVencimiento.ToString()); //captura fecha del usuario que intenta ingresar
+               var anio =fechaUser.Year; // variable que guarda año
+               var mes =fechaUser.Month; // variable que guarda mes
+               var dia =fechaUser.Day;// variable que guarda dia
 
                     if (anio > DateTime.Now.Year){ // si el año es mayor a la fecha actual entra
 
-
+                        Usuario =  new string[7];
                         //Asigna valores a variable de sesion temdata
                         Usuario[0] = users.ClaveDeUsuario;
                         Usuario[1] = users.NombreDeUsuario;
@@ -59,7 +70,9 @@ namespace Redes_De_Solidaridad
                         Usuario[3] = users.Cedula;
                         Usuario[4] = users.Descripcion;
                         Usuario[5] = users.FechaDeVencimiento.ToString();
-                  
+                        Usuario[6] =users.login_in.ToString();
+
+
                      valor = 1; // retorna 1 si el usuario existe y esta con la fecha de vencimiento valida
 
                     }

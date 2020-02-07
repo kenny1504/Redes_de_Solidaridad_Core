@@ -12,15 +12,10 @@ namespace Redes_De_Solidaridad.Areas.LTE.Controllers
     {
 
 
-        //Declaracion para  Usar temdata para varibles de sesion 
-        [TempData]
-        public string usuario { get; set; }
-
-        //  [Route ("index")]
+         [Route ("Inicio")]
         public IActionResult Index()
         {
-           // usuario = "kenny 1504"; Asignacion de valor a varible
-            return View();
+            return View("~/Areas/LTE/Views/Inicio.cshtml");
         }
     }
 }

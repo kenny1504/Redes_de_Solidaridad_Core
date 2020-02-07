@@ -19,7 +19,7 @@ function showContactUs(){
 }
 
 function showThankYou(){
-  url = "usuario/autenticacion"; //URL
+    url = "Usuarios/Autenticacion"; //URL
 
   $.ajax({
       url : url, // URL del controlador
@@ -30,7 +30,7 @@ function showThankYou(){
         var usuario=data; // varible que recive lo que retorna el controlador
           if(usuario==1){ // si la variable es 1 entonces el usuario existe
               prism.style.transform = "translateZ(-100px) rotateX( 90deg)"; // muetsra el mensaje de BIENVENIDO
-              window.setTimeout("inicio()",2500);  //llama a la vista Inicio
+             window.setTimeout("inicio()",2500);  //llama a la vista Inicio
           }
       else // si el usuario no existe entonces muestra el mensaje CREDENCIALES NO VALIDAS
       {

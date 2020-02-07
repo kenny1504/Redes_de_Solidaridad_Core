@@ -1,4 +1,8 @@
-﻿
+﻿@{
+     var usuario = (object[])TempData.Peek("Usuario");//varible de sesion
+}
+
+
 
 <aside class="main-sidebar" style="  background-color: #022730">
 
@@ -10,7 +14,7 @@
                 <img src="~/lte/dist/img/user1-128x128.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p></p>
+                <p> @usuario[2]</p> <!-- Nombre del usuario-->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -67,7 +71,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="#" data-toggle="modal" data-target="#crear_estudiante" onclick=""><i class="fa fa-circle-o text-aqua"></i> Agregar</a></li>
-                    <li><a  asp-area="" asp-controller="Estudiante" asp-action="Index" method="GET"><i class="fa fa-circle-o text-aqua"></i> Mostrar</a></li>
+                    <li><a asp-area="" asp-controller="Estudiante" asp-action="Index" method="GET"><i class="fa fa-circle-o text-aqua"></i> Mostrar</a></li>
                 </ul>
             </li> <!--Estudiantes fin -->
             <li id="menu_Docentes" class="treeview">
@@ -81,8 +85,8 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a data-toggle="modal" data-target="#crear_docente" onclick=""><i class="fa fa-circle-o text-aqua"></i> Agregar</a></li>
-                    <li><a ><i class="fa fa-circle-o text-aqua"></i> Mostrar</a></li>
-                   
+                    <li><a><i class="fa fa-circle-o text-aqua"></i> Mostrar</a></li>
+
                 </ul>
             </li> <!--Docentes fin -->
             <li id="menu_Asignaturas" class="treeview">
@@ -98,7 +102,7 @@
                 <ul class="treeview-menu">
                     <li><a href="#" data-toggle="modal" data-target="#modal_Materia" id="m"><i class="fa fa-circle-o text-aqua"></i> Agregar </a></li>
                     <li><a href="#" data-toggle="modal" data-target="#asignar_asignatura" id="asignar-ma"><i class="fa fa-circle-o text-aqua"></i> Asignar</a></li>
-                    <li><a  asp-area="" asp-controller="Asignaturas" asp-action="Index" method="GET"><i class="fa fa-circle-o text-aqua"></i> Mostrar</a></li>
+                    <li><a asp-area="" asp-controller="Asignaturas" asp-action="Index" method="GET"><i class="fa fa-circle-o text-aqua"></i> Mostrar</a></li>
                 </ul>
             </li> <!--Asignaturas fin -->
             <li id="menu_Reportes" class="treeview">
@@ -155,8 +159,8 @@
                     </li>
                     <li class="treeview">
                     <li><a href="" method="GET"><i class="fa fa-circle-o text-yellow"></i> Mostrar</a></li>
-                   </li>
-              </ul> <!--final del grados --->
+            </li>
+        </ul> <!--final del grados --->
         <a href="#">
             <i class="fa fa-circle-o text-aqua"></i> Ofertas<!--inicio del ofertas --->
             <span class="pull-right-container">

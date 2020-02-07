@@ -1,4 +1,9 @@
-﻿<header class="main-header">
+﻿@{
+    var usuario = (object[])TempData.Peek("Usuario");//varible de sesion
+}
+
+
+<header class="main-header">
     <!-- Logo -->
     <a asp-area="" asp-controller="Home" asp-action="Index" class="logo" style="  background-color: #075f75">
         <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -28,7 +33,7 @@
                                 <li>
                                     <a href="#">
                                         <i class="fa fa-users text-aqua"></i>
-                                        <small>Su cuenta vence: </small>
+                                        <small>Su cuenta vence: @usuario[5]</small> <!--Fecha de vencimiento del usuario logueado -->
                                     </a>
                                 </li>
                             </ul>
@@ -39,14 +44,15 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="~/lte/dist/img/user1-128x128.jpg" class="user-image" alt="User Image">
-                        <span class="hidden-xs"></span>
+                        <span class="hidden-xs">@usuario[2]</span> <!-- Nombre del usuario-->
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
                             <img src="~/lte/dist/img/user1-128x128.jpg" class="img-circle" alt="User Image">
                             <p>
-                                <div id="rol_u"></div>
+                                @usuario[2] <!-- Nombre del usuario-->
+                                <div id="rol_u"> @usuario[4]</div> <!--ROL del usuario logueado -->
                             </p>
                         </li>
                         <!-- Menu Footer-->
@@ -55,7 +61,7 @@
                                 <a href="#" class="btn btn-default btn-flat">Perfil</a>
                             </div>
                             <div class="pull-right">
-                                <a href="" class="btn btn-default btn-flat">Cerrar Sesion</a>
+                                <a asp-area="" asp-controller="Usuarios" asp-action="Index" method="GET" class="btn btn-default btn-flat">Cerrar Sesion</a>
                             </div>
                         </li>
                     </ul>

@@ -41,10 +41,10 @@ namespace Redes_De_Solidaridad
 
            services.AddControllersWithViews();
             services.AddRazorPages()
-                .AddRazorRuntimeCompilation()
-            .AddSessionStateTempDataProvider();
+                .AddRazorRuntimeCompilation() //se agrega para manejo de varibles de sesion con temdata, 
+            .AddSessionStateTempDataProvider();//temdata
 
-            services.AddSession();
+            services.AddSession();// agrega el servicio temdata
 
         }
 
@@ -76,7 +76,7 @@ namespace Redes_De_Solidaridad
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Usuarios}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

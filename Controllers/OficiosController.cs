@@ -22,13 +22,15 @@ namespace Redes_De_Solidaridad.Controllers
         // GET: Oficios
         public async Task<IActionResult> Index()
         {
-            if( TempData.Peek("usuario")!=null)
-            {
+            var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
 
-                return View(await _context.Oficios.ToListAsync());
+            if (usuario != null && usuario[6].ToString() == "True") //verifica si existe una sesion Valida
+            {
+                return View("~/Areas/Estudiante/Views/Mostrar.cshtml");
             }
             else
-                return View("~/Views/index.cshtml");
+                return View("~/Areas/Inicio de sesion/Views/login.cshtml");
+
         }
 
         // GET: Oficios/Details/5
