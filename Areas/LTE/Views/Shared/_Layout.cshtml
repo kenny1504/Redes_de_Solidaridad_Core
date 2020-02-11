@@ -21,10 +21,10 @@
     <!-- Site wrapper -->
     <div class="wrapper">
         <!--inicio header-->
-        @Html.Partial("~/Areas/LTE/Views/Shared/_Hearder.cshtml")
+        <partial name="~/Areas/LTE/Views/Shared/_Hearder.cshtml"/>
         <!--fin header -->
-        <!--inicio aside -->
-        @Html.Partial("~/Areas/LTE/Views/Shared/_Aside.cshtml")
+        <!--inicio aside -->    
+        <partial name="~/Areas/LTE/Views/Shared/_Aside.cshtml"/>
         <!--fin aside -->
     </div>
     <div class="content-wrapper">
@@ -32,15 +32,16 @@
 
             <!-- Inicio de Modales-->
             <!-- Estudiantes-->
-            @Html.Partial("~/Areas/Estudiante/Views/Agregar.cshtml")
+            <partial name="~/Areas/Estudiante/Views/Agregar.cshtml" />
             <!--Asignaturas-->
-            @Html.Partial("~/Areas/Asignaturas/Views/Agregar.cshtml")
-
-
+            <partial name="~/Areas/Asignaturas/Views/Agregar.cshtml" />
             <!-- Docentes-->
-            @Html.Partial("~/Areas/Docente/Views/Agregar.cshtml")
+            <partial name="~/Areas/Docente/Views/Agregar.cshtml" />
 
-
+            <!-- Alertas-->
+            <partial name="~/Areas/Alertas/Views/Error.cshtml" />
+            <partial name="~/Areas/Alertas/Views/Exito.cshtml" />
+            <partial name="~/Areas/Alertas/Views/Cargando.cshtml" />
 
             <!-- Inicio de Modales-->
             <!-- Fin-->
@@ -52,7 +53,7 @@
     </div>
     <!--inicio footer -->
     <div>
-        @Html.Partial("~/Areas/LTE/Views/Shared/_Footer.cshtml")
+        <partial name="~/Areas/LTE/Views/Shared/_Footer.cshtml"/>
     </div>
     <!--fin footer -->
 

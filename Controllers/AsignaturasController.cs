@@ -64,17 +64,41 @@ namespace Redes_De_Solidaridad.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre")] Asignaturas asignaturas)
+        public async Task<IActionResult> Crear(string Nombre)//Metodo para crear una asignatura
         {
-            if (ModelState.IsValid)
-            {if (asignaturas.Id <= 0)
-                    ModelState.AddModelError("Id", "El id esta malo");
+                Asignaturas asignaturas = new Asignaturas();
+                asignaturas.Nombre = Nombre;
                 _context.Add(asignaturas);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var num = await _context.SaveChangesAsync();
+            var id = asignaturas.Id;
+            if (num == -1)
+            {
+                var error = new[]
+               {
+                    new {
+
+                            Nombre = "La materia la existe",
+                            tipo=-1
+                       }
+                };
+
+                return Json(error);
+
             }
-            return View(asignaturas);
+            else
+            {
+                var materia = new[]
+                {
+                    new {
+
+                            Nombre = Nombre,
+                            id = id,
+                            tipo=1
+                       }
+                };
+
+                return Json(materia);
+            }
         }
 
         // GET: Asignaturas/Edit/5
