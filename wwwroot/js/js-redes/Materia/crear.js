@@ -10,14 +10,11 @@ $("#m,#m2").click(function () {
 });
 
 
-
-  
   $("#Materia").click(function() { //ajax para ingresar materias
     
     if($('input[name=Nombre]').val()!="") // si el input contiene valores entra 
     {
-       
-
+     
         $.ajax({
         type: 'POST',
         url: 'Asignaturas/Crear', //llamada a la ruta ingresar materia
