@@ -72,7 +72,7 @@
     }
 </style>   <!--Estilo aplicado solamente al Mostrar estudiantes-->
 
-
+<link href="~/js/js-redes/pagination.css" rel="stylesheet" />
 
 <div class="container">
     <div class="stepwizard">
@@ -104,40 +104,9 @@
     <!-- /.box-header -->
     <div class="box-body panel box box-primary">
         <table id="estudiantes" class="table table-bordered table-striped display">
-            <thead>
-                <!--Header de la tabla -->
-                <tr>
-                    <th>Codigo estudiante</th>
-                    <th>Nombre completo</th>
-                    <th>Sexo</th>
-                    <th>Direccion</th>
-                    <th>Tutor</th>
-                    <th>Tutor Telefono</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!--Cuerpo de la tabla -->
-                <?php foreach ($Estudiantes ->getResultArray() as $Estudiante): ?><!--ciclo que recorre el arreglo retonrnado del controlador-->
-                <tr>
-                    <!--abre fila-->
-                    <td><?php echo $Estudiante['CodigoEstudiante'];?></td>  <!--agrega dato a la columna-->
-                    <td><?php echo $Estudiante['Nombre'];?></td>  <!--agrega dato a la columna-->
-                    <td><?php echo $Estudiante['Sexo'];?></td>  <!--agrega dato a la columna-->
-                    <td><?php echo $Estudiante['Direccion'];?></td>  <!--agrega dato a la columna-->
-                    <td><?php echo $Estudiante['Nombre_tutor'];?>  <!--inicio columna que contienen botones-->
-                    <td style="padding-top:0.1%; padding-bottom:0.1%;" class="hidden" id="<?php echo $Estudiante['id']; ?>">
-                        <button class="btn btn-primary" onclick="ver_estudiante(this);" data-id="<?php echo $Estudiante['id']; ?>" id="Ver-estudiante">ver</button>
-                        <button class="btn btn-success " data-id="<?php echo $Estudiante['id']; ?>" data-idper="<?php echo $Estudiante['personasid']; ?>" onclick="editar_estudiante(this);"><i class=" fa fa-fw fa-pencil"></i></button>
-                        <button class="btn btn-info" data-id="<?php echo $Estudiante['id']; ?>" onclick="eliminar_estudiante(this);"><i class="fa fa-fw fa-trash "></i></button>
-                        <i class="fa fa-angle-double-right pull-right" onclick="mostrar(this);" data-id="<?php echo $Estudiante['id']; ?>"></i>
-                    </td>
-                    </td>  <!--fin columna botones-->
-                    <td id="<?php echo $Estudiante['id']; ?>a"><?php echo $Estudiante['Telefono'];?> <i class="fa fa-angle-double-right pull-right" onclick="mostrar(this);" data-id="<?php echo $Estudiante['id']; ?>"></i> </td>  <!--agrega dato a la columna-->
-
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
         </table>
+
+        <div id="pagination-container"></div> <!-- Indica donde vamos a ubicar paginacion-->
     </div>
     <div class="panel box box-primary"></div><!-- /.box-body -->
 </div>
@@ -198,11 +167,14 @@
 
 
 @section Scripts {
-
     <script type="text/javascript" src="~/js/js-redes/Estudiante/buscar.js"></script> <!-- script Buscar un estudiante-->
     <script type="text/javascript" src="~/js/js-redes/Estudiante/ver.js"></script> <!-- script ver un estudiante-->
     <script type="text/javascript" src="~/js/js-redes/Estudiante/crear.js"></script> <!-- script crear un nuevo estudiante-->
     <script type="text/javascript" src="js/js-redes/Estudiante/eliminar.js"></script> <!-- script eliminar un nuevo estudiante-->
     <script type="text/javascript" src="js/js-redes/Estudiante/editar.js"></script> <!-- script editar un nuevo estudiante-->
     <script type="text/javascript" src="js/js-redes/Estudiante/select2.full.min.js"></script> <!-- Plugins para buscar en combobox-->
+    <script src="~/js/js-redes/Estudiante/Paginacion.js"></script><!-- script para paginar datos-->
 }
+
+
+

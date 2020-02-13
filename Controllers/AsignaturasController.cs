@@ -26,14 +26,23 @@ namespace Redes_De_Solidaridad.Controllers
         {
            
             var data = await _context.Asignaturas.ToListAsync();
-           // var data = await _context.Asignaturas.Include(x => x.Detallematriculas).ToListAsync();
-           /* ViewBag.pepa = (from i in _context.Personas
-                            join x in _context.Docentes on i.Id equals x.Id
-                            join y in _context.Ofertas on x.Id equals y.Docenteid
-                            select new OfertaView{ NombreDocente = i.Nombre, DescripcionOferta = y.Descripcion }).ToList(); */
-                 //Linq ejemplo
+            // var data = await _context.Asignaturas.Include(x => x.Detallematriculas).ToListAsync();
+            /* ViewBag.pepa = (from i in _context.Personas
+                             join x in _context.Docentes on i.Id equals x.Id
+                             join y in _context.Ofertas on x.Id equals y.Docenteid
+                             select new OfertaView{ NombreDocente = i.Nombre, DescripcionOferta = y.Descripcion }).ToList(); */
+            //Linq ejemplo
 
-            return View("~/Areas/Asignaturas/Views/Mostrar.cshtml",data);
+            var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
+
+            if (usuario != null && usuario[6].ToString() == "True") //verifica si existe una sesion Valida
+            {
+                return View("~/Areas/Asignaturas/Views/Mostrar.cshtml", data);
+            }
+            else //si no existe una sesion retorna inicio de sesion
+                return View("~/Areas/Inicio de sesion/Views/login.cshtml");
+
+           
         }
         
         // GET: Asignaturas/Details/5

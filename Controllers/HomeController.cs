@@ -15,7 +15,16 @@ namespace Redes_De_Solidaridad.Areas.LTE.Controllers
          [Route ("Inicio")]
         public IActionResult Index()
         {
-            return View("~/Areas/LTE/Views/Inicio.cshtml");
+            var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
+
+            if (usuario != null && usuario[6].ToString() == "True") //verifica si existe una sesion Valida
+            {
+                return View("~/Areas/LTE/Views/Inicio.cshtml");
+            }
+            else //si no existe una sesion retorna inicio de sesion 
+                return View("~/Areas/Inicio de sesion/Views/login.cshtml");
+
+            
         }
     }
 }
