@@ -19,14 +19,32 @@
                             $.each(data, function (index, item){
                                 
                                 html += '<tr>';
-                                html += '<td>' + item.idEstudiante + '</td><td>' + item.codigo + '</td><td>' + item.nombre + '</td>';
-                        html += '</tr>';
+                                html +=
+                                    '<td>' + item.codigo + '</td>'
+                                    + '<td>' + item.nombre + '</td>'
+                                    + '<td>' + item.sexo + '</td>'
+                                    + '<td>' + item.direccion + '</td>'
+                                    + '<td>' + item.tutor
+                                    + '<td style="padding-top:0.1%; padding-bottom:0.1%;"class= "hidden" id="'+item.idEstudiante+'" >'
+                                    + '<button class="btn btn-primary" onclick="ver_estudiante(this);" data-id="'+item.idEstudiante+'" id="Ver-estudiante">ver</button>'
+                                    + '<button class="btn btn-success " data-id="'+item.idEstudiante+'" data-idper="'+item.idPersona+'" onclick="editar_estudiante(this);" ><i class=" fa fa-fw fa-pencil"></i></button>'
+                                    + '<button class="btn btn-info" data-id="'+item.idEstudiante+'" onclick="eliminar_estudiante(this);"><i class="fa fa-fw fa-trash "></i></button>'
+                                    + '<i class="fa fa-angle-double-right pull-right" onclick="mostrar(this);" data-id="' +item.idEstudiante+'"></i>'
+                                    + '</td>'
+                                    + '<td id="'+item.idEstudiante+'a" >' +item.telefono_tutor+ '<i class="fa fa-angle-double-right pull-right" onclick="mostrar(this);" data-id="'+item.idEstudiante+'"></i> </td>';
+                              html += '</tr>';
                             })
                             html += "</tbody></table>";
                             $('#estudiantes').html(html); //insertamos datos paginados en tabla
                         }
                     })
                 }
+
+             
+                               
+                        
+
+
             })
         });
 

@@ -102,15 +102,22 @@ namespace Redes_De_Solidaridad.Controllers
             }
         }
 
-        public async Task<ActionResult> Datos()
+        public async Task<ActionResult> Datos()// metodo ajax para recuperar datos de estudiantes
         {
             var data = (from item in db.Estudiantes.ToList()
                     join item2 in db.Personas.ToList() on item.Personasid equals item2.Id
+                    join item3 in db.Tutores.ToList() on item.Tutorid equals item3.Id
+                    join item4 in db.Personas.ToList() on item3.Personasid equals item4.Id
                     select new {
                         IdEstudiante = item.Id,
                         IdPersona = item2.Id,
                         Codigo = item.CodigoEstudiante,
-                        Nombre = item2.Nombre + " " + item2.Apellido1 + " " + item2.Apellido2
+                        Nombre = item2.Nombre + " " + item2.Apellido1 + " " + item2.Apellido2,
+                        sexo= item2.Sexo,
+                        direccion = item2.Direccion,
+                        tutor =item4.Nombre +" "+item4.Apellido1+" "+item4.Apellido2,
+                        telefono_tutor=item4.Telefono
+
                     });
 
             return Json(data);
