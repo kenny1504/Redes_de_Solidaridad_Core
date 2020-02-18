@@ -104,6 +104,20 @@
     <!-- /.box-header -->
     <div class="box-body panel box box-primary">
         <table id="estudiantes" class="table table-bordered table-striped display">
+            <thead>
+                <!--Header de la tabla -->
+                <tr>
+                    <th>Codigo estudiante</th>
+                    <th>Nombre completo</th>
+                    <th>Sexo</th>
+                    <th>Direccion</th>
+                    <th>Tutor</th>
+                    <th>Tutor Telefono</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--Cuerpo de la tabla -->
+            </tbody>
         </table>
 
         <div id="pagination-container"></div> <!-- Indica donde vamos a ubicar paginacion-->
@@ -163,8 +177,13 @@
         </table>
     </div>
     <div class="panel box box-primary"></div><!-- /.box-body -->
+
 </div>
 
+<!--Modales-->
+@Html.Partial("~/Areas/Estudiante/Views/Editar.cshtml");
+@Html.Partial("~/Areas/Estudiante/Views/Eliminar.cshtml");
+@Html.Partial("~/Areas/Estudiante/Views/Ver.cshtml");
 
 @section Scripts {
     <script type="text/javascript" src="~/js/js-redes/Estudiante/buscar.js"></script> <!-- script Buscar un estudiante-->
