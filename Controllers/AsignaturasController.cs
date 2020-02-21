@@ -13,6 +13,7 @@ namespace Redes_De_Solidaridad.Controllers
 {
     public class AsignaturasController : Controller
     {
+
         private readonly RedesDeSolidaridadContext _context;
 
         public AsignaturasController(RedesDeSolidaridadContext context)
@@ -75,38 +76,38 @@ namespace Redes_De_Solidaridad.Controllers
         [HttpPost]
         public async Task<IActionResult> Crear(string Nombre)//Metodo para crear una asignatura
         {
+
+            var asignatura = _context.Asignaturas.Where(x => x.Nombre == Nombre).FirstOrDefault(); //verifica si existe una asignatura
+            if (asignatura==null) 
+            {     //agrega asignaturas
                 Asignaturas asignaturas = new Asignaturas();
                 asignaturas.Nombre = Nombre;
                 _context.Add(asignaturas);
                 var num = await _context.SaveChangesAsync();
-            var id = asignaturas.Id;
-            if (num == -1)
-            {
-                var error = new[]
+                var materia = new[]
                {
                     new {
 
-                            Nombre = "La materia la existe",
-                            tipo=-1
-                       }
-                };
-
-                return Json(error);
-
-            }
-            else
-            {
-                var materia = new[]
-                {
-                    new {
-
                             Nombre = Nombre,
-                            id = id,
-                            tipo=1
+                            id = asignaturas.Id,
+                            tipo =1
                        }
                 };
 
                 return Json(materia);
+            }
+            else
+            {
+                var error = new[]
+              {
+                    new {
+
+                            Nombre = "La asignatura ya existe",
+                            tipo=-1
+                       }
+              };
+
+                return Json(error);
             }
         }
 
@@ -130,35 +131,27 @@ namespace Redes_De_Solidaridad.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(uint id, [Bind("Id,Nombre")] Asignaturas asignaturas)
+        public async Task<IActionResult> Editar(List<String> values) //metodo para actualizar una asignatura
         {
-            if (id != asignaturas.Id)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
+            var item= _context.Asignaturas.Where(x => x.Id == int.Parse(values[0])).FirstOrDefault(); //Busca la asignatura
+            var item2 = _context.Asignaturas.Where(x => x.Nombre ==values[1]).FirstOrDefault(); //verifica que No existe el nuevo nombre
+            if (item != null && item2==null)
             {
-                try
-                {
-                    _context.Update(asignaturas);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AsignaturasExists(asignaturas.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                item.Nombre = values[1]; //agrega nuevo nombre
+                _context.Entry(item).State = EntityState.Modified; //modifica
+                var num = await _context.SaveChangesAsync(); //guarda
+                return Json(1);
+
             }
-            return View("~/Areas/Asignaturas/Views/Editar.cshtml", asignaturas);
+            else
+            {
+                if (item2 != null)
+                    return Json(-1);
+                else
+                    return Json(0);
+            }
+                      
         }
 
         // GET: Asignaturas/Delete/5

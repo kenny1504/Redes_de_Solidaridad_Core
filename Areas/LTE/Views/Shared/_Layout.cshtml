@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="~/lte/bower_components/vectormap/jquery-jvectormap.css">
     <link href="~/js/js-redes/Estudiante/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/js/Cargando.css" type="text/css">
-    @RenderSection("Css", required: false)
+    @RenderSection("Css", required: false) <!-- Renderizar hojas de estilos-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini fixed">
     <!-- Site wrapper -->
@@ -41,13 +41,13 @@
             <!-- Docentes-->
             <partial name="~/Areas/Docente/Views/Agregar.cshtml" />
 
+            <!-- Fin-->
+            @RenderBody()
+
             <!-- Alertas-->
             <partial name="~/Areas/Alertas/Views/Error.cshtml" />
             <partial name="~/Areas/Alertas/Views/Exito.cshtml" />
             <partial name="~/Areas/Alertas/Views/Cargando.cshtml" />
-
-            <!-- Fin-->
-            @RenderBody()
         </section>
 
 
@@ -75,7 +75,7 @@
     <script src="~/js/js-redes/Matricula/index.js"></script>
 
 
-    @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false) <!-- Renderizar archivos javascript-->
 
 
 </body>

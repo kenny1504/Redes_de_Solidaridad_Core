@@ -23,7 +23,7 @@ $("#m,#m2").click(function () {
         if ((data[0].tipo==-1)) { // si el ajax contiene errores agrega un label indicando el error 
           $('.error').removeClass('hidden');
           $("#Nombre-error").addClass('hidden');
-              $('.error').text("Error: " + data.nombre);
+              $('.error').text("Error: " + data[0].nombre);
           }
           if ((data[0].tipo == 1)) { // si no contiene errores agrega el dato a la tabla asignaturas
               $('.error').addClass('hidden'); //elimina el mensaje de error
