@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Redes_De_Solidaridad.Context;
 using Redes_De_Solidaridad.Models;
 using System.Data;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Redes_De_Solidaridad.Controllers
 {
@@ -131,15 +133,14 @@ namespace Redes_De_Solidaridad.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Editar(List<String> values) //metodo para actualizar una asignatura
+        public async Task<IActionResult> Editar(Asignaturas Materia) //metodo para actualizar una asignatura
         {
-
-            var item= _context.Asignaturas.Where(x => x.Id == int.Parse(values[0])).FirstOrDefault(); //Busca la asignatura
-            var item2 = _context.Asignaturas.Where(x => x.Nombre ==values[1]).FirstOrDefault(); //verifica que No existe el nuevo nombre
-            if (item != null && item2==null)
+            var item2 = _context.Asignaturas.Where(x => x.Nombre == Materia.Nombre).FirstOrDefault(); //verifica que No existe el nuevo nombre
+            if ( item2 == null)
             {
-                item.Nombre = values[1]; //agrega nuevo nombre
-                _context.Entry(item).State = EntityState.Modified; //modifica
+                Materia.Nombre = Materia.Nombre; //agrega nuevo nombre
+                _context.Update(Materia);
+                //_context.Entry(Materia).State = EntityState.Modified; //modifica
                 var num = await _context.SaveChangesAsync(); //guarda
                 return Json(1);
 
@@ -151,7 +152,6 @@ namespace Redes_De_Solidaridad.Controllers
                 else
                     return Json(0);
             }
-                      
         }
 
         // GET: Asignaturas/Delete/5

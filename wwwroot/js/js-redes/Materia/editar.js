@@ -19,26 +19,24 @@ function Ingresar(e) { // Metodo para guardar(editar) datos los datos al presion
     }
   }
 $("#editar_confirmar").click(function () {
-      var nombre = $('#Nombre-Materia').val();
-        //Arreglo para mandar al controlador
-        var asig = new Array();
-        asig[0] = Id;
-        asig[1] = $('#Nombre-Materia').val();
-        var Data = { values: asig };
 
-        $.ajax({
-                    type: 'POST',
-                    url: 'Asignaturas/Editar', // ruta editar materia
-                    data: Data,//Enviado arreglo al controlador
-                    dataType: "JSON", // tipo de respuesta del controlador
+    var nombre = $('#Nombre-Materia').val();
+    var materia = new Object(); //creacion de objeto
+    materia.Id = Id;
+    materia.Nombre = nombre;
+
+    $.ajax({
+        type: 'POST',
+        url: 'Asignaturas/Editar', // ruta editar materia
+        data: { Materia: materia },//Enviado arreglo al controlador
                     success: function(data){
                         if ((data==-1)) { // si el ajax contiene errores agrega un label indicando el error 
                                 $('.error').removeClass('hidden');
                                 $('.error').text("Error:La Materia Ya existe"); 
                         } else {
-                               var datos = "<tr id=" + data.id + ">" + "<td>" + nombre + "</td>"
-                                   + "<td style='padding-top:0.1%; padding-bottom:0.1%;'>" + "<button class='btn btn-success'  onclick='editar_Materia(this);' data-id=" + data.id + " data-Nombre=" +nombre+"><i class=' fa fa-fw fa-pencil'></i></button>"
-                                + "<button class='btn btn-info ' onclick='eliminar(this);' data-id="+ data.id +"><i class='fa fa-fw fa-trash '></i></button>"                                   
+                            var datos = "<tr id="+Id+">" + "<td>"+nombre+"</td>"
+                                + "<td style='padding-top:0.1%; padding-bottom:0.1%;'>" + "<button class='btn btn-success'  onclick='editar_Materia(this);' data-id="+Id+" data-Nombre="+ nombre +"><i class=' fa fa-fw fa-pencil'></i></button>"
+                                + "<button class='btn btn-info ' onclick='eliminar(this);' data-id="+Id+"><i class='fa fa-fw fa-trash '></i></button>"                                   
                                 +"</td>"+"</tr>";// variable guarda los nuevos valores
 
                                 dat.replaceWith(datos); //reemplaza por los nuevos datos
