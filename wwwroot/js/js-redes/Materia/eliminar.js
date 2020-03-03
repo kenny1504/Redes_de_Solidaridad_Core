@@ -19,7 +19,7 @@ function eliminar(button)
          $.ajax({
                     type: 'POST',
                     url: 'Asignaturas/Eliminar', // ruta eliminar materia
-                    data: { id: ide }, // manda el form donde se encuentra la modal materia
+                    data: { id: ide }, // manda id de asignatura al controlador
                     dataType: "JSON", // tipo de respuesta del controlador
                     success: function(data){ 
                         if(data==1)

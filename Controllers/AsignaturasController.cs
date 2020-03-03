@@ -27,14 +27,8 @@ namespace Redes_De_Solidaridad.Controllers
         // GET: Asignaturas
         public async Task<IActionResult> Index()
         {
-           
+
             var data = await _context.Asignaturas.ToListAsync();
-            // var data = await _context.Asignaturas.Include(x => x.Detallematriculas).ToListAsync();
-            /* ViewBag.pepa = (from i in _context.Personas
-                             join x in _context.Docentes on i.Id equals x.Id
-                             join y in _context.Ofertas on x.Id equals y.Docenteid
-                             select new OfertaView{ NombreDocente = i.Nombre, DescripcionOferta = y.Descripcion }).ToList(); */
-            //Linq ejemplo
 
             var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
 
@@ -45,9 +39,8 @@ namespace Redes_De_Solidaridad.Controllers
             else //si no existe una sesion retorna inicio de sesion
                 return View("~/Areas/Inicio de sesion/Views/login.cshtml");
 
-           
         }
-        
+
 
         // POST: Asignaturas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -55,14 +48,13 @@ namespace Redes_De_Solidaridad.Controllers
         [HttpPost]
         public async Task<IActionResult> Crear(string Nombre)//Metodo para crear una asignatura
         {
-
             var asignatura = _context.Asignaturas.Where(x => x.Nombre == Nombre).FirstOrDefault(); //verifica si existe una asignatura
-            if (asignatura==null) 
+            if (asignatura == null)
             {     //agrega asignaturas
                 Asignaturas asignaturas = new Asignaturas();
                 asignaturas.Nombre = Nombre;
                 _context.Add(asignaturas);
-                var num = await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 var materia = new[]
                {
                     new {
@@ -72,20 +64,17 @@ namespace Redes_De_Solidaridad.Controllers
                             tipo =1
                        }
                 };
-
                 return Json(materia);
             }
             else
             {
                 var error = new[]
-              {
-                    new {
-
+                {
+                    new { 
                             Nombre = "La asignatura ya existe",
                             tipo=-1
-                       }
-              };
-
+                        }
+                };
                 return Json(error);
             }
         }
@@ -96,7 +85,7 @@ namespace Redes_De_Solidaridad.Controllers
         public async Task<IActionResult> Editar(Asignaturas Materia) //metodo para actualizar una asignatura
         {
             var item2 = _context.Asignaturas.Where(x => x.Nombre == Materia.Nombre).FirstOrDefault(); //verifica que No existe el nuevo nombre
-            if ( item2 == null)
+            if (item2 == null)
             {
                 Materia.Nombre = Materia.Nombre; //agrega nuevo nombre
                 _context.Update(Materia);
@@ -114,7 +103,7 @@ namespace Redes_De_Solidaridad.Controllers
             }
         }
 
-        // GET: Asignaturas/Delete/5
+        [HttpPost]
         public async Task<IActionResult> Eliminar(uint? id)
 
         {     //Consulta JOIN para verificar si existe la materia asignada a algun grado
@@ -127,28 +116,18 @@ namespace Redes_De_Solidaridad.Controllers
             }
             else
             {
-                var asignaturas = await _context.Asignaturas.FindAsync(id);
-                _context.Asignaturas.Remove(asignaturas);
-                await _context.SaveChangesAsync();
+                var asignaturas = await _context.Asignaturas.FindAsync(id); //busca la asignatura
+                _context.Asignaturas.Remove(asignaturas); //Elimina
+                await _context.SaveChangesAsync(); //Guarda
                 return Json(1);
 
             }
         }
 
-        // POST: Asignaturas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(uint id)
+        public async Task<ActionResult> Datos()// metodo ajax para recuperar 
         {
-            var asignaturas = await _context.Asignaturas.FindAsync(id);
-            _context.Asignaturas.Remove(asignaturas);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool AsignaturasExists(uint id)
-        {
-            return _context.Asignaturas.Any(e => e.Id == id);
+            var data = await _context.Asignaturas.ToListAsync(); 
+            return Json(data);
         }
     }
 }

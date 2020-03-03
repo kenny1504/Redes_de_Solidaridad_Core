@@ -1,45 +1,45 @@
 $("#asignar-ma").click(function() { //ajax para cargar combobox Asignaturas y Grados
 
-  $.ajax({
-      type: 'POST',
-      url: 'cargarmaterias/asignatura', // llamada a ruta para cargar combobox con datos de tabla materia
-      dataType: "JSON", // tipo de respuesta del controlador
-      success: function(data){ 
-        $('#Asignaturas').empty();
-      //ciclo para recorrer el arreglo de asignaturas
-        data.forEach(element => {
-            //variable para asignarle los valores al combobox
-           var datos='<option style="color: blue;" value="'+element.id+'">'+element.Nombre+'</option>'; 
+      $.ajax({
+          type: 'POST',
+          url: 'Asignaturas/Datos', // llamada a ruta para cargar combobox con datos de tabla materia
+          dataType: "JSON", // tipo de respuesta del controlador
+          success: function(data){ 
+              $('#Asignaturaid').empty();
+          //ciclo para recorrer el arreglo de asignaturas
+            data.forEach(element => {
+                //variable para asignarle los valores al combobox
+               var datos='<option style="color: blue;" value="'+element.id+'">'+element.nombre+'</option>'; 
 
-            $('#Asignaturas').append(datos); //ingresa valores al combobox
-        });
+                $('#Asignaturaid').append(datos); //ingresa valores al combobox
+            });
         
-    }   
-  });//Fin ajax combobox Asignaturas
+        }   
+      });//Fin ajax combobox Asignaturas
       
       $.ajax({
         type: 'POST',
-        url: 'cargargrados/asignatura', // llamada a ruta para cargar combobox con datos de tabla grados
+        url: 'Grados/Datos', // llamada a ruta para cargar combobox con datos de tabla grados
         dataType: "JSON", // tipo de respuesta del controlador
         success: function(data){ 
         
-          $('#Grados').empty();//limpia el combobox
+            $('#Gradoid').empty();//limpia el combobox
           data.forEach(element => { //ciclo para recorrer el arreglo de grados
               //variable para asignarle los valores al combobox
-            var datos='<option style="color: blue;" value="'+element.id+'">'+element.Grado+'</option>';
+            var datos='<option style="color: blue;" value="'+element.id+'">'+element.grado+'</option>';
 
-              $('#Grados').append(datos);//ingresa valores al combobox
+              $('#Gradoid').append(datos);//ingresa valores al combobox
           });
           
       }
-    });//Fin ajax combobox Asignaturas
+    });//Fin ajax combobox Grados
 });
 
 $("#asignar_Mate").click(function() { // ajax para guardar en la tabla detalleAsignatura
 
     $.ajax({
       type: 'POST', 
-      url: 'detalleAsignatura/guardar', // llamada a ruta para cargar combobox con datos de tabla materia
+      url: 'Gradoaasignaturas/Crear', // llamada a ruta para cargar combobox con datos de tabla materia
       data: $('#asignar_materia').serialize(), // manda el form donde se encuentra la modal dataType: "JSON", // tipo de respuesta del controlador
       dataType: "JSON", // tipo de respuesta del controlador
       success: function(data){ 

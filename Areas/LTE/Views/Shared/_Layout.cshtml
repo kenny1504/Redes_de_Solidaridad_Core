@@ -38,6 +38,8 @@
             <partial name="~/Areas/Estudiante/Views/Agregar.cshtml" />
             <!--Asignaturas-->
             <partial name="~/Areas/Asignaturas/Views/Agregar.cshtml" />
+            <partial name="~/Areas/Asignaturas/Views/Asignar.cshtml" />
+            <partial name="~/Areas/Asignaturas/Views/Confirmar.cshtml" />
             <!-- Docentes-->
             <partial name="~/Areas/Docente/Views/Agregar.cshtml" />
 
@@ -72,7 +74,8 @@
     <!--Asignaturas-->
     <script type="text/javascript" src="~/js/js-redes/Materia/agregar.js"></script> <!-- escript para validar datos requeridos-->
     <script type="text/javascript" src="~/js/js-redes/Materia/crear.js"></script> <!-- escript para ingresar datos por ajax-->
-    <script src="~/js/js-redes/Matricula/index.js"></script>
+    <script type="text/javascript" src="~/js/js-redes/Materia/asignar.js"></script><!-- escript para Asignar materias a un grado por ajax-->
+    <script type="text/javascript" src="~/js/js-redes/Matricula/index.js"></script>
 
 
     @RenderSection("Scripts", required: false) <!-- Renderizar archivos javascript-->

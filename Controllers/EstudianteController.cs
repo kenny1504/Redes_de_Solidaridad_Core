@@ -27,10 +27,31 @@ namespace Redes_De_Solidaridad.Controllers
 
         }
 
-        // GET: Estudiante/Details/5s
-        public ActionResult Details(int id)
+        [HttpPost]
+        public ActionResult Detalles(int id) //metodo para cargar datos de estudiantes DETALLES
         {
-            return View();
+            var data = (from item in db.Estudiantes
+                        join item2 in db.Personas on item.Personasid equals item2.Id
+                        join item3 in db.Tutores on item.Tutorid equals item3.Id
+                        join item4 in db.Personas on item3.Personasid equals item4.Id
+                        join item5 in db.Parentescos on item.Parentescoid equals item5.Id
+                        where item.Id==id
+                        select new
+                        {
+                            Codigo = item.CodigoEstudiante,
+                            Nombre = item2.Nombre + " " + item2.Apellido1 + " " + item2.Apellido2,
+                            Apellido1 = item2.Apellido1,
+                            Apellido2 = item2.Apellido2,
+                            sexo = item2.Sexo,
+                            fecha = item2.FechaNacimiento.Date,
+                            direccion = item2.Direccion,
+                            tutor = item4.Nombre + " " + item4.Apellido1 + " " + item4.Apellido2,
+                            telefono = item4.Telefono,
+                            parentesco=item.Parentesco
+
+                        }) ;
+
+            return Json(data);
         }
 
         // GET: Estudiante/Create
