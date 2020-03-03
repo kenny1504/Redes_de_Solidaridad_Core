@@ -48,29 +48,6 @@ namespace Redes_De_Solidaridad.Controllers
            
         }
         
-        // GET: Asignaturas/Details/5
-        public async Task<IActionResult> Details(uint? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var asignaturas = await _context.Asignaturas
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (asignaturas == null)
-            {
-                return NotFound();
-            }
-
-            return View(asignaturas);
-        }
-
-        // GET: Asignaturas/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
 
         // POST: Asignaturas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -112,23 +89,6 @@ namespace Redes_De_Solidaridad.Controllers
                 return Json(error);
             }
         }
-
-        // GET: Asignaturas/Edit/5
-        public async Task<IActionResult> Edit(uint? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var asignaturas = await _context.Asignaturas.FindAsync(id);
-            if (asignaturas == null)
-            {
-                return NotFound();
-            }
-            return View("~/Areas/Asignaturas/Views/Editar.cshtml", asignaturas);
-        }
-
         // POST: Asignaturas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -155,21 +115,24 @@ namespace Redes_De_Solidaridad.Controllers
         }
 
         // GET: Asignaturas/Delete/5
-        public async Task<IActionResult> Delete(uint? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        public async Task<IActionResult> Eliminar(uint? id)
 
-            var asignaturas = await _context.Asignaturas
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (asignaturas == null)
-            {
-                return NotFound();
-            }
+        {     //Consulta JOIN para verificar si existe la materia asignada a algun grado
+            var datos = _context.Asignaturas.Join(_context.Gradoaasignaturas, a => a.Id, gr => gr.Asignaturaid, (a, gr) => a).Where(x => x.Id == id).FirstOrDefault();
 
-            return View(asignaturas);
+
+            if (datos != null) //si existe
+            {
+                return Json(-1);
+            }
+            else
+            {
+                var asignaturas = await _context.Asignaturas.FindAsync(id);
+                _context.Asignaturas.Remove(asignaturas);
+                await _context.SaveChangesAsync();
+                return Json(1);
+
+            }
         }
 
         // POST: Asignaturas/Delete/5
