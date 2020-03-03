@@ -117,7 +117,7 @@ namespace Redes_De_Solidaridad.Controllers
         // GET: Asignaturas/Delete/5
         public async Task<IActionResult> Eliminar(uint? id)
 
-        {     //Consulta JOIN para verificar si existe la materia asignada a algun grado
+        {     //Consulta JOIN para verificar si existe la materia asignada a algun grad
             var datos = _context.Asignaturas.Join(_context.Gradoaasignaturas, a => a.Id, gr => gr.Asignaturaid, (a, gr) => a).Where(x => x.Id == id).FirstOrDefault();
 
 
