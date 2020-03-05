@@ -81,33 +81,35 @@ function ver_estudiante(button){
 
    $.ajax({
     type: 'POST',
-    url: 'estudiante/cargar/'+id, // llamada a la consulta
+    url: 'Estudiante/Detalles', // llamada a la consulta
+    data: { id: id },
     dataType: "JSON", // tipo de respuesta del controlador
     success: function(data){
     
         //obtiene datos del estudiante
-        codigo=data[0].CodigoEstudiante;
-        nombre=data[0].Nombre;
-        apellido1=data[0].Apellido1;
-        apellido2=data[0].Apellido2;
-        fecha=data[0].FechaNacimiento;
-        tutor=data[0].Nombret+" "+data[0].apellido1t+" "+data[0].apellido2t; // nombre completo del tutor
-        parentesco=data[0].Parentesco; 
-        telefono=data[0].Telefono;
-        dirreccion=data[0].Direccion;
-        sexo=data[0].Sexo;
-
+        data.forEach(dat => {
+            codigo = dat.codigo;
+            nombre = dat.nombre;
+            apellido1 = dat.apellido1;
+            apellido2 = dat.apellido2;
+            fecha = dat.fecha;
+            tutor = dat.tutor; // nombre completo del tutor
+            parentesco = dat.parentesco;
+            telefono = dat.telefono;
+            dirreccion = dat.direccion;
+            sexo = dat.sexo;
+        });
         //obtiene datos del tutor
-        cedula=data[0].Cedula;
-        nombret=data[0].Nombret;
-        apellido1t=data[0].apellido1t;
-        apellido2t=data[0].apellido2t;
-        fechat=data[0].fechat;
-        correot=data[0].correot;
-        telefonot=data[0].telefonot;
-        dirrecciont=data[0].dirrecciont;
-        sexot=data[0].sexot;
-        oficiot=data[0].oficiot;
+        cedula=data.Cedula;
+        nombret=data.Nombret;
+        apellido1t=data.apellido1t;
+        apellido2t=data.apellido2t;
+        fechat=data.fechat;
+        correot=data.correot;
+        telefonot=data.telefonot;
+        dirrecciont=data.dirrecciont;
+        sexot=data.sexot;
+        oficiot=data.oficiot;
 
             //asignar valores obtenidos en el ajax aventana modal
             $('#N1').text(nombre);
@@ -118,7 +120,7 @@ function ver_estudiante(button){
             $('#t').text(tutor);
             $('#p').text(parentesco);
             $('#te').text(telefono);
-            $('#dir').text(dirreccion);
+            $('#direcc').text(dirreccion);
             $('#co').text(codigo);
               
             fila.attr("style"," ");//remueve el color a fila
