@@ -47,8 +47,8 @@ namespace Redes_De_Solidaridad.Controllers
                             direccion = item2.Direccion,
                             tutor = item4.Nombre + " " + item4.Apellido1 + " " + item4.Apellido2,
                             telefono = item4.Telefono,
-                            parentesco=item5.Parentesco
-
+                            parentesco=item5.Parentesco,
+                            idtutor=item3.Id
                         }) ;
 
             return Json(data);

@@ -180,20 +180,32 @@
 
 </div>
 
-<!--Modales-->
+<!--Modales Estudiante-->
 @Html.Partial("~/Areas/Estudiante/Views/Editar.cshtml");
 @Html.Partial("~/Areas/Estudiante/Views/Eliminar.cshtml");
 @Html.Partial("~/Areas/Estudiante/Views/Ver.cshtml");
 
+<!--Modales Estudiante-->
+@Html.Partial("~/Areas/Tutor/Views/Agregar.cshtml");
+@Html.Partial("~/Areas/Tutor/Views/Ver.cshtml");
 
 @section Scripts {
+
+    <!--********************* script  "Estudiantes" *************************-->
     <script type="text/javascript" src="~/js/js-redes/Estudiante/buscar.js"></script> <!-- script Buscar un estudiante-->
     <script type="text/javascript" src="~/js/js-redes/Estudiante/ver.js"></script> <!-- script ver un estudiante-->
     <script type="text/javascript" src="~/js/js-redes/Estudiante/crear.js"></script> <!-- script crear un nuevo estudiante-->
-    <script type="text/javascript" src="js/js-redes/Estudiante/eliminar.js"></script> <!-- script eliminar un nuevo estudiante-->
-    <script type="text/javascript" src="js/js-redes/Estudiante/editar.js"></script> <!-- script editar un nuevo estudiante-->
-    <script type="text/javascript" src="js/js-redes/Estudiante/select2.full.min.js"></script> <!-- Plugins para buscar en combobox-->
+    <script type="text/javascript" src="~/js/js-redes/Estudiante/eliminar.js"></script> <!-- script eliminar un nuevo estudiante-->
+    <script type="text/javascript" src="~/js/js-redes/Estudiante/editar.js"></script> <!-- script editar un nuevo estudiante-->
+    <script type="text/javascript" src="~/js/js-redes/Estudiante/select2.full.min.js"></script> <!-- Plugins para buscar en combobox-->
     <script src="~/js/js-redes/Estudiante/Paginacion.js"></script><!-- script para paginar datos-->
+    <!--********************* script  "Tutores" *************************-->
+    <script type="text/javascript" src="~/js/js-redes/Tutor/ver.js"></script> <!-- script ver un Tutor-->
+    <script type="text/javascript" src="~/js/js-redes/Tutor/crear.js"></script> <!-- script crear un nuevo Tutor-->
+    <script type="text/javascript" src="~/js/js-redes/Tutor/buscar.js"></script> <!-- script Buscar un Tutor-->
+    <script type="text/javascript" src="~/js/js-redes/Tutor/editar.js"></script> <!-- script editar Tutor-->
+    <script type="text/javascript" src="~/js/js-redes/Tutor/eliminar.js"></script> <!-- script eliminar Tutor-->
+
 }
 
 

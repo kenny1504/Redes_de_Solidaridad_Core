@@ -98,19 +98,9 @@ function ver_estudiante(button){
             telefono = dat.telefono;
             dirreccion = dat.direccion;
             sexo = dat.sexo;
+            $('#ver-tutor').attr("data-id", dat.idtutor); //Asigna un data id al boton Ver tutor
         });
-        //obtiene datos del tutor
-        cedula=data.Cedula;
-        nombret=data.Nombret;
-        apellido1t=data.apellido1t;
-        apellido2t=data.apellido2t;
-        fechat=data.fechat;
-        correot=data.correot;
-        telefonot=data.telefonot;
-        dirrecciont=data.dirrecciont;
-        sexot=data.sexot;
-        oficiot=data.oficiot;
-
+      
             //asignar valores obtenidos en el ajax aventana modal
             $('#N1').text(nombre);
             $('#p1').text(apellido1);
@@ -131,34 +121,6 @@ function ver_estudiante(button){
    
   };//fin metodo
 
-
-  $(".ver-tutor").click(function() { 
-    
-    $("#perfil_tutor").modal("show"); //abre modal ver usuario
-
-    if(sexot!='M')//si el tutor es mujer muestra imagen femenina
-    {
-      $('#mujer').removeClass('hidden'); //muestra imagen
-      $('#varon').addClass('hidden'); // oculta imagen
-    }
-    else
-    {
-      $('#varon').removeClass('hidden'); //muestra imagen
-      $('#mujer').addClass('hidden'); // oculta oculta imagen 
-    }
-    
-    $('#N1t').text(nombret);
-    $('#p1t').text(apellido1t);
-    $('#p2t').text(apellido2t);
-    $('#st').text(sexot);
-    $('#fnt').text(fechat);
-    $('#ot').text(oficiot);
-    $('#ct').text(correot);
-    $('#tet').text(telefonot);
-    $('#dirt').text(dirrecciont);
-    $('#cet').text(cedula);
-
-  }); 
 
 
 
