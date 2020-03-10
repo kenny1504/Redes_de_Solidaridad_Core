@@ -163,9 +163,9 @@ namespace Redes_De_Solidaridad.Controllers
             return _context.Tutores.Any(e => e.Id == id);
         }
 
-        public async Task<ActionResult> Ver(int id)// metodo ajax para recuperar datos de estudiantes
+        public async Task<ActionResult> Ver (int id)// metodo ajax para recuperar datos de estudiantes
         {
-            var data = (from item in  _context.Tutores
+            var data =  (from item in  _context.Tutores
                         join item2 in _context.Personas on item.Personasid equals item2.Id
                         join item3 in _context.Oficios  on item.Oficiosid equals item3.Id
                         where item.Id==id
@@ -177,12 +177,30 @@ namespace Redes_De_Solidaridad.Controllers
                             Apellido2 = item2.Apellido2,
                             Sexo = item2.Sexo,
                             Fecha = item2.FechaNacimiento.Date,
-                            Direccion = item2.Direccion,
                             Oficio = item3.Nombre,
                             Correo = item2.Correo,
                             telefono = item2.Telefono,
-                            Dirreccion=item2.Direccion
+                            Direccion=item2.Direccion
 
+                        });
+
+            return Json(data);
+        }
+
+        public async Task<ActionResult> Datos()// metodo ajax para recuperar datos de estudiantes
+        {
+            var data = (from item in _context.Tutores.ToList()
+                        join item2 in _context.Personas.ToList() on item.Personasid equals item2.Id
+                        join item3 in _context.Oficios.ToList() on item.Oficiosid equals item3.Id
+                        select new
+                        {
+                            Idtutor = item.Id,
+                            Cedulat = item2.Cedula,
+                            Nombret = item2.Nombre+" "+ item2.Apellido1+" "+ item2.Apellido2,
+                            Sexot = item2.Sexo,
+                            Oficiot = item3.Nombre,
+                            Correot = item2.Correo,
+                            telefonot = item2.Telefono,
                         });
 
             return Json(data);

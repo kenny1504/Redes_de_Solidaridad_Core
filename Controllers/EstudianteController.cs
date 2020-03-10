@@ -39,7 +39,7 @@ namespace Redes_De_Solidaridad.Controllers
                         select new
                         {
                             Codigo = item.CodigoEstudiante,
-                            Nombre = item2.Nombre + " " + item2.Apellido1 + " " + item2.Apellido2,
+                            Nombre = item2.Nombre,
                             Apellido1 = item2.Apellido1,
                             Apellido2 = item2.Apellido2,
                             sexo = item2.Sexo,

@@ -62,14 +62,14 @@ function mostrarT(button){ // funcion para mostrar y o ocultar botones
      dataType: "JSON", // tipo de respuesta del controlador
      success: function(data){
      
-     //obtiene datos del docente
+     //obtiene datos del tutor
      data.forEach(dat => {
          cedula = dat.cedula;
           nombre =dat.nombre;
           apellido1 =dat.apellido1;
           apellido2 =dat.apellido2;
           sexo =dat.sexo;
-          direccion =dat.direccion; 
+          direccion = dat.direccion; 
           correo =dat.correo;
           telefono =dat.telefono;
           fecha =dat.fecha;
