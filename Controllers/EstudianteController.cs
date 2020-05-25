@@ -31,10 +31,10 @@ namespace Redes_De_Solidaridad.Controllers
         public ActionResult Detalles(int id) //metodo para cargar datos de estudiantes DETALLES
         {
             var data = (from item in db.Estudiantes
-                        join item2 in db.Personas on item.Personasid equals item2.Id
-                        join item3 in db.Tutores on item.Tutorid equals item3.Id
-                        join item4 in db.Personas on item3.Personasid equals item4.Id
-                        join item5 in db.Parentescos on item.Parentescoid equals item5.Id
+                        join item2 in db.Personas on item.PersonasId equals item2.Id
+                        join item3 in db.Tutores on item.TutorId equals item3.Id
+                        join item4 in db.Personas on item3.PersonasId equals item4.Id
+                        join item5 in db.Parentescos on item.ParentescosId equals item5.Id
                         where item.Id==id
                         select new
                         {
@@ -126,9 +126,9 @@ namespace Redes_De_Solidaridad.Controllers
         public async Task<ActionResult> Datos()// metodo ajax para recuperar datos de estudiantes
         {
             var data = (from item in db.Estudiantes.ToList()
-                    join item2 in db.Personas.ToList() on item.Personasid equals item2.Id
-                    join item3 in db.Tutores.ToList() on item.Tutorid equals item3.Id
-                    join item4 in db.Personas.ToList() on item3.Personasid equals item4.Id
+                    join item2 in db.Personas.ToList() on item.PersonasId equals item2.Id
+                    join item3 in db.Tutores.ToList() on item.TutorId equals item3.Id
+                    join item4 in db.Personas.ToList() on item3.PersonasId equals item4.Id
                     select new {
                         IdEstudiante = item.Id,
                         IdPersona = item2.Id,

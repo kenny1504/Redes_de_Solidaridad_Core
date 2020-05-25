@@ -22,7 +22,7 @@ namespace Redes_De_Solidaridad.Controllers
         // GET: Grados
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Grados.ToListAsync());
+            return View(await _context.Gradoacademico.ToListAsync());
         }
 
         // GET: Grados/Details/5
@@ -33,7 +33,7 @@ namespace Redes_De_Solidaridad.Controllers
                 return NotFound();
             }
 
-            var grados = await _context.Grados
+            var grados = await _context.Gradoacademico
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (grados == null)
             {
@@ -54,7 +54,7 @@ namespace Redes_De_Solidaridad.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Grado")] Grados grados)
+        public async Task<IActionResult> Create([Bind("Id,Grado")] Gradoacademico grados)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace Redes_De_Solidaridad.Controllers
                 return NotFound();
             }
 
-            var grados = await _context.Grados.FindAsync(id);
+            var grados = await _context.Gradoacademico.FindAsync(id);
             if (grados == null)
             {
                 return NotFound();
@@ -86,7 +86,7 @@ namespace Redes_De_Solidaridad.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(uint id, [Bind("Id,Grado")] Grados grados)
+        public async Task<IActionResult> Edit(uint id, [Bind("Id,Grado")] Gradoacademico grados)
         {
             if (id != grados.Id)
             {
@@ -102,14 +102,14 @@ namespace Redes_De_Solidaridad.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GradosExists(grados.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    //if (!GradosExists(grados.Id))
+                    //{
+                    //    return NotFound();
+                    //}
+                    //else
+                    //{
+                    //    throw;
+                    //}
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -124,7 +124,7 @@ namespace Redes_De_Solidaridad.Controllers
                 return NotFound();
             }
 
-            var grados = await _context.Grados
+            var grados = await _context.Gradoacademico
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (grados == null)
             {
@@ -139,20 +139,20 @@ namespace Redes_De_Solidaridad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(uint id)
         {
-            var grados = await _context.Grados.FindAsync(id);
-            _context.Grados.Remove(grados);
+            var grados = await _context.Gradoacademico.FindAsync(id);
+            _context.Gradoacademico.Remove(grados);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool GradosExists(uint id)
         {
-            return _context.Grados.Any(e => e.Id == id);
+            return _context.Gradoacademico.Any(e => e.Id == id);
         }
 
         public async Task<ActionResult> Datos()// metodo ajax para recuperar 
         {
-            var data = await _context.Grados.ToListAsync();
+            var data = await _context.Gradoacademico.ToListAsync();
             return Json(data);
         }
     }

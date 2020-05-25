@@ -22,7 +22,7 @@ namespace Redes_De_Solidaridad.Controllers
         // GET: Tutores
         public async Task<IActionResult> Index()
         {
-            var redesDeSolidaridadContext = _context.Tutores.Include(t => t.Oficios).Include(t => t.Personas);
+            var redesDeSolidaridadContext = _context.Tutores.Include(t => t.OficiosId).Include(t => t.PersonasId);
             return View(await redesDeSolidaridadContext.ToListAsync());
         }
 
@@ -35,8 +35,8 @@ namespace Redes_De_Solidaridad.Controllers
             }
 
             var tutores = await _context.Tutores
-                .Include(t => t.Oficios)
-                .Include(t => t.Personas)
+                .Include(t => t.OficiosId)
+                .Include(t => t.PersonasId)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (tutores == null)
             {
@@ -67,8 +67,8 @@ namespace Redes_De_Solidaridad.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Oficiosid"] = new SelectList(_context.Oficios, "Id", "Nombre", tutores.Oficiosid);
-            ViewData["Personasid"] = new SelectList(_context.Personas, "Id", "Apellido1", tutores.Personasid);
+            ViewData["Oficiosid"] = new SelectList(_context.Oficios, "Id", "Nombre", tutores.OficiosId);
+            ViewData["Personasid"] = new SelectList(_context.Personas, "Id", "Apellido1", tutores.PersonasId);
             return View(tutores);
         }
 
@@ -85,8 +85,8 @@ namespace Redes_De_Solidaridad.Controllers
             {
                 return NotFound();
             }
-            ViewData["Oficiosid"] = new SelectList(_context.Oficios, "Id", "Nombre", tutores.Oficiosid);
-            ViewData["Personasid"] = new SelectList(_context.Personas, "Id", "Apellido1", tutores.Personasid);
+            ViewData["Oficiosid"] = new SelectList(_context.Oficios, "Id", "Nombre", tutores.OficiosId);
+            ViewData["Personasid"] = new SelectList(_context.Personas, "Id", "Apellido1", tutores.PersonasId);
             return View(tutores);
         }
 
@@ -111,19 +111,19 @@ namespace Redes_De_Solidaridad.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TutoresExists(tutores.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    //if (!TutoresExists(tutores.Id))
+                    //{
+                    //    return NotFound();
+                    //}
+                    //else
+                    //{
+                    //    throw;
+                    //}
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Oficiosid"] = new SelectList(_context.Oficios, "Id", "Nombre", tutores.Oficiosid);
-            ViewData["Personasid"] = new SelectList(_context.Personas, "Id", "Apellido1", tutores.Personasid);
+            ViewData["Oficiosid"] = new SelectList(_context.Oficios, "Id", "Nombre", tutores.OficiosId);
+            ViewData["Personasid"] = new SelectList(_context.Personas, "Id", "Apellido1", tutores.PersonasId);
             return View(tutores);
         }
 
@@ -136,8 +136,8 @@ namespace Redes_De_Solidaridad.Controllers
             }
 
             var tutores = await _context.Tutores
-                .Include(t => t.Oficios)
-                .Include(t => t.Personas)
+                .Include(t => t.OficiosId)
+                .Include(t => t.PersonasId)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (tutores == null)
             {
@@ -166,8 +166,8 @@ namespace Redes_De_Solidaridad.Controllers
         public async Task<ActionResult> Ver (int id)// metodo ajax para recuperar datos de estudiantes
         {
             var data =  (from item in  _context.Tutores
-                        join item2 in _context.Personas on item.Personasid equals item2.Id
-                        join item3 in _context.Oficios  on item.Oficiosid equals item3.Id
+                        join item2 in _context.Personas on item.PersonasId equals item2.Id
+                        join item3 in _context.Oficios  on item.OficiosId equals item3.Id
                         where item.Id==id
                         select new
                         {
@@ -190,8 +190,8 @@ namespace Redes_De_Solidaridad.Controllers
         public async Task<ActionResult> Datos()// metodo ajax para recuperar datos de estudiantes
         {
             var data = (from item in _context.Tutores.ToList()
-                        join item2 in _context.Personas.ToList() on item.Personasid equals item2.Id
-                        join item3 in _context.Oficios.ToList() on item.Oficiosid equals item3.Id
+                        join item2 in _context.Personas.ToList() on item.PersonasId equals item2.Id
+                        join item3 in _context.Oficios.ToList() on item.OficiosId equals item3.Id
                         select new
                         {
                             Idtutor = item.Id,

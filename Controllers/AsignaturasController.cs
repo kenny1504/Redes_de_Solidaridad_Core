@@ -107,7 +107,7 @@ namespace Redes_De_Solidaridad.Controllers
         public async Task<IActionResult> Eliminar(uint? id)
 
         {     //Consulta JOIN para verificar si existe la materia asignada a algun grado
-            var datos = _context.Asignaturas.Join(_context.Gradoaasignaturas, a => a.Id, gr => gr.Asignaturaid, (a, gr) => a).Where(x => x.Id == id).FirstOrDefault();
+            var datos = _context.Asignaturas.Join(_context.Gradoasignaturas, a => a.Id, gr => gr.Id , (a, gr) => a).Where(x => x.Id == id).FirstOrDefault();
 
 
             if (datos != null) //si existe
