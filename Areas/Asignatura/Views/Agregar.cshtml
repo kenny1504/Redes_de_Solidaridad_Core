@@ -12,14 +12,14 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title">Ingresar Materia</h4>
+                    <h4 class="modal-title">Ingresar Asignatura</h4>
                 </div>
                 <div class="modal-body ">
                     <div class="form-group">
                         <br>
                         <label for="Nombre" class="col-sm-2 control-label requerido">Nombre</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="Nombre" id="Nombre" placeholder="Asignatura" required autocomplete="off">
+                            <input  type="text" class="form-control" name="Nombre" id="Nombre" placeholder="Asignatura"  pattern=".{3,}"required autocomplete="off" maxlength="50">
                             <p class="error text-red hidden">error: </p>
                         </div>
                         <br><br>

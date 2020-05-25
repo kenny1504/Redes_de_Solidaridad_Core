@@ -53,25 +53,29 @@ function mostrarT(button){ // funcion para mostrar y o ocultar botones
   function ver_tutor(button){ 
 
     $("#perfil_tutor").modal("show"); //abre modal ver usuario
-    var id=$(button).attr("data-id");
- 
+      var id = $(button).attr("data-id");
+      var oficio; var correo; var direccion; var cedula; var nombre; var apellido1; var apellido2; var sexo; var telefono; var fecha;
     $.ajax({
      type: 'POST',
-     url: 'tutor/cargar/'+id, // llamada a la consulta
+     url: 'Tutores/Ver', // llamada a la consulta
+     data: { id: id },
      dataType: "JSON", // tipo de respuesta del controlador
      success: function(data){
      
-     //obtiene datos del docente
-      var cedula=data[0].Cedula;
-      var nombre=data[0].Nombre;
-      var apellido1=data[0].Apellido1;
-      var apellido2=data[0].Apellido2;
-      var sexo=data[0].Sexo;
-      var direccion=data[0].Direccion; 
-      var correo=data[0].Correo;
-      var telefono=data[0].Telefono;
-      var fecha=data[0].FechaNacimiento;
-      var oficio=data[0].Oficio;
+     //obtiene datos del tutor
+     data.forEach(dat => {
+         cedula = dat.cedula;
+          nombre =dat.nombre;
+          apellido1 =dat.apellido1;
+          apellido2 =dat.apellido2;
+          sexo =dat.sexo;
+          direccion = dat.direccion; 
+          correo =dat.correo;
+          telefono =dat.telefono;
+          fecha =dat.fecha;
+          oficio =dat.oficio;
+     });
+
       if(sexo!='M')//si el tutor es mujer muestra imagen femenina
     {
       $('#mujer').removeClass('hidden'); //muestra imagen

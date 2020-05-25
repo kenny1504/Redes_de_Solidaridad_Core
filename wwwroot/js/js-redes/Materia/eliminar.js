@@ -1,17 +1,16 @@
-var dat; //variable global que guarda el dato "tr" (Fila a eliminar)
-$(".eliminar-materia").click(function() { // ajax para eliminar una materia
-        dat = $(this).closest("tr"); //captura toda la fila donde se efectuo el click (Eliminar)
-        var iden=$(this).attr("data-id"); // captura el id_materia "id" de la materia
-        $('#eliminar_Materia').modal('show'); // abre ventana modal
-        $('#id_materia').val(iden);   //manda id_materia "id" a ventana modal
-}); 
-
+//var dat; var iden; //variable global que guarda el dato "tr" (Fila a eliminar)
+//$(".eliminar-materia").click(function() { // ajax para eliminar una materia
+//        dat = $(this).closest("tr"); //captura toda la fila donde se efectuo el click (Eliminar)
+//        iden=$(this).attr("data-id"); // captura el id_materia "id" de la materia
+//        $('#eliminar_Materia').modal('show'); // abre ventana modal
+//        $('#id_materia').val(iden);   //manda id_materia "id" a ventana modal
+//}); 
+ var ide
 function eliminar(button)
 {
     dat = $(button).closest("tr"); //captura toda la fila donde se efectuo el click (Eliminar)
-    var ide=$(button).attr("data-id"); // captura el id_materia "id" de la materia
+    ide=$(button).attr("data-id"); // captura el id_materia "id" de la materia
     $('#eliminar_Materia').modal('show'); // abre ventana modal
-    $('#id_Asignatura').val(ide);   //manda id_materia "id" a ventana modal
 
 }
 
@@ -19,8 +18,8 @@ function eliminar(button)
         
          $.ajax({
                     type: 'POST',
-                    url: 'eliminar/asignatura', // ruta eliminar materia
-                    data: $('#delete_Asignatura').serialize(), // manda el form donde se encuentra la modal materia
+                    url: 'Asignaturas/Eliminar', // ruta eliminar materia
+                    data: { id: ide }, // manda id de asignatura al controlador
                     dataType: "JSON", // tipo de respuesta del controlador
                     success: function(data){ 
                         if(data==1)

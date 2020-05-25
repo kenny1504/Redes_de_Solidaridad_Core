@@ -45,8 +45,9 @@
         }); */
 
 $(document).ready(function () {
-    //Paginacion para estudiantes
-    $.ajax({  // ajax para para recuperar datos
+
+    //
+    $.ajax({  // ajax para para recuperar datos de estudiantes
         type: "GET",
         url: "Estudiante/Datos",
         success: function (data) {
@@ -72,4 +73,34 @@ $(document).ready(function () {
             })
         }
     })
+        
+    $.ajax({  // ajax para para recuperar datos de tutores
+        type: "GET",
+        url: "Tutores/Datos",
+        success: function (data) {
+            var html = "< thead ><tr> <th>Cedula</th><th>Nombre completo</th><th>Sexo</th><th>Correo</th><th>Oficio</th><th>Telefono</th></tr></thead >";
+            data.forEach(element => {
+
+                html = '<tr>'
+                    + '<td>' + element.cedulat + '</td>'
+                    + '<td>' + element.nombret + '</td>'
+                    + '<td>' + element.sexot + '</td>'
+                    + '<td>' + element.correot + '</td>'
+                    + '<td>' + element.oficiot 
+                    + '<td style="padding-top:0.1%; padding-bottom:0.1%;"class= "hidden" id="' + element.idtutor + 'T" >'
+                    + '<button class="btn btn-primary" onclick="ver_tutor(this);" data-id="' + element.idtutor + '" id="Ver-estudiante">ver</button>'
+                    + '<button class="btn btn-success " data-id="' + element.idtutor + '" onclick="editar_Tutor(this);" ><i class=" fa fa-fw fa-pencil"></i></button>'
+                    + '<button class="btn btn-info" data-id="' + element.idtutor + '" onclick="eliminar_tutor(this);"><i class="fa fa-fw fa-trash "></i></button>'
+                    + '<i class="fa fa-angle-double-right pull-right" onclick="mostrarT(this);;" data-id="' + element.idtutor + '"></i>'
+                    + '</td>'
+                    + '<td id="' + element.idtutor + 'T2" >' + element.telefonot + '<i class="fa fa-angle-double-right pull-right" onclick="mostrarT(this);" data-id="' + element.idtutor + '"></i> </td>'
+                    + '</tr>';
+                +"</tbody></table>";
+                $('#tutor').append(html); //insertamos datos en tabla
+            })
+        }
+    })
+
+
+
 });

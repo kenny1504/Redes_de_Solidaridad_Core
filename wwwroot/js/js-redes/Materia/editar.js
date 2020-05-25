@@ -1,14 +1,14 @@
-var dat; //variable global que guarda el dato "tr" (Fila a editar)
+var Id; var Nombre; var dat; //variable global que guarda el dato "tr" (Fila a editar)
 function editar_Materia(button)
 {
     dat = $(button).closest("tr"); //captura toda la fila donde se efectuo el click (Editar)
-    var name = $(button).attr("data-Nombre") //obtiene nombre de la materia (nuevo)
-    var ide=$(button).attr("data-id");//obtiene el id de la materia
+    Nombre = $(button).attr("data-Nombre") //obtiene nombre de la materia (nuevo)
+    Id=$(button).attr("data-id");//obtiene el id de la materia
     //var name=$(button).attr("data-Nombre"); //anterior capturar nombre
     $('#editar_Materia').modal('show'); // abre ventana modal
     $('.error').addClass('hidden'); // oculta error del servidor(validacion-servidor)
-    $('#idmateria').val(ide);   //manda valor "id" a ventana modal Nombre
-    $('#Nombre-Materia').val(name);
+    $('#idmateria').val(Id);   //manda valor "id" a ventana modal Nombre
+    $('#Nombre-Materia').val(Nombre);
 }
 
 function Ingresar(e) { // Metodo para guardar(editar) datos los datos al presionar ENTER 
@@ -18,21 +18,25 @@ function Ingresar(e) { // Metodo para guardar(editar) datos los datos al presion
         $("#editar_confirmar").click(); // llama al evento click "editar_confirmar"
     }
   }
-    $("#editar_confirmar").click(function() {
-        $.ajax({
-                
-                    type: 'POST',
-                    url: 'actualizar/asignatura', // ruta editar materia
-                    data: $('#editar-materia').serialize(), // manda el form donde se encuentra la modal materia
-                    dataType: "JSON", // tipo de respuesta del controlador
+$("#editar_confirmar").click(function () {
+
+    var nombre = $('#Nombre-Materia').val();
+    var materia = new Object(); //creacion de objeto
+    materia.Id = Id;
+    materia.Nombre = nombre;
+
+    $.ajax({
+        type: 'POST',
+        url: 'Asignaturas/Editar', // ruta editar materia
+        data: { Materia: materia },//Enviado arreglo al controlador
                     success: function(data){
-                        if ((data.msg!=true)) { // si el ajax contiene errores agrega un label indicando el error 
+                        if ((data==-1)) { // si el ajax contiene errores agrega un label indicando el error 
                                 $('.error').removeClass('hidden');
-                                $('.error').text("Error: "+ data.Nombre); 
-                          } else {
-                                var datos=  "<tr id=" + data.id + ">"+"<td>"+data.Nombre+"</td>"
-                                + "<td style='padding-top:0.1%; padding-bottom:0.1%;'>"+"<button class='btn btn-success'  onclick='editar_Materia(this);' data-id="+ data.id +" data-Nombre="+data.Nombre+"><i class=' fa fa-fw fa-pencil'></i></button>"
-                                + "<button class='btn btn-info ' onclick='eliminar(this);' data-id="+ data.id +"><i class='fa fa-fw fa-trash '></i></button>"                                   
+                                $('.error').text("Error:La Materia Ya existe"); 
+                        } else {
+                            var datos = "<tr id="+Id+">" + "<td>"+nombre+"</td>"
+                                + "<td style='padding-top:0.1%; padding-bottom:0.1%;'>" + "<button class='btn btn-success'  onclick='editar_Materia(this);' data-id="+Id+" data-Nombre="+ nombre +"><i class=' fa fa-fw fa-pencil'></i></button>"
+                                + "<button class='btn btn-info ' onclick='eliminar(this);' data-id="+Id+"><i class='fa fa-fw fa-trash '></i></button>"                                   
                                 +"</td>"+"</tr>";// variable guarda los nuevos valores
 
                                 dat.replaceWith(datos); //reemplaza por los nuevos datos

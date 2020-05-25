@@ -40,7 +40,7 @@ function showThankYou(){
       },
       error: function (jqXHR, textStatus, errorThrown) // si el ajax presenta errores entonces muestra en el alert
       {
-          alert('Error adding / update data'); // si el ajax contiene errores se muestran aqui
+          alert('Error Conexion a base de datos / Error 5000'); // si el ajax contiene errores se muestran aqui
       }
   });
 }
@@ -66,7 +66,7 @@ function login2(){ // Si quiere ingresar con el mismo usuario
       },
       error: function (jqXHR, textStatus, errorThrown) // si el ajax presenta errores entonces muestra en el alert
       {
-          alert('Error adding / update data'); // si el ajax contiene errores se muestran aqui
+          alert('Error Conexion a base de datos / Error 5000'); // si el ajax contiene errores se muestran aqui
       }
   });
 }
@@ -74,5 +74,11 @@ function login2(){ // Si quiere ingresar con el mismo usuario
   function inicio(){ //llamado a la vista Inicio
     window.location.href='inicio';
   }
-   
-  
+
+function Ingresar(e) { // Metodo para guardar(editar) datos los datos al presionar ENTER 
+    var tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 13) // si es 13 entonces presiono ENTER
+    {
+        showThankYou(); // llama al evento click 
+    }
+}
