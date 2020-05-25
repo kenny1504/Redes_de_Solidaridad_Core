@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Redes_De_Solidaridad.Models
 {
-    public partial class Asignaturas
+    public partial class Gradoacademico
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
+        public int Grado { get; set; }
     }
 }

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 namespace Redes_De_Solidaridad.Models
 {
-    public partial class Asignaturas
+    public partial class Detalleofertasinstitucion
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
+        public int IdInstitucion { get; set; }
+        public int IdOferta { get; set; }
     }
 }

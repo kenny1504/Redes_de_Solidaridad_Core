@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Redes_De_Solidaridad.Models
 {
-    public partial class Funcionesdeacceso
+    public partial class Situacionmatricula
     {
-        public int IdFuncionAcceso { get; set; }
+        public int Id { get; set; }
         public string Descripcion { get; set; }
     }
 }

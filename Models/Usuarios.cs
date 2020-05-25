@@ -5,23 +5,21 @@ namespace Redes_De_Solidaridad.Models
 {
     public partial class Usuarios
     {
-        public int IdUsuarios { get; set; }
-        public string ClaveDeUsuario { get; set; }
-        public string Nombre { get; set; }
+        public int Id { get; set; }
         public string Cedula { get; set; }
-        public string NombreDeUsuario { get; set; }
+        public string Usuario { get; set; }
+        public string Contraseña { get; set; }
+        public int IdInstitucion { get; set; }
     }
-    class  usuariosview
+
+    class usuariosview
     {
-        public string ClaveDeUsuario { get; set; }
         public string NombreDeUsuario { get; set; }
-        public string Nombre{ get; set; }
-        public string Cedula { get; set; }
-        public string Descripcion { get; set; }
-        public DateTime FechaDeVencimiento { get; set; }
-        public Boolean login_in { get; set; }
-
-
+        public string Nombre { get; set; }
+        public string Id { get; set; }
+        public int tipo { get; set; }
+        public String Cedula { get; set; }
+        public String Institucion { get; set; }
     }
     public class userview
     {

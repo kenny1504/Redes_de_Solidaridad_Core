@@ -7,9 +7,9 @@
     <!-- Logo -->
     <a asp-area="" asp-controller="Home" asp-action="Index" class="logo" style="  background-color: #075f75">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>R</b>D<b>S</b></span>
+        <span class="logo-mini"><b>A</b>B<b>C</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg">Redes De Solidaridad</span>
+		<span class="logo-lg">@usuario[5]</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" style="  background-color: #075f75">
@@ -33,7 +33,7 @@
                                 <li>
                                     <a href="#">
                                         <i class="fa fa-users text-aqua"></i>
-                                        <small>Su cuenta vence: @usuario[5]</small> <!--Fecha de vencimiento del usuario logueado -->
+                                        <small>Notificaciones</small> <!--Fecha de vencimiento del usuario logueado -->
                                     </a>
                                 </li>
                             </ul>
@@ -44,16 +44,16 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="~/lte/dist/img/user1-128x128.jpg" class="user-image" alt="User Image">
-                        <span class="hidden-xs">@usuario[2]</span> <!-- Nombre del usuario-->
+                        <span class="hidden-xs">@usuario[0]</span> <!-- Nombre del usuario-->
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
                             <img src="~/lte/dist/img/user1-128x128.jpg" class="img-circle" alt="User Image">
-                            <p>
-                                @usuario[2] <!-- Nombre del usuario-->
-                                <div id="rol_u"> @usuario[4]</div> <!--ROL del usuario logueado -->
-                            </p>
+							<p>
+								@usuario[1] <!-- Nombre del usuario-->
+								<h5 id="rol_u">@usuario[4] </h5><!--ROL del usuario logueado -->
+							</p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">

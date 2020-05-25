@@ -36,7 +36,7 @@ namespace Redes_De_Solidaridad
             services.AddDbContext<RedesDeSolidaridadContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
-          services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
            services.AddControllersWithViews();

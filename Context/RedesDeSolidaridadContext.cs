@@ -17,27 +17,30 @@ namespace Redes_De_Solidaridad.Context
         }
 
         public virtual DbSet<Asignaturas> Asignaturas { get; set; }
-        public virtual DbSet<Detallematriculas> Detallematriculas { get; set; }
-        public virtual DbSet<Detallenotas> Detallenotas { get; set; }
+        public virtual DbSet<Asistencia> Asistencia { get; set; }
+        public virtual DbSet<Detalleasignaturasinstitucion> Detalleasignaturasinstitucion { get; set; }
+        public virtual DbSet<Detallematricula> Detallematricula { get; set; }
+        public virtual DbSet<Detallematriculainstitucion> Detallematriculainstitucion { get; set; }
+        public virtual DbSet<Detallenota> Detallenota { get; set; }
+        public virtual DbSet<Detalleofertasinstitucion> Detalleofertasinstitucion { get; set; }
         public virtual DbSet<Docentes> Docentes { get; set; }
         public virtual DbSet<Estudiantes> Estudiantes { get; set; }
-        public virtual DbSet<Funcionesasignada> Funcionesasignada { get; set; }
-        public virtual DbSet<Funcionesdeacceso> Funcionesdeacceso { get; set; }
-        public virtual DbSet<Gradoaasignaturas> Gradoaasignaturas { get; set; }
-        public virtual DbSet<Grados> Grados { get; set; }
+        public virtual DbSet<Gradoacademico> Gradoacademico { get; set; }
+        public virtual DbSet<Gradoasignaturas> Gradoasignaturas { get; set; }
         public virtual DbSet<Grupos> Grupos { get; set; }
+        public virtual DbSet<Institucion> Institucion { get; set; }
         public virtual DbSet<Matriculas> Matriculas { get; set; }
-        public virtual DbSet<Migrations> Migrations { get; set; }
         public virtual DbSet<Notas> Notas { get; set; }
         public virtual DbSet<Ofertas> Ofertas { get; set; }
         public virtual DbSet<Oficios> Oficios { get; set; }
         public virtual DbSet<Parentescos> Parentescos { get; set; }
         public virtual DbSet<Personas> Personas { get; set; }
         public virtual DbSet<Secciones> Secciones { get; set; }
-        public virtual DbSet<Situacionmatriculas> Situacionmatriculas { get; set; }
+        public virtual DbSet<Situacionmatricula> Situacionmatricula { get; set; }
         public virtual DbSet<Turnos> Turnos { get; set; }
         public virtual DbSet<Tutores> Tutores { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<Usuariosinstituciones> UsuariosInstituciones { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -54,9 +57,7 @@ namespace Redes_De_Solidaridad.Context
             {
                 entity.ToTable("asignaturas");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
@@ -65,214 +66,206 @@ namespace Redes_De_Solidaridad.Context
                     .HasCollation("utf8mb4_unicode_ci");
             });
 
-            modelBuilder.Entity<Detallematriculas>(entity =>
+            modelBuilder.Entity<Asistencia>(entity =>
             {
-                entity.ToTable("detallematriculas");
+                entity.ToTable("asistencia");
 
-                entity.HasIndex(e => e.Asignaturaid)
-                    .HasName("Fk_detalleMatriculas_asignaturas");
-
-                entity.HasIndex(e => e.Matriculaid)
-                    .HasName("Fk_detalleMatriculas_matriculas");
+                entity.HasIndex(e => e.IdMatricula)
+                    .HasName("RefMatriculas39");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                    .HasColumnType("int(11)");
 
-                entity.Property(e => e.Asignaturaid).HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Estado).HasColumnType("bit(1)");
 
-                entity.Property(e => e.Matriculaid).HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Fecha).HasColumnType("datetime");
 
-                entity.HasOne(d => d.Asignatura)
-                    .WithMany(p => p.Detallematriculas)
-                    .HasForeignKey(d => d.Asignaturaid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_detalleMatriculas_asignaturas");
-
-                entity.HasOne(d => d.Matricula)
-                    .WithMany(p => p.Detallematriculas)
-                    .HasForeignKey(d => d.Matriculaid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_detalleMatriculas_matriculas");
+                entity.Property(e => e.IdMatricula)
+                    .HasColumnName("idMatricula")
+                    .HasColumnType("int(11)");
             });
 
-            modelBuilder.Entity<Detallenotas>(entity =>
+            modelBuilder.Entity<Detalleasignaturasinstitucion>(entity =>
             {
-                entity.ToTable("detallenotas");
+                entity.ToTable("detalleasignaturasinstitucion");
+
+                entity.HasIndex(e => e.IdAsignatura)
+                    .HasName("RefAsignaturas49");
+
+                entity.HasIndex(e => e.IdInstitucion)
+                    .HasName("RefInstitucion48");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAsignatura)
+                    .HasColumnName("idAsignatura")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdInstitucion)
+                    .HasColumnName("idInstitucion")
+                    .HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Detallematricula>(entity =>
+            {
+                entity.ToTable("detallematricula");
+
+                entity.HasIndex(e => e.AsignaturasId)
+                    .HasName("FK_AsignaturasDetalleOferta");
+
+                entity.HasIndex(e => e.MatriculasId)
+                    .HasName("FK_MatriculasDetalleOferta");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.AsignaturasId).HasColumnType("int(11)");
+
+                entity.Property(e => e.MatriculasId).HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Detallematriculainstitucion>(entity =>
+            {
+                entity.ToTable("detallematriculainstitucion");
+
+                entity.HasIndex(e => e.IdInstitucion)
+                    .HasName("RefInstitucion44");
+
+                entity.HasIndex(e => e.IdMatricula)
+                    .HasName("RefMatriculas45");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdInstitucion)
+                    .HasColumnName("idInstitucion")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdMatricula)
+                    .HasColumnName("idMatricula")
+                    .HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Detallenota>(entity =>
+            {
+                entity.ToTable("detallenota");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
                     .HasColumnType("varchar(50)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_unicode_ci");
+
+                entity.Property(e => e.Orden).HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Detalleofertasinstitucion>(entity =>
+            {
+                entity.ToTable("detalleofertasinstitucion");
+
+                entity.HasIndex(e => e.IdInstitucion)
+                    .HasName("RefInstitucion46");
+
+                entity.HasIndex(e => e.IdOferta)
+                    .HasName("RefOfertas47");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdInstitucion)
+                    .HasColumnName("idInstitucion")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdOferta)
+                    .HasColumnName("idOferta")
+                    .HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Docentes>(entity =>
             {
                 entity.ToTable("docentes");
 
-                entity.HasIndex(e => e.Personasid)
-                    .HasName("Fk_docentes_personas");
+                entity.HasIndex(e => e.PersonasId)
+                    .HasName("FK_PersonasDocentes");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                    .HasColumnType("int(11)");
 
-                entity.Property(e => e.Personasid)
-                    .HasColumnName("personasid")
-                    .HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Estado).HasColumnType("bit(1)");
 
-                entity.HasOne(d => d.Personas)
-                    .WithMany(p => p.Docentes)
-                    .HasForeignKey(d => d.Personasid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_docentes_personas");
+                entity.Property(e => e.PersonasId).HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Estudiantes>(entity =>
             {
                 entity.ToTable("estudiantes");
 
-                entity.HasIndex(e => e.Parentescoid)
-                    .HasName("Fk_estudiantes_parentescos");
+                entity.HasIndex(e => e.ParentescosId)
+                    .HasName("FK_ParentescosEstudiantes");
 
-                entity.HasIndex(e => e.Personasid)
-                    .HasName("Fk_estudiantes_personas");
+                entity.HasIndex(e => e.PersonasId)
+                    .HasName("FK_PersonasEstudiantes");
 
-                entity.HasIndex(e => e.Tutorid)
-                    .HasName("Fk_estudiantes_tutores");
+                entity.HasIndex(e => e.TutorId)
+                    .HasName("FK_TutorEstudiantes");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                    .HasColumnType("int(11)");
 
-                entity.Property(e => e.CodigoEstudiante).HasColumnType("int(10) unsigned");
+                entity.Property(e => e.CodigoEstudiante)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_unicode_ci");
 
-                entity.Property(e => e.Parentescoid)
-                    .HasColumnName("parentescoid")
-                    .HasColumnType("int(10) unsigned");
+                entity.Property(e => e.ParentescosId).HasColumnType("int(11)");
 
-                entity.Property(e => e.Personasid)
-                    .HasColumnName("personasid")
-                    .HasColumnType("int(10) unsigned");
+                entity.Property(e => e.PersonasId).HasColumnType("int(11)");
 
-                entity.Property(e => e.Tutorid)
-                    .HasColumnName("tutorid")
-                    .HasColumnType("int(10) unsigned");
-
-                entity.HasOne(d => d.Parentesco)
-                    .WithMany(p => p.Estudiantes)
-                    .HasForeignKey(d => d.Parentescoid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_estudiantes_parentescos");
-
-                entity.HasOne(d => d.Personas)
-                    .WithMany(p => p.Estudiantes)
-                    .HasForeignKey(d => d.Personasid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_estudiantes_personas");
-
-                entity.HasOne(d => d.Tutor)
-                    .WithMany(p => p.Estudiantes)
-                    .HasForeignKey(d => d.Tutorid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_estudiantes_tutores");
+                entity.Property(e => e.TutorId)
+                    .HasColumnName("Tutor_id")
+                    .HasColumnType("int(11)");
             });
 
-            modelBuilder.Entity<Funcionesasignada>(entity =>
+            modelBuilder.Entity<Gradoacademico>(entity =>
             {
-                entity.ToTable("funcionesasignada");
-
-                entity.HasIndex(e => e.IdFuncionAcceso)
-                    .HasName("RefFuncionesDeAcceso15");
-
-                entity.HasIndex(e => e.IdUsuarios)
-                    .HasName("RefUsuarios13");
+                entity.ToTable("gradoacademico");
 
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
-                entity.Property(e => e.FechaDeVencimiento).HasColumnType("date");
-
-                entity.Property(e => e.IdFuncionAcceso)
-                    .HasColumnName("Id_FuncionAcceso")
-                    .HasColumnType("int(11)");
-
-                entity.Property(e => e.IdUsuarios)
-                    .HasColumnName("Id_Usuarios")
-                    .HasColumnType("int(11)");
+                entity.Property(e => e.Grado).HasColumnType("int(11)");
             });
 
-            modelBuilder.Entity<Funcionesdeacceso>(entity =>
+            modelBuilder.Entity<Gradoasignaturas>(entity =>
             {
-                entity.HasKey(e => e.IdFuncionAcceso)
-                    .HasName("PRIMARY");
+                entity.ToTable("gradoasignaturas");
 
-                entity.ToTable("funcionesdeacceso");
+                entity.HasIndex(e => e.AsignaturasId)
+                    .HasName("FK_AsignaturasGradoAsignaturas");
 
-                entity.Property(e => e.IdFuncionAcceso)
-                    .HasColumnName("Id_FuncionAcceso")
-                    .HasColumnType("int(11)");
+                entity.HasIndex(e => e.GradoAcademicoId)
+                    .HasName("FK_GradoAcademicoGradoAsignaturas");
 
-                entity.Property(e => e.Descripcion)
-                    .IsRequired()
-                    .HasColumnType("varchar(50)")
-                    .HasCharSet("latin1")
-                    .HasCollation("latin1_swedish_ci");
-            });
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
-            modelBuilder.Entity<Gradoaasignaturas>(entity =>
-            {
-                entity.ToTable("gradoaasignaturas");
+                entity.Property(e => e.AsignaturasId).HasColumnType("int(11)");
 
-                entity.HasIndex(e => e.Asignaturaid)
-                    .HasName("Fk_gradoAasignaturas_asignaturas");
-
-                entity.HasIndex(e => e.Gradoid)
-                    .HasName("Fk_gradoAasignatura_grados");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
-
-                entity.Property(e => e.Asignaturaid).HasColumnType("int(10) unsigned");
-
-                entity.Property(e => e.Gradoid).HasColumnType("int(10) unsigned");
-
-                entity.HasOne(d => d.Asignatura)
-                    .WithMany(p => p.Gradoaasignaturas)
-                    .HasForeignKey(d => d.Asignaturaid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_gradoAasignaturas_asignaturas");
-
-                entity.HasOne(d => d.Grado)
-                    .WithMany(p => p.Gradoaasignaturas)
-                    .HasForeignKey(d => d.Gradoid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_gradoAasignatura_grados");
-            });
-
-            modelBuilder.Entity<Grados>(entity =>
-            {
-                entity.ToTable("grados");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
-
-                entity.Property(e => e.Grado).HasColumnType("int(10) unsigned");
+                entity.Property(e => e.GradoAcademicoId).HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Grupos>(entity =>
             {
                 entity.ToTable("grupos");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.Grupo)
                     .IsRequired()
@@ -281,133 +274,96 @@ namespace Redes_De_Solidaridad.Context
                     .HasCollation("utf8mb4_unicode_ci");
             });
 
+            modelBuilder.Entity<Institucion>(entity =>
+            {
+                entity.ToTable("institucion");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Direccion)
+                    .IsRequired()
+                    .HasColumnType("varchar(200)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_unicode_ci");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasColumnType("varchar(150)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_unicode_ci");
+            });
+
             modelBuilder.Entity<Matriculas>(entity =>
             {
                 entity.ToTable("matriculas");
 
-                entity.HasIndex(e => e.Estudianteid)
-                    .HasName("Fk_matriculas_estudiantes");
+                entity.HasIndex(e => e.EstudiantesId)
+                    .HasName("FK_EstudiantesMatriculas");
 
-                entity.HasIndex(e => e.Ofertaid)
-                    .HasName("Fk_matriculas_ofertas");
+                entity.HasIndex(e => e.OfertasId)
+                    .HasName("FK_OfertasMatriculas");
 
-                entity.HasIndex(e => e.SituacionMatriculaid)
-                    .HasName("Fk_matriculas_situacionMatriculas");
+                entity.HasIndex(e => e.SituacionMatriculaId)
+                    .HasName("FK_SituacionMatriculaMatriculas");
 
-                entity.HasIndex(e => e.Turnoid)
-                    .HasName("Fk_matriculas_turnos");
+                entity.HasIndex(e => e.TurnoId)
+                    .HasName("FK_TurnoMatriculas");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
-                entity.Property(e => e.Estudianteid).HasColumnType("int(10) unsigned");
-
-                entity.Property(e => e.Fecha).HasColumnType("date");
-
-                entity.Property(e => e.Ofertaid).HasColumnType("int(10) unsigned");
-
-                entity.Property(e => e.SituacionMatriculaid).HasColumnType("int(10) unsigned");
-
-                entity.Property(e => e.Turnoid).HasColumnType("int(10) unsigned");
-
-                entity.HasOne(d => d.Estudiante)
-                    .WithMany(p => p.Matriculas)
-                    .HasForeignKey(d => d.Estudianteid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_matriculas_estudiantes");
-
-                entity.HasOne(d => d.Oferta)
-                    .WithMany(p => p.Matriculas)
-                    .HasForeignKey(d => d.Ofertaid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_matriculas_ofertas");
-
-                entity.HasOne(d => d.SituacionMatricula)
-                    .WithMany(p => p.Matriculas)
-                    .HasForeignKey(d => d.SituacionMatriculaid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_matriculas_situacionMatriculas");
-
-                entity.HasOne(d => d.Turno)
-                    .WithMany(p => p.Matriculas)
-                    .HasForeignKey(d => d.Turnoid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_matriculas_turnos");
-            });
-
-            modelBuilder.Entity<Migrations>(entity =>
-            {
-                entity.ToTable("migrations");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
-
-                entity.Property(e => e.Batch)
-                    .HasColumnName("batch")
+                entity.Property(e => e.EstudiantesId)
+                    .HasColumnName("Estudiantes_id")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.Migration)
-                    .IsRequired()
-                    .HasColumnName("migration")
-                    .HasColumnType("varchar(255)")
-                    .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_unicode_ci");
+                entity.Property(e => e.Fecha)
+                    .HasColumnName("fecha")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.OfertasId).HasColumnType("int(11)");
+
+                entity.Property(e => e.SituacionMatriculaId).HasColumnType("int(11)");
+
+                entity.Property(e => e.TurnoId).HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Notas>(entity =>
             {
                 entity.ToTable("notas");
 
-                entity.HasIndex(e => e.DetalleMatriculaid)
-                    .HasName("Fk_notas_DetalleMatriculas");
+                entity.HasIndex(e => e.DetalleMatriculaId)
+                    .HasName("FK_DetalleOfertaNotas");
 
-                entity.HasIndex(e => e.DetalleNotaid)
-                    .HasName("Fk_notas_DetalleNotas");
+                entity.HasIndex(e => e.DetalleNotaId)
+                    .HasName("FK_DetalleNotaNotas");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
-                entity.Property(e => e.DetalleMatriculaid).HasColumnType("int(10) unsigned");
+                entity.Property(e => e.DetalleMatriculaId).HasColumnType("int(11)");
 
-                entity.Property(e => e.DetalleNotaid).HasColumnType("int(10) unsigned");
+                entity.Property(e => e.DetalleNotaId).HasColumnType("int(11)");
 
-                entity.Property(e => e.Nota).HasColumnType("int(10) unsigned");
-
-                entity.HasOne(d => d.DetalleMatricula)
-                    .WithMany(p => p.Notas)
-                    .HasForeignKey(d => d.DetalleMatriculaid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_notas_DetalleMatriculas");
-
-                entity.HasOne(d => d.DetalleNota)
-                    .WithMany(p => p.Notas)
-                    .HasForeignKey(d => d.DetalleNotaid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_notas_DetalleNotas");
+                entity.Property(e => e.Nota).HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Ofertas>(entity =>
             {
                 entity.ToTable("ofertas");
 
-                entity.HasIndex(e => e.Docenteid)
-                    .HasName("Fk_ofertas_docentes");
+                entity.HasIndex(e => e.DocentesId)
+                    .HasName("FK_DocentesOfertas");
 
-                entity.HasIndex(e => e.Gradoid)
-                    .HasName("Fk_ofertas_grados");
+                entity.HasIndex(e => e.GradoAcademicoId)
+                    .HasName("FK_GradoAcademicoOfertas");
 
-                entity.HasIndex(e => e.Grupoid)
-                    .HasName("Fk_ofertas_grupos");
+                entity.HasIndex(e => e.GruposId)
+                    .HasName("FK_GruposOfertas");
 
-                entity.HasIndex(e => e.Seccionid)
-                    .HasName("Fk_ofertas_secciones");
+                entity.HasIndex(e => e.SeccionesId)
+                    .HasName("FK_SeccionesOfertas");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
@@ -415,48 +371,24 @@ namespace Redes_De_Solidaridad.Context
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_unicode_ci");
 
-                entity.Property(e => e.Docenteid).HasColumnType("int(10) unsigned");
+                entity.Property(e => e.DocentesId)
+                    .HasColumnName("Docentes_id")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.FechaOferta).HasColumnType("date");
 
-                entity.Property(e => e.Gradoid).HasColumnType("int(10) unsigned");
+                entity.Property(e => e.GradoAcademicoId).HasColumnType("int(11)");
 
-                entity.Property(e => e.Grupoid).HasColumnType("int(10) unsigned");
+                entity.Property(e => e.GruposId).HasColumnType("int(11)");
 
-                entity.Property(e => e.Seccionid).HasColumnType("int(10) unsigned");
-
-                entity.HasOne(d => d.Docente)
-                    .WithMany(p => p.Ofertas)
-                    .HasForeignKey(d => d.Docenteid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_ofertas_docentes");
-
-                entity.HasOne(d => d.Grado)
-                    .WithMany(p => p.Ofertas)
-                    .HasForeignKey(d => d.Gradoid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_ofertas_grados");
-
-                entity.HasOne(d => d.Grupo)
-                    .WithMany(p => p.Ofertas)
-                    .HasForeignKey(d => d.Grupoid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_ofertas_grupos");
-
-                entity.HasOne(d => d.Seccion)
-                    .WithMany(p => p.Ofertas)
-                    .HasForeignKey(d => d.Seccionid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_ofertas_secciones");
+                entity.Property(e => e.SeccionesId).HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Oficios>(entity =>
             {
                 entity.ToTable("oficios");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
@@ -469,12 +401,11 @@ namespace Redes_De_Solidaridad.Context
             {
                 entity.ToTable("parentescos");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.Parentesco)
                     .IsRequired()
+                    .HasColumnName("parentesco")
                     .HasColumnType("varchar(50)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_unicode_ci");
@@ -484,9 +415,10 @@ namespace Redes_De_Solidaridad.Context
             {
                 entity.ToTable("personas");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                entity.HasIndex(e => e.IdInstitucion)
+                    .HasName("RefInstitucion41");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.Apellido1)
                     .IsRequired()
@@ -501,13 +433,11 @@ namespace Redes_De_Solidaridad.Context
                     .HasCollation("utf8mb4_unicode_ci");
 
                 entity.Property(e => e.Cedula)
-                    .IsRequired()
-                    .HasColumnType("varchar(50)")
+                    .HasColumnType("varchar(20)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_unicode_ci");
 
                 entity.Property(e => e.Correo)
-                    .IsRequired()
                     .HasColumnType("varchar(50)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_unicode_ci");
@@ -518,7 +448,11 @@ namespace Redes_De_Solidaridad.Context
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_unicode_ci");
 
-                entity.Property(e => e.FechaNacimiento).HasColumnType("date");
+                entity.Property(e => e.FechaNacimiento).HasColumnType("datetime");
+
+                entity.Property(e => e.IdInstitucion)
+                    .HasColumnName("idInstitucion")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
@@ -528,20 +462,18 @@ namespace Redes_De_Solidaridad.Context
 
                 entity.Property(e => e.Sexo)
                     .IsRequired()
-                    .HasColumnType("varchar(1)")
+                    .HasColumnType("char(1)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_unicode_ci");
 
-                entity.Property(e => e.Telefono).HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Telefono).HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Secciones>(entity =>
             {
                 entity.ToTable("secciones");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.Codigo)
                     .IsRequired()
@@ -550,13 +482,11 @@ namespace Redes_De_Solidaridad.Context
                     .HasCollation("utf8mb4_unicode_ci");
             });
 
-            modelBuilder.Entity<Situacionmatriculas>(entity =>
+            modelBuilder.Entity<Situacionmatricula>(entity =>
             {
-                entity.ToTable("situacionmatriculas");
+                entity.ToTable("situacionmatricula");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
@@ -569,9 +499,7 @@ namespace Redes_De_Solidaridad.Context
             {
                 entity.ToTable("turnos");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
@@ -584,69 +512,83 @@ namespace Redes_De_Solidaridad.Context
             {
                 entity.ToTable("tutores");
 
-                entity.HasIndex(e => e.Oficiosid)
-                    .HasName("Fk_tutores_oficios");
+                entity.HasIndex(e => e.OficiosId)
+                    .HasName("FK_oficiostutor");
 
-                entity.HasIndex(e => e.Personasid)
-                    .HasName("Fk_tutores_personas");
+                entity.HasIndex(e => e.PersonasId)
+                    .HasName("FK_PersonasTutor");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasColumnType("int(10) unsigned");
+                    .HasColumnType("int(11)");
 
-                entity.Property(e => e.Oficiosid).HasColumnType("int(10) unsigned");
+                entity.Property(e => e.OficiosId)
+                    .HasColumnName("oficiosId")
+                    .HasColumnType("int(11)");
 
-                entity.Property(e => e.Personasid)
-                    .HasColumnName("personasid")
-                    .HasColumnType("int(10) unsigned");
-
-                entity.HasOne(d => d.Oficios)
-                    .WithMany(p => p.Tutores)
-                    .HasForeignKey(d => d.Oficiosid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_tutores_oficios");
-
-                entity.HasOne(d => d.Personas)
-                    .WithMany(p => p.Tutores)
-                    .HasForeignKey(d => d.Personasid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_tutores_personas");
+                entity.Property(e => e.PersonasId).HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Usuarios>(entity =>
             {
-                entity.HasKey(e => e.IdUsuarios)
-                    .HasName("PRIMARY");
-
                 entity.ToTable("usuarios");
 
-                entity.Property(e => e.IdUsuarios)
-                    .HasColumnName("Id_Usuarios")
+                entity.HasIndex(e => e.IdInstitucion)
+                    .HasName("RefInstitucion43");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Cedula)
                     .IsRequired()
-                    .HasColumnType("varchar(18)")
-                    .HasCharSet("latin1")
-                    .HasCollation("latin1_swedish_ci");
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_unicode_ci");
 
-                entity.Property(e => e.ClaveDeUsuario)
+                entity.Property(e => e.Contraseña)
                     .IsRequired()
-                    .HasColumnType("varchar(30)")
-                    .HasCharSet("latin1")
-                    .HasCollation("latin1_swedish_ci");
+                    .HasColumnType("varchar(25)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_unicode_ci");
 
-                entity.Property(e => e.Nombre)
-                    .IsRequired()
-                    .HasColumnType("varchar(18)")
-                    .HasCharSet("latin1")
-                    .HasCollation("latin1_swedish_ci");
+                entity.Property(e => e.IdInstitucion)
+                    .HasColumnName("idInstitucion")
+                    .HasColumnType("int(11)");
 
-                entity.Property(e => e.NombreDeUsuario)
+                entity.Property(e => e.Usuario)
                     .IsRequired()
-                    .HasColumnType("varchar(30)")
-                    .HasCharSet("latin1")
-                    .HasCollation("latin1_swedish_ci");
+                    .HasColumnType("varchar(150)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_unicode_ci");
+            });
+
+            modelBuilder.Entity<Usuariosinstituciones>(entity =>
+            {
+                entity.ToTable("usuariosinstituciones");
+
+                entity.HasIndex(e => e.IdInstitucion)
+                    .HasName("RefInstitucion42");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Contraseña)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_unicode_ci");
+
+                entity.Property(e => e.IdInstitucion)
+                    .HasColumnName("idInstitucion")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Usuario)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_unicode_ci");
             });
 
             OnModelCreatingPartial(modelBuilder);
