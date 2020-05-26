@@ -76,7 +76,7 @@ namespace Redes_De_Solidaridad
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Usuarios}/{action=Index}/{id?}");
+                    pattern: "{controller=Autenticar}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

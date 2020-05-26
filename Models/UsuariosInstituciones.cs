@@ -10,4 +10,13 @@ namespace Redes_De_Solidaridad.Models
         public string Contraseña { get; set; }
         public int IdInstitucion { get; set; }
     }
+
+    public class UsuarioInstitucion
+    {
+        public string Institucion { get; set; }
+        public string Direcccion { get; set; }
+        public string Usuario { get; set; }
+        public string Contraseña { get; set; }
+
+    }
 }

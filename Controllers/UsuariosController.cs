@@ -18,222 +18,72 @@ namespace Redes_De_Solidaridad
         {
             _context = context;
         }
-        //Declaracion de varible para manejo de sesiones
-        [TempData]
-        public string[] Usuario { get; set; }
 
-
+        [Route("Usuarios")]
         public IActionResult Index() //Envia vista de inicio de sesion
         {
 
-            return View("~/Areas/Inicio de sesion/Views/login.cshtml");
+            return View("~/Areas/Usuarios/Views/Mostrar.cshtml");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Autenticacion([Bind("username,password")] userview usuario)
+        public async Task<ActionResult> Usarios_Docentes()// metodo ajax para recuperar datos de Usuarios docentes
         {
-            Usuario = new string[6];
-
-            var valor = -1;
-
-            //si el UsUARIO ES EL ADMINISTRADOR entonces entra de lo contrario Verifica las Credenciales en la base de datos
-            if (usuario.username == "ADMIN" && usuario.password == "Admin123")
-            {
-                valor = 1;
-                Usuario[0] = "ADMIN";
-                Usuario[1] = "Administrador";
-                Usuario[2] = " ";
-                Usuario[3] = " ";
-                Usuario[4] = "1";
-                Usuario[5] = "eduNica";
-            }
-            else
-            {
-                //Consulta a base de datos - Consulta linq *Consulta si es Docente
-                var Data = (from u in _context.Usuarios
-                            join i in _context.Institucion on u.IdInstitucion equals i.Id
-                            join p in _context.Personas on i.Id equals p.IdInstitucion
-                            where usuario.username == u.Usuario && usuario.password == u.Contraseña
-                            select new usuariosview
-                            {
-                                NombreDeUsuario = u.Usuario,
-                                Nombre = p.Nombre + " " + p.Apellido1,
-                                Cedula = p.Cedula,
-                                Id = u.Cedula,
-                                tipo =2,
-                                Institucion =i.Nombre
-                            }).ToList();
-                if (Data.Count > 0) // si encuntra un usuario Guarda el Usuario en cache
-                {
-                    valor = 1;
-                    foreach ( usuariosview user in Data)
-                    {
-                        Usuario[0] = user.NombreDeUsuario;
-                        Usuario[1] = user.Nombre;
-                        Usuario[2] = user.Cedula;
-                        Usuario[3] = user.Id;
-                        Usuario[4] = user.tipo.ToString();
-                        Usuario[5] = user.Institucion;
-                    }                
-                }
-                else
-                {
-                    //Consulta a base de datos - Consulta linq *Consulta si es Institucion
-                    var Data2 = (from u in _context.UsuariosInstituciones
-                                 join i in _context.Institucion on u.IdInstitucion equals i.Id
-                                 where usuario.username == u.Usuario && usuario.password==u.Contraseña
-                                 select new usuariosview
-                                 {
-                                     NombreDeUsuario = u.Usuario,
-                                     Nombre = i.Nombre,
-                                     Cedula = " ",
-                                     Id = " ",
-                                     tipo =3,
-                                     Institucion = i.Nombre
-                                 }).ToList();
-                    if (Data2.Count > 0) // si encuntra un usuario Guarda el Usuario en cache
-                    {
-                        valor = 1;
-                        foreach (usuariosview user in Data2)
+            var data = (from item in _context.Usuarios.ToList()
+                        join item2 in _context.Institucion.ToList() on item.IdInstitucion equals item2.Id
+                        join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
+                        join item4 in _context.Docentes.ToList() on item3.Id equals item4.PersonasId
+                        where item.Cedula == item3.Cedula
+                        select new
                         {
-                            Usuario[0] = user.NombreDeUsuario;
-                            Usuario[1] = user.Nombre;
-                            Usuario[2] = user.Cedula;
-                            Usuario[3] = user.Id;
-                            Usuario[4] = user.tipo.ToString();
-                            Usuario[5] = user.Institucion;
-                        }
-                    }
+                            IdUsuario = item.Id,
+                            Usuario = item.Usuario,
+                            Contraseña = item.Contraseña,
+                            Nombre = item3.Nombre + " " + item3.Apellido1 + " " + item3.Apellido2,
+                            Institucion = item2.Nombre,
+                        });
 
-                }
-            }
-            return Json(valor);
+            return Json(data);
         }
 
-        //    // GET: Usuarios/Details/5
-        //    public async Task<IActionResult> Details(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return NotFound();
-        //        }
+        public async Task<ActionResult> Usarios_Instituciones()// metodo ajax para recuperar datos de Usuarios instituciones
+        {
+            var data = (from item in _context.UsuariosInstituciones.ToList()
+                        join item2 in _context.Institucion.ToList() on item.IdInstitucion equals item2.Id
+                        select new
+                        {
+                            IdUsuario = item.Id,
+                            Usuario = item.Usuario,
+                            Contraseña = item.Contraseña,
+                            Nombre = item2.Nombre,
+                            Direccion = item2.Direccion,
+                        });
 
-        //        var usuarios = await _context.Usuarios
-        //            .FirstOrDefaultAsync(m => m.IdUsuarios == id);
-        //        if (usuarios == null)
-        //        {
-        //            return NotFound();
-        //        }
+            return Json(data);
+        }
+        [HttpPost]
+        public async Task<ActionResult> Registro([Bind("Institucion,Direcccion,Usuario,Contraseña")] UsuarioInstitucion usuar)
+        {
+            var inst = _context.Institucion.Where(x => x.Nombre == usuar.Institucion).FirstOrDefault(); //verifica si existe una institucion 
+            var user = _context.UsuariosInstituciones.Where(x => x.Usuario== usuar.Usuario).FirstOrDefault(); //verifica si existe una institucion
 
-        //        return View(usuarios);
-        //    }
+            if (inst == null && user== null)
+            {     //agrega asignaturas
+                Institucion institucion = new Institucion();
+                institucion.Nombre = usuar.Institucion;
+                institucion.Direccion = usuar.Direcccion;
+                _context.Add(institucion);
+                await _context.SaveChangesAsync();
 
-        //    // GET: Usuarios/Create
-        //    public IActionResult Create()
-        //    {
-        //        return View();
-        //    }
+               Usuariosinstituciones usarios_Institucion = new Usuariosinstituciones();
+                usarios_Institucion.Usuario = usuar.Usuario;
+                usarios_Institucion.Contraseña = usuar.Contraseña;
+                usarios_Institucion.IdInstitucion = institucion.Id;
+                _context.Add(usarios_Institucion);
+                await _context.SaveChangesAsync();
 
-        //    // POST: Usuarios/Create
-        //    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> Create([Bind("IdUsuarios,ClaveDeUsuario,Nombre,Cedula,NombreDeUsuario")] Usuarios usuarios)
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            _context.Add(usuarios);
-        //            await _context.SaveChangesAsync();
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        return View(usuarios);
-        //    }
-
-        //    // GET: Usuarios/Edit/5
-        //    public async Task<IActionResult> Edit(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        var usuarios = await _context.Usuarios.FindAsync(id);
-        //        if (usuarios == null)
-        //        {
-        //            return NotFound();
-        //        }
-        //        return View(usuarios);
-        //    }
-
-        //    // POST: Usuarios/Edit/5
-        //    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> Edit(int id, [Bind("IdUsuarios,ClaveDeUsuario,Nombre,Cedula,NombreDeUsuario")] Usuarios usuarios)
-        //    {
-        //        if (id != usuarios.IdUsuarios)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        if (ModelState.IsValid)
-        //        {
-        //            try
-        //            {
-        //                _context.Update(usuarios);
-        //                await _context.SaveChangesAsync();
-        //            }
-        //            catch (DbUpdateConcurrencyException)
-        //            {
-        //                if (!UsuariosExists(usuarios.IdUsuarios))
-        //                {
-        //                    return NotFound();
-        //                }
-        //                else
-        //                {
-        //                    throw;
-        //                }
-        //            }
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        return View(usuarios);
-        //    }
-
-        //    // GET: Usuarios/Delete/5
-        //    public async Task<IActionResult> Delete(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        var usuarios = await _context.Usuarios
-        //            .FirstOrDefaultAsync(m => m.IdUsuarios == id);
-        //        if (usuarios == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        return View(usuarios);
-        //    }
-
-        //    // POST: Usuarios/Delete/5
-        //    [HttpPost, ActionName("Delete")]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> DeleteConfirmed(int id)
-        //    {
-        //        var usuarios = await _context.Usuarios.FindAsync(id);
-        //        _context.Usuarios.Remove(usuarios);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-
-        //    private bool UsuariosExists(int id)
-        //    {
-        //        return _context.Usuarios.Any(e => e.IdUsuarios == id);
-        //    }
-        //}
+                return Json(1);
+            }
+            return Json(-1);
+        }
     }
 }

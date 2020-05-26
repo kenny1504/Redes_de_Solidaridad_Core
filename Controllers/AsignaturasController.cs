@@ -25,6 +25,7 @@ namespace Redes_De_Solidaridad.Controllers
 
 
         // GET: Asignaturas
+        [Route("Asig")]
         public async Task<IActionResult> Index()
         {
 
@@ -32,9 +33,9 @@ namespace Redes_De_Solidaridad.Controllers
 
             var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
 
-            if (usuario != null && usuario[6].ToString() == "True") //verifica si existe una sesion Valida
+            if (usuario != null) //verifica si existe una sesion Valida
             {
-                return View("~/Areas/Asignaturas/Views/Mostrar.cshtml", data);
+                return View("~/Areas/Asignatura/Views/Mostrar.cshtml", data);
             }
             else //si no existe una sesion retorna inicio de sesion
                 return View("~/Areas/Inicio de sesion/Views/login.cshtml");
