@@ -22,8 +22,14 @@ namespace Redes_De_Solidaridad
         [Route("Usuarios")]
         public IActionResult Index() //Envia vista de inicio de sesion
         {
+            var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
 
-            return View("~/Areas/Usuarios/Views/Mostrar.cshtml");
+            if (usuario != null) //verifica si existe una sesion Valida
+            {
+                return View("~/Areas/Usuarios/Views/Mostrar.cshtml");
+            }
+            else //si no existe una sesion retorna inicio de sesion 
+                return View("~/Areas/Inicio de sesion/Views/login.cshtml");
         }
 
         public async Task<ActionResult> Usarios_Docentes()// metodo ajax para recuperar datos de Usuarios docentes
