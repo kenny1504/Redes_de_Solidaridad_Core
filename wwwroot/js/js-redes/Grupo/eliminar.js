@@ -32,7 +32,7 @@ function eliminar_grupo(button)
                     }
                    else
                    {
-                    var error="Error al eliminar Grupo, debido a que se ha asignado a una oferta"
+                    var error="Error al eliminar Usuario Institucion, debido a que se ha que posee registros"
                     $('#mensaje').text(error);   //manda el error a la modal
                     $("#Mensaje-error").modal("show"); //abre modal de error
                     $("#Mensaje-error").fadeTo(2900,500).slideUp(450,function(){// cierra la modal despues del tiempo determinado  

@@ -1,60 +1,84 @@
+var dat; var usuario;
 
-function editar_usuario(button)
-{   
-      $.ajax({ // ajax para cargar datos en el combobox
-        type: 'POST',
-        url: 'roles', // llamada a ruta para cargar combobox con datos de tabla usuario
-        dataType: "JSON", // tipo de respuesta del controlador
-        success: function(data){ 
-          $('#roles').empty();
-        //ciclo para recorrer el arreglo de roles
-          data.forEach(element => {
-              //variable para asignarle los valores al combobox
-            var datos='<option  value="'+element.Id_FuncionAcceso+'">'+element.Descripcion+'</option>'; 
+function editar_Institucion(button)
+{
+     dat = $(button).parents("tr"); //captura toda la fila donde se efectuo el click (Editar)
+     var ide = $(button).attr("data-id"); // captura el valor_id_grupo "id" 
+    $('#Editar_Institucion').modal('show'); // abre ventana modal
 
-              $('#roles').append(datos); //ingresa valores al combobox
+      $.ajax({ // ajax para cargar datos 
+          type: 'POST',
+          url: 'Usuarios/Institucion', // ruta 
+          data: { id: ide }, // manda id  al controlador, 
+          dataType: "JSON",
+          success: function(data){ 
+        //ciclo para recorrer el arreglo 
+            data.forEach(element => {
+    
+                $('#Id_Institucion').val(element.idUsuario); 
+                $('#Institucion2').val(element.nombre);
+                $('#Direcccion2').val(element.direccion);
+                $('#Usuario2').val(element.usuario);
+                $('#Contrasena2').val(element.contraseña);
           });
           
       }   
-    });//Fin ajax combobox roles
+    });//Fin ajax 
+}//fin del metodo
 
 
-    $('#crear_usuario').modal('show'); // abre ventana modal
-    var contraseña=$(button).attr("data-password");//obtiene la contraseña del usuario
-    var NombreUsuario=$(button).attr("data-user");//obtiene el nombre completo del usuario
-    var cedula=$(button).attr("data-cedula");//obtiene la  cedula del  usuario
-    var nombre_u=$(button).attr("data-Nombre");//obtiene el nombre de usuario
-    var rol_user=$(button).attr("data-rol");//obtiene el rol del usuario
-    var vencimiento_user=$(button).attr("data-vencimiento");//obtiene el vencimiento de la cuenta del usuario
-    $('#Nombre-completo').val(nombre_u); 
-    $("#roles option:contains("+rol_user+")").attr('selected', true);
-    $('#Nombre-de-usuario').val(NombreUsuario);
-    $('#contraseña').val(contraseña);
-    $('#cedula').val(cedula);
-    $('#datepicker').val(vencimiento_user);
-    $("#nombreu").removeClass('hidden');
-    $("#nombreuser").removeClass('hidden');
-    $("#contraseñau").removeClass('hidden');
-    $("#cedulau").removeClass('hidden');
-    $("#rolau").removeClass('hidden');
-    $("#vencimientou").removeClass('hidden');
+function limpiar(){ // limpia campos
 
-   
-}//fin del metodo Ingresar_usuario
+    $('#Id_Institucion').val("");
+    $('#Institucion2').val("");
+    $('#Direcccion2').val("");
+    $('#Usuario2').val("");
+    $('#Contrasena2').val("");
+};
 
 
-$(".b1").click(function(){ // limpia campos y oculta label´s
+function Actualizar_institucion() {
 
-    $('#Nombre-completo').val(""); 
-    $('#roles').val("");
-    $('#Nombre-de-usuario').val("");
-    $('#contraseña').val("");
-    $('#cedula').val("");
-    $('#datepicker').val(""); 
-    $("#rolau").addClass('hidden');
-    $("#vencimientou").addClass('hidden');
-    $("#nombreu").addClass('hidden');
-    $("#nombreuser").addClass('hidden');
-    $("#contraseñau").addClass('hidden');
-    $("#cedulau").addClass('hidden');
-  });
+    $("#Editar_Instituciones").on('submit', function (evt) {
+        evt.preventDefault();
+    });
+
+    usuario = $('#Id_Institucion').val();
+
+    $.ajax({
+        type: 'POST',
+        url: 'Usuarios/Editar_Institucion', // ruta editar grado
+        data: $('#Editar_Instituciones').serialize(), // manda el form donde se encuentra la modal
+        dataType: "JSON", // tipo de respuesta del controlador
+        success: function (data) {
+            if (data == 1) {
+                var datos = '<tr>'
+                    + '<td>' + $('#Usuario2').val() + '</td>'
+                    + '<td>' + $('#Contrasena2').val() + '</td>'
+                    + '<td>' + $('#Institucion2').val() + '</td>'
+                    + '<td>' + $('#Direcccion2').val() + '</td>'
+                    + '<td style="padding-top:0.1%; padding-bottom:0.1%; id="' + usuario + '" >'
+                    + '<a class="btn btn-success " data-id="' + usuario + '"  onclick="editar_Institucion(this);" ><i class=" fa fa-fw fa-pencil"></i></a>'
+                    + '<a class="btn btn-info" data-id="' + usuario + '"  onclick="eliminar_Usuario_Institucion(this);"><i class="fa fa-fw fa-trash "></i></a>'
+                    + '</tr>';// variable guarda los nuevos valores
+
+                dat.replaceWith(datos); //reemplaza por los nuevos datos
+                $("#exito").modal("show"); //abre modal de exito
+                $("#exito").fadeTo(2000, 500).slideUp(450, function () {   // cierra la modal despues del tiempo determinado  
+                    $("#exito").modal("hide"); // cierra modal
+
+                });
+                limpiar();
+                $('#Editar_Institucion').modal("hide"); // cierra modal
+            }
+            else {
+                var error = "Error al Actualizar, datos YA EXISTEN"
+                $('#mensaje').text(error);   //manda el error a la modal
+                $("#Mensaje-error").modal("show"); //abre modal de error
+                $("#Mensaje-error").fadeTo(2900, 500).slideUp(450, function () {// cierra la modal despues del tiempo determinado  
+                    $("#Mensaje-error").modal("hide"); // cierra modal error
+                });
+            }
+         }
+     });
+  }

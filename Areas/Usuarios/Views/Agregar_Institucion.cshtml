@@ -4,7 +4,7 @@
 }
 
 <!--form para poder activar la ruta y poder guardar el registro--><!-- -->
-<form >
+<form id="ingresar_Instituciones">
 	<div class="modal  modal-info fade" id="ingresar_Institucion">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -17,21 +17,21 @@
 				<div class="modal-body ">
 					<div class="register-box-body" style="background-color:#eee;">
 						<div class="form-group has-feedback">
-							<input type="text" name="Institucion" class="form-control requerido" required placeholder="Nombre de Institucion">
+							<input type="text" id="Institucion" autocomplete="off" name="Institucion" class="form-control requerido" required placeholder="Nombre de Institucion">
 						</div>
 						<div class="form-group has-feedback">
-							<input type="text" name="Direcccion" class="form-control requerido" required placeholder="Direccion">
+							<input type="text" id="Direcccion" autocomplete="off" name="Direcccion" class="form-control requerido" required placeholder="Direccion">
 						</div>
 						<div class="form-group has-feedback">
-							<input type="text" name="Usuario" class="form-control requerido" required placeholder="Nombre de Usuario">
+							<input type="text" id="Usuario"  name="Usuario" class="form-control requerido" required placeholder="Nombre de Usuario">
 						</div>
 						<div class="form-group has-feedback">
-							<input type="password" name="Contraseña" class="form-control requerido" autocomplete="new-password" required placeholder="Contraseña">
+							<input type="password" id="Contrasena"  name="Contraseña" class="form-control requerido" autocomplete="new-password" required placeholder="Contraseña">
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="reset" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-						<button type="submit" onclick="Registro()" class="btn btn-outline">Guardar</button>
+						<button type="submit" onclick="Registro_Institucion()" class="btn btn-outline">Guardar</button>
 					</div>
 					<!-- /.modal-content -->
 				</div>
@@ -40,3 +40,4 @@
 		</div>
 	</div>
 </form>
+

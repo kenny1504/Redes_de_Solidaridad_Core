@@ -5,10 +5,11 @@
 	Layout = "~/Areas/LTE/Views/Shared/_Layout.cshtml";
 	ViewData["Title"] = "Usuarios";
 }
+
 <div class="box">
 	<div class="box-header">
 		<h2 class="box-title text-light-blue">Usarios</h2>
-		
+
 		<div class="box-tools pull-right" id="filtros-Usarios">
 			<div class="form-group">
 				<div class=" col-lg-4">
@@ -26,11 +27,11 @@
 					<a type="submit" style="width: 30%; padding-top: 1.4%; " onclick="Mostrar_Usuarios();" class="btn btn-primary btn-sm pull-right" id="Mostrar "><i class="fa fa-search"></i></a>
 				</div>
 			</div>
-			</div>
+		</div>
 	</div>
 	<!-- /.box-header -->
 	<div class="box-body panel box box-primary">
-		<form >
+		<form>
 			<table id="Usuarios" class="table table-bordered table-striped">
 			</table>
 		</form>
@@ -50,7 +51,14 @@
 	}
 </style>
 
+<!--Modales-->
+@Html.Partial("~/Areas/Usuarios/Views/Agregar_Institucion.cshtml")
+@Html.Partial("~/Areas/Usuarios/Views/Eliminar.cshtml")
+@Html.Partial("~/Areas/Usuarios/Views/Editar_Institucion.cshtml")
 
 @section Scripts {
 	<script type="text/javascript" src="~/js/js-redes/Usuario/ver.js"></script> <!-- script mostrar usuarios-->
-	}
+	<script type="text/javascript" src="~/js/js-redes/Usuario/crear.js"></script> <!-- script Crear usuarios-->
+	<script type="text/javascript" src="~/js/js-redes/Usuario/eliminar.js"></script> <!-- script eliminar usuarios-->
+	<script type="text/javascript" src="~/js/js-redes/Usuario/editar.js"></script> <!-- script editar usuarios-->
+}

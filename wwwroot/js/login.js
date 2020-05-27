@@ -57,7 +57,7 @@ function Registro() { //ajax para Registrar una Institucion
         data: $('#registrarse').serialize(), // pasamos el id del formulario para poder usar campos en el controlador
         success: function (data) {
             var usuario = data; // varible que recive lo que retorna el controlador
-            if (usuario == 1) { // si la variable es 1 entonces el usuario existe
+            if (usuario != -1) { // si la variable es 1 entonces el usuario existe
                 alert('Guardado con exito');
                 window.setTimeout("showLogin()", 1000);  //llama a la vista login
             }
@@ -73,3 +73,19 @@ function Registro() { //ajax para Registrar una Institucion
         }
     });
   }
+
+function Ingresar(e) { // Metodo para guardar(editar) datos los datos al presionar ENTER 
+    var tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 13) // si es 13 entonces presiono ENTER
+    {
+        showThankYou(); // llama al evento 
+    }
+}
+
+function Registrar(e) { // Metodo para guardar(editar) datos los datos al presionar ENTER 
+    var tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 13) // si es 13 entonces presiono ENTER
+    {
+        Registro(); // llama al evento 
+    }
+}

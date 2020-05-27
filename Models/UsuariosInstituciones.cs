@@ -13,6 +13,7 @@ namespace Redes_De_Solidaridad.Models
 
     public class UsuarioInstitucion
     {
+        public int Id { get; set; }
         public string Institucion { get; set; }
         public string Direcccion { get; set; }
         public string Usuario { get; set; }

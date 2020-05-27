@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="icon" href="~/lte/dist/img/logo.png">
-    <title> @ViewBag.Title | Redes De Solidaridad</title> <!-- Titulo de la pagina-->
+    <title> @ViewBag.Title | eduNica</title> <!-- Titulo de la pagina-->
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- CSS Generales-->
@@ -33,11 +33,11 @@
 	<div class="content-wrapper">
 		<section class="content-header">
 
+			@RenderBody()
 			<!-- Inicio de Modales-->
 			<!-- Estudiantes-->
 			<partial name="~/Areas/Estudiante/Views/Agregar.cshtml" />
-			<!-- Usuario-->
-			<partial name="~/Areas/Usuarios/Views/Agregar_Institucion.cshtml" />
+
 			<!--Asignaturas-->
 			<partial name="~/Areas/Asignatura/Views/Agregar.cshtml" />
 			<!-- Docentes-->
@@ -49,7 +49,7 @@
 			<partial name="~/Areas/Alertas/Views/Cargando.cshtml" />
 
 			<!-- Fin-->
-			@RenderBody()
+
 		</section>
 
 

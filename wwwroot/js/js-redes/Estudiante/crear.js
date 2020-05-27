@@ -95,7 +95,7 @@ function nuevo_estudiante()
                {
                   var error="El estudiante ya existe, favor revisar el codigo de estudiante que ha ingresado"
                   $('#mensaje').text(error);   //manda el error a la modal
-                  $("#Mensaje-error").modal("show"); //abre modal de error
+                   $("#Mensaje-error").modal("show"); //abre modal de error
                   $("#Mensaje-error").fadeTo(2900,500).slideUp(450,function(){// cierra la modal despues del tiempo determinado  
                       $("#Mensaje-error").modal("hide"); // cierra modal error
                       } );
