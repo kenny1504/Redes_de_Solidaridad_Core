@@ -16,7 +16,7 @@
 					<a href="#" data-toggle="modal" data-target="#ingresar_Institucion" class="btn btn-warning btn-sm" id="m2">Agregar Institucion</a>
 				</div>
 				<div class=" col-lg-4">
-					<a href="#" data-toggle="modal" data-target="#modal_Materia" class="btn btn-warning btn-sm" id="m2">Agregar Docente</a>
+					<a href="#" onclick="ingresar_Usuario_D();" class="btn btn-warning btn-sm" id="m2">Agregar Docente</a>
 				</div>
 				<div class=" col-lg-4">
 					<select aria-required="true" required style="width: 70%; padding-top: 2.5%; " name="tipo" id="tipo">
@@ -55,10 +55,12 @@
 @Html.Partial("~/Areas/Usuarios/Views/Agregar_Institucion.cshtml")
 @Html.Partial("~/Areas/Usuarios/Views/Eliminar.cshtml")
 @Html.Partial("~/Areas/Usuarios/Views/Editar_Institucion.cshtml")
+@Html.Partial("~/Areas/Usuarios/Views/Agregar_Docente.cshtml")
 
 @section Scripts {
 	<script type="text/javascript" src="~/js/js-redes/Usuario/ver.js"></script> <!-- script mostrar usuarios-->
 	<script type="text/javascript" src="~/js/js-redes/Usuario/crear.js"></script> <!-- script Crear usuarios-->
 	<script type="text/javascript" src="~/js/js-redes/Usuario/eliminar.js"></script> <!-- script eliminar usuarios-->
 	<script type="text/javascript" src="~/js/js-redes/Usuario/editar.js"></script> <!-- script editar usuarios-->
+	<script type="text/javascript" src="~/js/js-redes/Usuario/crear_Usuario_Docente.js"></script> <!-- script Crear usuarios Docente-->
 }

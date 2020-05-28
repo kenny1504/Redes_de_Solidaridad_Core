@@ -11,7 +11,6 @@ namespace Redes_De_Solidaridad.Models
         public string Contraseña { get; set; }
         public int IdInstitucion { get; set; }
     }
-
     class usuariosview
     {
         public string NombreDeUsuario { get; set; }
@@ -20,6 +19,13 @@ namespace Redes_De_Solidaridad.Models
         public int tipo { get; set; }
         public String Cedula { get; set; }
         public String Institucion { get; set; }
+    }
+    public class usuarioDocenteview
+    {
+        public String Cedula { get; set; }
+        public string Usuario { get; set; }
+        public String Contraseña { get; set; }
+        public int Institucion { get; set; }
     }
     public class userview
     {

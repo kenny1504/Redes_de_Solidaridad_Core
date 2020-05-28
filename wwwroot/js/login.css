@@ -57,11 +57,11 @@
     transition: all ease-in 0.25s;
     color: #999999;
   }
-  .face .content .field-wrapper input[type="text"], .face .content .field-wrapper input[type="password"], .face .content .field-wrapper #exito, .face .content .field-wrapper textarea {
+  .face .content .field-wrapper input[type="text"], .face .content .field-wrapper input[type="password"], .face .content .field-wrapper .exito, .face .content .field-wrapper textarea {
     -webkit-appearance: none;
     appearance: none;
   }
-  .face .content .field-wrapper input[type="text"]:focus, .face .content .field-wrapper input[type="password"]:focus, .face .content .field-wrapper #exito:focus, .face .content .field-wrapper textarea:focus {
+  .face .content .field-wrapper input[type="text"]:focus, .face .content .field-wrapper input[type="password"]:focus, .face .content .field-wrapper .exito:focus, .face .content .field-wrapper textarea:focus {
     outline: none;
   }
   .face .content .field-wrapper input[type="text"], .face .content .field-wrapper input[type="password"], .face .content .field-wrapper textarea {
@@ -88,7 +88,7 @@
     top: -35%;
     color: #42509e;
   }
-  .face .content .field-wrapper #exito {
+  .face .content .field-wrapper .exito {
     -webkit-appearance: none;
     appearance: none;
     cursor: pointer;
@@ -100,10 +100,10 @@
     border-radius: 3px;
     padding: 5px;
   }
-  .face .content .field-wrapper #exito:hover {
+  .face .content .field-wrapper .exito:hover {
     opacity: 0.9;
   }
-  .face .content .field-wrapper #exito:active {
+  .face .content .field-wrapper .exito:active {
     transform: scale(0.96);
   }
   .face .content .field-wrapper textarea {

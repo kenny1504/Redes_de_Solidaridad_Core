@@ -3,7 +3,8 @@ var dat; var usuario;
 function editar_Institucion(button)
 {
      dat = $(button).parents("tr"); //captura toda la fila donde se efectuo el click (Editar)
-     var ide = $(button).attr("data-id"); // captura el valor_id_grupo "id" 
+    var ide = $(button).attr("data-id"); // captura el valor_id_grupo "id" 
+    limpiar();
     $('#Editar_Institucion').modal('show'); // abre ventana modal
 
       $.ajax({ // ajax para cargar datos 
@@ -37,13 +38,11 @@ function limpiar(){ // limpia campos
 };
 
 
-function Actualizar_institucion() {
+function editar_Usuario_Docente() {
 
-    $("#Editar_Instituciones").on('submit', function (evt) {
-        evt.preventDefault();
-    });
+    if ($('#Institucion2').val() != "" && $('#Direcccion2').val() != "" && $('#Usuario2').val() != "" && $('#Contrasena2').val() != "") {
 
-    usuario = $('#Id_Institucion').val();
+        usuario = $('#Id_Institucion').val();
 
     $.ajax({
         type: 'POST',
@@ -79,6 +78,7 @@ function Actualizar_institucion() {
                     $("#Mensaje-error").modal("hide"); // cierra modal error
                 });
             }
-         }
-     });
+        }
+    });
   }
+}

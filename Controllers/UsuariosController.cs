@@ -180,5 +180,65 @@ namespace Redes_De_Solidaridad
 
             return Json(data);
         }
+
+        //recupera Todas las instituciones
+        public async Task<IActionResult> Instituciones() //metodo cargar datos en modal
+        {
+            var data = await _context.Institucion.ToListAsync();
+
+            return Json(data);
+        }
+
+
+        [HttpPost] //metodo para Agregar un usuario docente
+        public async Task<ActionResult> Registro_Usuario_Docente([Bind("Cedula,Usuario,Contraseña,Institucion")] usuarioDocenteview docent)
+        {
+            var data = (from item in _context.Personas //verifica si la cedula ingresada pertenece a un docente de ka institucion
+                        join item2 in _context.Docentes on item.Id equals item2.PersonasId
+                        join item3 in _context.Institucion on item.IdInstitucion equals item3.Id
+                        where item.Cedula==docent.Cedula && item.IdInstitucion==docent.Institucion
+                        select new
+                        {
+                            Nombre = item.Nombre + " "+item.Apellido1+item.Apellido2,
+                            intitucion= item3.Nombre
+                        
+                        });
+
+            if(data.Count()>0)
+            {
+                var user = _context.Usuarios.Where(x => x.Usuario == docent.Usuario && x.IdInstitucion==docent.Institucion).FirstOrDefault(); //verifica si el nombre de usuario existe en la institucion
+               
+                if (user == null)
+                {     //agrega asignaturas
+                    Usuarios usuarios = new Usuarios();
+
+                    usuarios.Cedula = docent.Cedula;
+                    usuarios.Usuario = docent.Usuario;
+                    usuarios.Contraseña = docent.Contraseña;
+                    usuarios.IdInstitucion = docent.Institucion;
+                    _context.Add(usuarios);
+                    await _context.SaveChangesAsync();
+
+                    var r = from item2 in data
+                            select new
+                            {
+                                id = usuarios.Id,
+                                Nombbre = item2.Nombre,
+                                user = usuarios.Usuario,
+                                Pass = usuarios.Contraseña,
+                                Inst = item2.intitucion
+                            };
+
+
+                    return Json(r);
+                }
+                else
+                    return Json(-1);
+
+            }
+            else
+                return Json(0);
+        }
+
     }
 }

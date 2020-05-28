@@ -4,7 +4,7 @@
 }
 
 <!--form para poder activar la ruta y poder guardar el registro--><!-- -->
-<form id="Editar_Instituciones">
+<form id="Editar_Instituciones" onsubmit="event.preventDefault()">
 	<div class="modal  modal-info fade" id="Editar_Institucion">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -36,7 +36,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="reset" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-						<button  onclick="Actualizar_institucion()" class="btn btn-outline">Guardar</button>
+						<button type="submit" onclick="editar_Usuario_Docente()" class="btn btn-outline">Actualizar</button>
 					</div>
 					<!-- /.modal-content -->
 				</div>

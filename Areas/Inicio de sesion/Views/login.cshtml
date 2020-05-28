@@ -8,7 +8,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="icon" href="~/lte/dist/img/logo.png">
+	<link rel="icon" href="~/lte/dist/img/eduNica.png">
 	<title>login | eduNICA</title> <!-- Titulo de la pagina-->
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -21,30 +21,28 @@
 	</style>
 </head>
 <body>
-	<div class="Nombre"><h1>eduNICA</h1></div>
-
-
-	<form name="login" id="login" action="inicio">
+	<img style="width: 500px;" src="~/lte/dist/img/eduNica_Logo.png" alt="Sitio web Administrativo" />
+	<form  id="login" onsubmit="event.preventDefault()" >
 		<div class="wrapper">
 			<div class="rec-prism">
 				<div class="face face-front">
 					<div class="content">
 						<h3>Inicio de Sesion</h3>
-						<form>
+						<form  onsubmit="event.preventDefault()">
 							<br>
 							<div class="field-wrapper">
-								<input type="text" name="username" placeholder="username">
+								<input required type="text" id="usuario" name="username" placeholder="username">
 								<label>Usuario</label>
 							</div>
 							<div class="field-wrapper">
-								<input type="password" name="password" onkeypress="Ingresar(event)" placeholder="password" autocomplete="new-password">
+								<input required type="password" id="password" name="password" onkeypress="Ingresar()" placeholder="password" autocomplete="new-password">
 								<label>Contraseña</label>
 							</div>
 							<div class="field-wrapper">
-								<input style="text-align: center;" id="exito" value="Enviar" onclick="showThankYou()">
+								<input type="submit" onclick="autenticar()" class="exito" style="text-align: center;" id="Entrar" value="Enviar">
 							</div>
 							<div class="field-wrapper">
-								<input style="text-align: center;" id="exito" onclick="showContactUs()" value="Registrarse" />
+								<input style="text-align: center;" class="exito" onclick="showContactUs()" value="Registrarse" />
 							</div>
 						</form>
 					</div>
@@ -56,7 +54,7 @@
 						<form onsubmit="event.preventDefault()">
 							<h1><i class="fa fa-fw fa-frown-o"></i></h1>
 							<div class="field-wrapper">
-								<input style="text-align: center;" id="exito" value="Intente nuevamente" onclick="showLogin()">
+								<input  class="exito" style="text-align: center;" id="exito" value="Intente nuevamente" onclick="showLogin()">
 							</div>
 						</form>
 					</div>
@@ -71,26 +69,26 @@
 				<div class="face face-left">
 					<div class="content">
 						<h3>Registrando Institucion</h3>
-						<form id="registrarse">
+						<form id="registrarse" onsubmit="event.preventDefault()">
 							<br>
 							<div class="field-wrapper">
-								<input type="text" name="Institucion" autocomplete="off" placeholder="username">
+								<input required type="text" id="Institucion" name="Institucion" autocomplete="off" placeholder="username">
 								<label>Nombre de Institucion</label>
 							</div>
 							<div class="field-wrapper">
-								<input type="text" name="Direcccion"  autocomplete="off" placeholder="password" autocomplete="new-password">
+								<input required type="text"  id="Direcccion" name="Direcccion"  autocomplete="off" placeholder="password" autocomplete="new-password">
 								<label>Direcccion</label>
 							</div>
 							<div class="field-wrapper">
-								<input type="text" name="Usuario"  placeholder="password" autocomplete="new-password">
+								<input required type="text" id="Usuario" name="Usuario"  placeholder="password" autocomplete="new-password">
 								<label>Usuario</label>
 							</div>
 							<div class="field-wrapper">
-								<input onkeypress="Registrar(event)"  type="password" name="Contraseña" placeholder="password" autocomplete="new-password">
+								<input required  type="password" id="Contrasena" name="Contraseña" placeholder="password" autocomplete="new-password">
 								<label>Contraseña</label>
 							</div>
 							<div class="field-wrapper">
-								<input style="text-align: center;" id="exito" value="Enviar" onclick="Registro()">
+								<input type="submit"  onclick="Registrar()" class="exito" style="text-align: center;" id="Registrarse" value="Enviar" >
 							</div>
 						</form>
 					</div>
