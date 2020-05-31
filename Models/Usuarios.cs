@@ -11,7 +11,7 @@ namespace Redes_De_Solidaridad.Models
         public string Contraseña { get; set; }
         public int IdInstitucion { get; set; }
     }
-    class usuariosview
+    class usuariosview //Manejo de datos de usuario en sesion
     {
         public string NombreDeUsuario { get; set; }
         public string Nombre { get; set; }
@@ -20,14 +20,15 @@ namespace Redes_De_Solidaridad.Models
         public String Cedula { get; set; }
         public String Institucion { get; set; }
     }
-    public class usuarioDocenteview
+    public class usuarioDocenteview //Agrega Docente y edita  
     {
+        public string Id { get; set; }
         public String Cedula { get; set; }
         public string Usuario { get; set; }
         public String Contraseña { get; set; }
         public int Institucion { get; set; }
     }
-    public class userview
+    public class userview //Inicio de sesion
     {
         public string password { get; set; }
         public string username { get; set; }

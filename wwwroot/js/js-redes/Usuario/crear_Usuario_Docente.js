@@ -44,18 +44,20 @@ function ingresar_usuario_docente() { //ajax para Registrar una Institucion
 
                         if (tabla != "") //si la tabla no esta vacia, inserta Datos
                         {
-                            var html = '<tbody><tr>'
-                                + '<td>' + element.user + '</td>'
-                                + '<td>' + element.pass + '</td>'
-                                + '<td>' + element.nombbre + '</td>'
-                                + '<td>' + element.inst + '</td>'
-                                + '<td style="padding-top:0.1%; padding-bottom:0.1%; id="' + element.id + '" >'
-                                + '<button class="btn btn-primary" onclick="ver_estudiante(this);" data-id="' + element.id + '" id="Ver-estudiante">ver</button>'
-                                + '<button class="btn btn-success " data-id="' + element.idUsuario + '" data-idper="' + element.id + '" onclick="editar_estudiante(this);" ><i class=" fa fa-fw fa-pencil"></i></button>'
-                                + '<button class="btn btn-info" data-id="' + element.id + '" onclick="eliminar_estudiante(this);"><i class="fa fa-fw fa-trash "></i></button>'
-                                + '</tr>'
-                            +'</tbody>';
-                            $('#Usuarios').append(html); //insertamos datos en tabla
+                            data.forEach(element => {   //recorre arreglo
+                                var html = '<tbody><tr>'
+                                    + '<td>' + element.user + '</td>'
+                                    + '<td>' + element.pass + '</td>'
+                                    + '<td>' + element.nombbre + '</td>'
+                                    + '<td>' + element.inst + '</td>'
+                                    + '<td style="padding-top:0.1%; padding-bottom:0.1%; id="' + element.id + '" >'
+                                    + '<button class="btn btn-primary" onclick="ver_estudiante(this);" data-id="' + element.id + '" id="Ver-estudiante">ver</button>'
+                                    + '<button class="btn btn-success " data-id="' + element.idUsuario + '" onclick="editar_Institucion(this);" ><i class=" fa fa-fw fa-pencil"></i></button>'
+                                    + '<button class="btn btn-info" data-id="' + element.id + '" onclick="eliminar_estudiante(this);"><i class="fa fa-fw fa-trash "></i></button>'
+                                    + '</tr>'
+                                +'</tbody>';
+                                    $('#Usuarios').append(html); //insertamos datos en tabla
+                            })
                         }
 
                         $("#exito").modal("show"); //abre modal de exito
@@ -66,7 +68,7 @@ function ingresar_usuario_docente() { //ajax para Registrar una Institucion
                     }
                     else { // error el usuario que ingreso ya existe en esta institucion
 
-                        var error = "Error,La cedula que ingreso no pertence a un docente de esta institucion"
+                        var error = "Error,La cedula que ingreso no pertence a un docente de la institucion seleccionada"
                         $('#mensaje').text(error);   //manda el error a la modal
                         $("#Mensaje-error").modal("show"); //abre modal de error
                         $("#Mensaje-error").fadeTo(2900, 500).slideUp(450, function () {// cierra la modal despues del tiempo determinado  

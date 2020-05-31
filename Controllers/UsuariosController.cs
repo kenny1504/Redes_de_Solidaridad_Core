@@ -164,11 +164,28 @@ namespace Redes_De_Solidaridad
             }
         }
 
-        public async Task<IActionResult> Institucion(uint? id) //metodo cargar datos en modal
+        public async Task<IActionResult> Institucion(uint? id) //metodo cargar datos en modal usuario institucion
         {
             var data = (from item in _context.UsuariosInstituciones
                         join item2 in _context.Institucion on item.IdInstitucion equals item2.Id
                         where item.IdInstitucion==id
+                        select new
+                        {
+                            IdUsuario = item.IdInstitucion,
+                            Usuario = item.Usuario,
+                            Contraseña = item.Contraseña,
+                            Nombre = item2.Nombre,
+                            Direccion = item2.Direccion,
+                        });
+
+            return Json(data);
+        }
+
+        public async Task<IActionResult> Docente(uint? id) //metodo cargar datos en modal usuario docente
+        {
+            var data = (from item in _context.UsuariosInstituciones
+                        join item2 in _context.Institucion on item.IdInstitucion equals item2.Id
+                        where item.IdInstitucion == id
                         select new
                         {
                             IdUsuario = item.IdInstitucion,
@@ -240,5 +257,14 @@ namespace Redes_De_Solidaridad
                 return Json(0);
         }
 
+        public async Task<IActionResult> Eliminar_Usuario_Docente(uint? id)
+        {    
+           
+                var Usuario_D = _context.Usuarios.Where(u => u.Id == id).FirstOrDefault();
+                _context.Usuarios.Remove(Usuario_D); //Elimina
+                await _context.SaveChangesAsync(); //Guarda
+
+                return Json(1);
+        }
     }
 }
