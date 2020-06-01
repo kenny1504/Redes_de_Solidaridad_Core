@@ -14,6 +14,7 @@ namespace Redes_De_Solidaridad.Controllers
     {
         private readonly RedesDeSolidaridadContext _context;
 
+        //Este es otro comentario xd
         public GradosController(RedesDeSolidaridadContext context)
         {
             _context = context;
