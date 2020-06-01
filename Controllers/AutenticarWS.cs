@@ -50,7 +50,7 @@ namespace Redes_De_Solidaridad.Controllers
                                 tipo = 2,
                                 Institucion = i.Nombre
                             }).ToList();
-                if (Data.Count > 0) // si encuntra un usuario Guarda el Usuario en cache
+                if (Data.Count > 0) // si encuntra un usuario Guarda el Usuario en cache  ...
                 {
                     valor = 2;
                    
