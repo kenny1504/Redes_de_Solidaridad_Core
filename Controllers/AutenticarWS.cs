@@ -25,19 +25,27 @@ namespace Redes_De_Solidaridad.Controllers
 
         [HttpGet ("login") ]
 
-        public async Task<ActionResult<int>> login (userview usuario)
+        public async Task<ActionResult<List<usuariosview>>> login (userview usuario)
         {
-            var valor=-1;
+            var data = new List<usuariosview>();
 
             //si el UsUARIO ES EL ADMINISTRADOR entonces entra de lo contrario Verifica las Credenciales en la base de datos
             if (usuario.username == "ADMIN" && usuario.password == "Admin123")
             {
-                valor = 1;
+                usuariosview usuariosview = new usuariosview();
+
+                usuariosview.NombreDeUsuario = "ADMIN";
+                usuariosview.Nombre = "eduNica";
+                usuariosview.Cedula = "000-000000-0000F";
+                usuariosview.Id = "0";
+                usuariosview.tipo = 1;
+                usuariosview.Institucion = "eduNica";
+                data.Add(usuariosview);
             }
             else
             {
                 //Consulta a base de datos - Consulta linq *Consulta si es Docente
-                var Data = (from u in _context.Usuarios
+                data = ( from u in _context.Usuarios
                             join i in _context.Institucion on u.IdInstitucion equals i.Id
                             join p in _context.Personas on i.Id equals p.IdInstitucion
                             where usuario.username == u.Usuario && usuario.password == u.Contraseña
@@ -50,35 +58,23 @@ namespace Redes_De_Solidaridad.Controllers
                                 tipo = 2,
                                 Institucion = i.Nombre
                             }).ToList();
-                if (Data.Count > 0) // si encuntra un usuario Guarda el Usuario en cache  ...
+                if (data.Count == 0) // si encuntra un usuario Guarda el Usuario en cache  ...
                 {
-                    valor = 2;
-                   
-                }
-                else
-                {
-                    //Consulta a base de datos - Consulta linq *Consulta si es Institucion
-                    var Data2 = (from u in _context.UsuariosInstituciones
-                                 join i in _context.Institucion on u.IdInstitucion equals i.Id
-                                 where usuario.username == u.Usuario && usuario.password == u.Contraseña
-                                 select new usuariosview
-                                 {
-                                     NombreDeUsuario = u.Usuario,
-                                     Nombre = i.Nombre,
-                                     Cedula = " ",
-                                     Id = " ",
-                                     tipo = 3,
-                                     Institucion = i.Nombre
-                                 }).ToList();
-                    if (Data2.Count > 0) // si encuntra un usuario Guarda el Usuario en cache
-                    {
-                        valor = 3;
-                      
-                    }
-
-                }
+                    data= (from u in _context.UsuariosInstituciones
+                           join i in _context.Institucion on u.IdInstitucion equals i.Id
+                           where usuario.username == u.Usuario && usuario.password == u.Contraseña
+                           select new usuariosview
+                           {
+                               NombreDeUsuario = u.Usuario,
+                               Nombre = i.Nombre,
+                               Cedula = " ",
+                               Id = " ",
+                               tipo = 3,
+                               Institucion = i.Nombre
+                           }).ToList();
+                }              
             }
-            return valor;
+            return data;
 
         }
 

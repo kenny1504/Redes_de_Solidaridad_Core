@@ -11,7 +11,7 @@ namespace Redes_De_Solidaridad.Models
         public string Contraseña { get; set; }
         public int IdInstitucion { get; set; }
     }
-    class usuariosview //Manejo de datos de usuario en sesion
+    public class usuariosview //Manejo de datos de usuario en sesion
     {
         public string NombreDeUsuario { get; set; }
         public string Nombre { get; set; }
