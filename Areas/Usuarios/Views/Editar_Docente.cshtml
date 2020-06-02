@@ -16,24 +16,28 @@
 				<div class="modal-body ">
 					<div class="register-box-body" style="background-color:#eee;">
 						<div class="form-group has-feedback">
-							<input type="text" id="Id_UsuarioD"  name="Id" class="form-control requerido " required placeholder="Cedula de docente">
+							<input type="text" id="Id_UsuarioD"  name="Id" class="form-control requerido hidden" required >
 							<input type="text" id="CedulaU2" autocomplete="off" name="Cedula" class="form-control requerido" required placeholder="Cedula de docente">
+							<small>Cedula de usuario</small>
 						</div>
 						<div class="form-group has-feedback">
 							<input type="text" id="UsuarioU2" name="Usuario" class="form-control requerido" required placeholder="Nombre de Usuario">
+							<small>Nombre de usuario</small>
 						</div>
 						<div class="form-group has-feedback">
 							<input type="password" id="ContrasenaU2" name="Contraseña" class="form-control requerido" autocomplete="new-password" required placeholder="Contraseña">
+							<small>Contraseña de usuario</small>
 						</div>
 						<div aria-required="true" class="form-group has-feedback">
 							<select required style="width: 100%; padding-top: 2.5%; " name="Institucion" id="Instituciones2">
 								<option value="" disabled selected>Institucion</option>
 							</select>
+							<small>Institucion</small>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="reset" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-						<button type="submit" onclick="ingresar_usuario_docente()" class="btn btn-outline">Guardar</button>
+						<button  onclick="editar_Usuario_Docente()" class="btn btn-outline">Guardar</button>
 					</div>
 					<!-- /.modal-content -->
 				</div>
@@ -41,6 +45,5 @@
 			</div>
 		</div>
 	</div>
-</form>
 </form>
 

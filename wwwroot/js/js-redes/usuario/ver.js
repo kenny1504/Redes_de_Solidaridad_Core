@@ -37,8 +37,8 @@ function Mostrar_Usuarios() {
                         + '<td>' + element.nombre + '</td>'
                         + '<td>' + element.institucion + '</td>'
                         + '<td style="padding-top:0.1%; padding-bottom:0.1%; id="' + element.idUsuario + '" >'
-                        + '<button class="btn btn-primary" onclick="ver_estudiante(this);" data-id="' + element.idUsuario + '" id="Ver-estudiante">ver</button>'
-                      + '<button class="btn btn-success " data-id="' + element.idUsuario + '" onclick="editar_Institucion(this);" ><i class=" fa fa-fw fa-pencil"></i></button>'
+                        + '<a class="btn btn-primary" onclick="ver_estudiante(this);" data-id="' + element.idUsuario + '" id="Ver-estudiante">ver</a>'
+                        + '<a class="btn btn-success" data-id="' + element.idUsuario + '" onclick="editar_Usuario_D(this)" ><i class=" fa fa-fw fa-pencil"></i></a>'
                         + '<a class="btn btn-info" data-id="' + element.idUsuario + '" onclick="eliminar_Usuario_Docente(this)"><i class="fa fa-fw fa-trash "></i></a>'                     
                         + '</tr>';
                     +"</tbody>";

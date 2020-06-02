@@ -183,16 +183,17 @@ namespace Redes_De_Solidaridad
 
         public async Task<IActionResult> Docente(uint? id) //metodo cargar datos en modal usuario docente
         {
-            var data = (from item in _context.UsuariosInstituciones
-                        join item2 in _context.Institucion on item.IdInstitucion equals item2.Id
-                        where item.IdInstitucion == id
+            var data = (from item in _context.Usuarios.ToList()
+                        join item2 in _context.Institucion.ToList() on item.IdInstitucion equals item2.Id
+                        join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
+                        where item.Cedula == item3.Cedula && item.Id == id
                         select new
                         {
-                            IdUsuario = item.IdInstitucion,
+                            IdUsuario = item.Id,
+                            cedula=item.Cedula,
                             Usuario = item.Usuario,
-                            Contraseña = item.Contraseña,
-                            Nombre = item2.Nombre,
-                            Direccion = item2.Direccion,
+                            Contrasena = item.Contraseña,
+                            Institucion = item2.Id,
                         });
 
             return Json(data);
@@ -265,6 +266,77 @@ namespace Redes_De_Solidaridad
                 await _context.SaveChangesAsync(); //Guarda
 
                 return Json(1);
+        }
+
+        [HttpPost] //metodo para Agregar un usuario docente
+        public async Task<ActionResult> Editar_Usuario_Docente([Bind("Id,Cedula,Usuario,Contraseña,Institucion")] usuarioDocenteview docent)
+        {
+            var data = (from item in _context.Personas //verifica si la cedula ingresada pertenece a un docente de la institucion
+                        join item2 in _context.Docentes on item.Id equals item2.PersonasId
+                        join item3 in _context.Institucion on item.IdInstitucion equals item3.Id
+                        where item.Cedula == docent.Cedula && item.IdInstitucion == docent.Institucion
+                        select new
+                        {
+                            Nombre = item.Nombre + " " + item.Apellido1 + item.Apellido2,
+                            intitucion = item3.Nombre
+
+                        });
+
+            if (data.Count() > 0)
+            {
+               
+               
+                var users = _context.Usuarios.Where(x => x.Usuario == docent.Usuario && x.IdInstitucion == docent.Institucion).FirstOrDefault(); //verifica si el nombre de usuario existe en la institucion
+
+                if (users == null)
+                {
+                    var user = _context.Usuarios.Where(x => x.Id==docent.Id).FirstOrDefault();
+                    user.Cedula = docent.Cedula;
+                    user.Usuario = docent.Usuario;
+                    user.Contraseña = docent.Contraseña;
+                    user.IdInstitucion = docent.Institucion;
+                    _context.Update(user);
+                    await _context.SaveChangesAsync(); //guarda
+
+                    var r = from item2 in data
+                            select new
+                            {
+                                id = user.Id,
+                                Nombbre = item2.Nombre,
+                                user = user.Usuario,
+                                Pass = user.Contraseña,
+                                Inst = item2.intitucion
+                            };
+                    return Json(r);
+                }
+                else
+                  if (users.Id == docent.Id)
+                  {
+                    var user = _context.Usuarios.Where(x => x.Id == docent.Id).FirstOrDefault();
+                    user.Cedula = docent.Cedula;
+                    user.Usuario = docent.Usuario;
+                    user.Contraseña = docent.Contraseña;
+                    user.IdInstitucion = docent.Institucion;
+                    _context.Update(user);
+                    await _context.SaveChangesAsync(); //guarda
+
+                    var r = from item2 in data
+                            select new
+                            {
+                                id = user.Id,
+                                Nombbre = item2.Nombre,
+                                user = user.Usuario,
+                                Pass = user.Contraseña,
+                                Inst = item2.intitucion
+                            };
+                    return Json(r);
+                 }
+                 else
+                    return Json(-1);
+
+            }
+            else
+                return Json(0);
         }
     }
 }

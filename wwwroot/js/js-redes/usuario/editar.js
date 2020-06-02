@@ -1,7 +1,6 @@
 var dat; var usuario;
 
-function editar_Institucion(button)
-{
+function editar_Institucion(button) {
      dat = $(button).parents("tr"); //captura toda la fila donde se efectuo el click (Editar)
     var ide = $(button).attr("data-id"); // captura el valor_id_grupo "id" 
     limpiar();

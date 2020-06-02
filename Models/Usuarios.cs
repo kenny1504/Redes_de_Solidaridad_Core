@@ -22,7 +22,7 @@ namespace Redes_De_Solidaridad.Models
     }
     public class usuarioDocenteview //Agrega Docente y edita  
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public String Cedula { get; set; }
         public string Usuario { get; set; }
         public String Contraseña { get; set; }
