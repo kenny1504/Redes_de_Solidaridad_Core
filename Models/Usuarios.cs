@@ -19,6 +19,7 @@ namespace Redes_De_Solidaridad.Models
         public int tipo { get; set; }
         public String Cedula { get; set; }
         public String Institucion { get; set; }
+        public int Id_Institucion { get; set; }
     }
     public class usuarioDocenteview //Agrega Docente y edita  
     {
@@ -32,6 +33,23 @@ namespace Redes_De_Solidaridad.Models
     {
         public string password { get; set; }
         public string username { get; set; }
+    }
+    public class usuariosWS //Manejo de datos Usuarios en el  WS
+    {
+        public string NombreDeUsuario { get; set; }
+        public string Nombre { get; set; }
+        public int Id { get; set; }
+        public int tipo { get; set; }
+        public String Cedula { get; set; }
+        public String Institucion { get; set; }
+    }
 
+    public class Busqueda//Recive el id de la isntitucion
+    {
+        public int Id { get; set; }
+    }
+    public class BusquedaUD//Recive el id de la isntitucion
+    {
+        public string Cedula { get; set; }
     }
 }

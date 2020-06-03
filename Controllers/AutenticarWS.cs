@@ -40,6 +40,7 @@ namespace Redes_De_Solidaridad.Controllers
                 usuariosview.Id = "0";
                 usuariosview.tipo = 1;
                 usuariosview.Institucion = "eduNica";
+                usuariosview.Id_Institucion = -1;
                 data.Add(usuariosview);
             }
             else
@@ -48,7 +49,7 @@ namespace Redes_De_Solidaridad.Controllers
                 data = ( from u in _context.Usuarios
                             join i in _context.Institucion on u.IdInstitucion equals i.Id
                             join p in _context.Personas on i.Id equals p.IdInstitucion
-                            where usuario.username == u.Usuario && usuario.password == u.Contraseña
+                            where usuario.username == u.Usuario && usuario.password == u.Contraseña && u.Cedula==p.Cedula
                             select new usuariosview
                             {
                                 NombreDeUsuario = u.Usuario,
@@ -56,7 +57,8 @@ namespace Redes_De_Solidaridad.Controllers
                                 Cedula = p.Cedula,
                                 Id = u.Cedula,
                                 tipo = 2,
-                                Institucion = i.Nombre
+                                Institucion = i.Nombre,
+                                Id_Institucion=u.IdInstitucion
                             }).ToList();
                 if (data.Count == 0) // si encuntra un usuario Guarda el Usuario en cache  ...
                 {
@@ -69,8 +71,10 @@ namespace Redes_De_Solidaridad.Controllers
                                Nombre = i.Nombre,
                                Cedula = " ",
                                Id = " ",
+
                                tipo = 3,
-                               Institucion = i.Nombre
+                               Institucion = i.Nombre,
+                               Id_Institucion=u.IdInstitucion
                            }).ToList();
                 }              
             }
