@@ -88,7 +88,7 @@
                                 "</a>"+
                             "</li>"+
                             "<li class='treeview'>"+
-                                "<li><a href=' method=' GET'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
+                                "<li><a href='Parentesco'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
                         "</li></ul>" +           
                       "<li class='treeview'>" +//Menu Secciones
                         "<a href='#'>"+
