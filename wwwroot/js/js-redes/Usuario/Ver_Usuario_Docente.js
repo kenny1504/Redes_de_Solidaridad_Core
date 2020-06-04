@@ -1,5 +1,6 @@
 ﻿function ver_docente(button) {
 
+
     $("#perfil_docente").modal("show"); //abre modal ver docente
     var ide = $(button).attr("data-id");
 

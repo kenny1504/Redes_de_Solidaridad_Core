@@ -28,7 +28,7 @@ namespace Redes_De_Solidaridad.Controllers
         [HttpPost]
         public async Task<IActionResult> Autenticacion([Bind("username,password")] userview usuario)
         {
-            Usuario = new string[6];
+            Usuario = new string[7];
 
             var valor = -1;
 
@@ -83,7 +83,7 @@ namespace Redes_De_Solidaridad.Controllers
                                      NombreDeUsuario = u.Usuario,
                                      Nombre = i.Nombre,
                                      Cedula = " ",
-                                     Id = " ",
+                                     Id =u.IdInstitucion.ToString(),
                                      tipo = 3,
                                      Institucion = i.Nombre
                                  }).ToList();

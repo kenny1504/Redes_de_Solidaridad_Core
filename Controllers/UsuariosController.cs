@@ -26,7 +26,19 @@ namespace Redes_De_Solidaridad
 
             if (usuario != null) //verifica si existe una sesion Valida
             {
-                return View("~/Areas/Usuarios/Views/Mostrar.cshtml");
+                return View("~/Areas/Usuarios/Views/Admin/Mostrar.cshtml");
+            }
+            else //si no existe una sesion retorna inicio de sesion 
+                return View("~/Areas/Inicio de sesion/Views/login.cshtml");
+        }
+        [Route("Usuarios2")]
+        public IActionResult Index2() //Envia vista de Mostrar usuarios
+        {
+            var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
+
+            if (usuario != null) //verifica si existe una sesion Valida
+            {
+                return View("~/Areas/Usuarios/Views/Docente/Mostrar.cshtml");
             }
             else //si no existe una sesion retorna inicio de sesion 
                 return View("~/Areas/Inicio de sesion/Views/login.cshtml");
@@ -337,6 +349,25 @@ namespace Redes_De_Solidaridad
             }
             else
                 return Json(0);
+        }
+
+        public async Task<ActionResult> Usarios_Docentes2(uint? id)// metodo ajax para recuperar datos de Usuarios docentes
+        {
+            var data = (from item in _context.Usuarios.ToList()
+                        join item2 in _context.Institucion.ToList() on item.IdInstitucion equals item2.Id
+                        join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
+                        join item4 in _context.Docentes.ToList() on item3.Id equals item4.PersonasId
+                        where item.Cedula == item3.Cedula && item2.Id==id
+                        select new
+                        {
+                            IdUsuario = item.Id,
+                            Usuario = item.Usuario,
+                            Contraseña = item.Contraseña,
+                            Nombre = item3.Nombre + " " + item3.Apellido1 + " " + item3.Apellido2,
+                            Institucion = item2.Nombre,
+                        });
+
+            return Json(data);
         }
     }
 }
