@@ -13,7 +13,7 @@
 		<div class="box-tools pull-right" id="filtros-Usarios">
 			<div class="form-group">
 				<div class=" col-lg-3">
-					<a href="#" onclick="" class="btn btn-warning btn-sm" id="m2">Agregar Docente</a>
+					<a href="#" onclick="ingresar_Usuario_D()" class="btn btn-warning btn-sm" id="m2">Agregar Docente</a>
 				</div>
 				<div class=" col-lg-2">
 					<div class="input-group input-group-sm hidden-xs" style="width: 350px;">
@@ -127,9 +127,9 @@
 </style>
 
 <!--Modales-->
-@Html.Partial("~/Areas/Usuarios/Views/Admin/Agregar_Docente.cshtml")
+@Html.Partial("~/Areas/Usuarios/Views/Docente/Agregar.cshtml")
 @Html.Partial("~/Areas/Usuarios/Views/Admin/Eliminar_Docente.cshtml")
-@Html.Partial("~/Areas/Usuarios/Views/Admin/Editar_Docente.cshtml")
+@Html.Partial("~/Areas/Usuarios/Views/Docente/Editar.cshtml")
 @Html.Partial("~/Areas/Docente/Views/Ver.cshtml")
 
 
@@ -137,8 +137,8 @@
 
 	<script type="text/javascript" src="~/js/js-redes/Usuario/Docente/Ver.js"></script> <!-- script editar usuarios Docente-->
 	<script type="text/javascript" src="~/js/js-redes/Usuario/Eliminar_Usuario_Docente.js"></script> <!-- script eliminar usuarios Docentes-->
-	<script type="text/javascript" src="~/js/js-redes/Usuario/crear_Usuario_Docente.js"></script> <!-- script Crear usuarios Docente-->
-	<script type="text/javascript" src="~/js/js-redes/Usuario/Editar_Usuario_Docente.js"></script> <!-- script editar usuarios Docente-->
+	<script type="text/javascript" src="~/js/js-redes/Usuario/Docente/Agregar.js"></script> <!-- script Crear usuarios Docente-->
+	<script type="text/javascript" src="~/js/js-redes/Usuario/Docente/Editar.js"></script> <!-- script editar usuarios Docente-->
 	<script type="text/javascript" src="~/js/js-redes/Usuario/buscar.js"></script> <!-- script buscar usuarios Docente-->
 	<script type="text/javascript" src="~/js/js-redes/Usuario/Ver_Usuario_Docente.js"></script> <!-- script editar usuarios Docente-->
 }
