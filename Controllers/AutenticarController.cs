@@ -12,9 +12,9 @@ namespace Redes_De_Solidaridad.Controllers
 {
     public class AutenticarController : Controller
     {
-        private readonly RedesDeSolidaridadContext _context;
+        private readonly CentrosEscolares _context;
 
-        public AutenticarController(RedesDeSolidaridadContext context)
+        public AutenticarController(CentrosEscolares context)
         {
             _context = context;
         }
@@ -49,7 +49,7 @@ namespace Redes_De_Solidaridad.Controllers
                 var Data = (from u in _context.Usuarios
                             join i in _context.Institucion on u.IdInstitucion equals i.Id
                             join p in _context.Personas on i.Id equals p.IdInstitucion
-                            where usuario.username == u.Usuario && usuario.password == u.Contraseña
+                            where usuario.username == u.Usuario && usuario.password == u.Contraseña && u.Cedula==p.Cedula
                             select new usuariosview
                             {
                                 NombreDeUsuario = u.Usuario,

@@ -12,9 +12,9 @@ namespace Redes_De_Solidaridad
 {
     public class UsuariosController : Controller
     {
-        private readonly RedesDeSolidaridadContext _context;
+        private readonly CentrosEscolares _context;
 
-        public UsuariosController(RedesDeSolidaridadContext context)
+        public UsuariosController(CentrosEscolares context)
         {
             _context = context;
         }

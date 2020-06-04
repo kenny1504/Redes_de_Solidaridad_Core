@@ -37,7 +37,7 @@ function limpiar(){ // limpia campos
 };
 
 
-function editar_Usuario_Docente() {
+function editar_Institucion_conf() {
 
     if ($('#Institucion2').val() != "" && $('#Direcccion2').val() != "" && $('#Usuario2').val() != "" && $('#Contrasena2').val() != "") {
 

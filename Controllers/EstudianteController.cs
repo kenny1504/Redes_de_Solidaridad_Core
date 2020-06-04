@@ -11,7 +11,7 @@ namespace Redes_De_Solidaridad.Controllers
 {
     public class EstudianteController : Controller
     {
-        private readonly RedesDeSolidaridadContext db = new RedesDeSolidaridadContext();
+        private readonly CentrosEscolares db = new CentrosEscolares();
         
         // GET: Estudiante
         public ActionResult Index()

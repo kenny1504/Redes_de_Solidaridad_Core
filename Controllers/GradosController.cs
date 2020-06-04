@@ -12,10 +12,10 @@ namespace Redes_De_Solidaridad.Controllers
 {
     public class GradosController : Controller
     {
-        private readonly RedesDeSolidaridadContext _context;
+        private readonly CentrosEscolares _context;
 
         //Este es otro comentario xd
-        public GradosController(RedesDeSolidaridadContext context)
+        public GradosController(CentrosEscolares context)
         {
             _context = context;
         }

@@ -33,7 +33,7 @@ namespace Redes_De_Solidaridad
 
 
             //Conexion a base de datos
-            services.AddDbContext<RedesDeSolidaridadContext>(options =>
+            services.AddDbContext<CentrosEscolares>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

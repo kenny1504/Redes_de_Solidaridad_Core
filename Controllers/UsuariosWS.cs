@@ -18,9 +18,9 @@ namespace Redes_De_Solidaridad.Controllers
     public class UsuariosWS : ControllerBase
     {
 
-        private readonly RedesDeSolidaridadContext _context;
+        private readonly CentrosEscolares _context;
 
-        public UsuariosWS(RedesDeSolidaridadContext context)
+        public UsuariosWS(CentrosEscolares context)
         {
             _context = context;
         }

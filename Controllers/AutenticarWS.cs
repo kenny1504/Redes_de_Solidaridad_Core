@@ -15,9 +15,9 @@ namespace Redes_De_Solidaridad.Controllers
     public class AutenticarWS : ControllerBase
     {
 
-        private readonly RedesDeSolidaridadContext _context;
+        private readonly CentrosEscolares _context;
 
-        public AutenticarWS(RedesDeSolidaridadContext context)
+        public AutenticarWS(CentrosEscolares context)
         {
             _context = context;
         }

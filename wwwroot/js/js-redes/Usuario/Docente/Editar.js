@@ -75,7 +75,7 @@ function editar_Usuario_Docente() {
                     }
                     else { // error el usuario que ingreso ya existe en esta institucion
 
-                        var error = "Error,La cedula que ingreso no pertence a un docente de la institucion seleccionada"
+                        var error = "Error,La cedula que ingreso no pertence a un docente de esta institucion"
                         $('#mensaje').text(error);   //manda el error a la modal
                         $("#Mensaje-error").modal("show"); //abre modal de error
                         $("#Mensaje-error").fadeTo(2900, 500).slideUp(450, function () {// cierra la modal despues del tiempo determinado  

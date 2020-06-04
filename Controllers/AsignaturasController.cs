@@ -16,9 +16,9 @@ namespace Redes_De_Solidaridad.Controllers
     public class AsignaturasController : Controller
     {
 
-        private readonly RedesDeSolidaridadContext _context;
+        private readonly CentrosEscolares _context;
 
-        public AsignaturasController(RedesDeSolidaridadContext context)
+        public AsignaturasController(CentrosEscolares context)
         {
             _context = context;
         }
