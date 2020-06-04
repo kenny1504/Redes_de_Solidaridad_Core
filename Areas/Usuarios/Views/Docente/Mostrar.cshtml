@@ -127,7 +127,18 @@
 </style>
 
 <!--Modales-->
+@Html.Partial("~/Areas/Usuarios/Views/Admin/Agregar_Docente.cshtml")
+@Html.Partial("~/Areas/Usuarios/Views/Admin/Eliminar_Docente.cshtml")
+@Html.Partial("~/Areas/Usuarios/Views/Admin/Editar_Docente.cshtml")
+@Html.Partial("~/Areas/Docente/Views/Ver.cshtml")
+
 
 @section Scripts {
+
 	<script type="text/javascript" src="~/js/js-redes/Usuario/Docente/Ver.js"></script> <!-- script editar usuarios Docente-->
+	<script type="text/javascript" src="~/js/js-redes/Usuario/Eliminar_Usuario_Docente.js"></script> <!-- script eliminar usuarios Docentes-->
+	<script type="text/javascript" src="~/js/js-redes/Usuario/crear_Usuario_Docente.js"></script> <!-- script Crear usuarios Docente-->
+	<script type="text/javascript" src="~/js/js-redes/Usuario/Editar_Usuario_Docente.js"></script> <!-- script editar usuarios Docente-->
+	<script type="text/javascript" src="~/js/js-redes/Usuario/buscar.js"></script> <!-- script buscar usuarios Docente-->
+	<script type="text/javascript" src="~/js/js-redes/Usuario/Ver_Usuario_Docente.js"></script> <!-- script editar usuarios Docente-->
 }
