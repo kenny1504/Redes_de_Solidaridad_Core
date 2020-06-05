@@ -40,7 +40,7 @@
                                 "</a>"+
                             "</li>"+
                             "<li class='treeview'>"+
-                                "<li><a href=' method=' GET'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
+                                "<li><a href='Grados'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
                         "</li></ul>" +
                       "<li class='treeview'>" +//Menu Grupos
                         "<a href='#'>"+
@@ -56,7 +56,7 @@
                                 "</a>"+
                             "</li>"+
                             "<li class='treeview'>"+
-                                "<li><a href=' method=' GET'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
+                                "<li><a href='Grupos'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
                         "</li></ul>"+          
                       "<li class='treeview'>" +//Menu Oficios
                         "<a href='#'>"+
@@ -72,7 +72,7 @@
                                 "</a>"+
                             "</li>"+
                             "<li class='treeview'>"+
-                                "<li><a href=' method=' GET'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
+                                "<li><a href='Oficios'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
                         "</li></ul>"+
                       "<li class='treeview'>" +//Menu Parentescos
                         "<a href='#'>"+
@@ -88,24 +88,8 @@
                                 "</a>"+
                             "</li>"+
                             "<li class='treeview'>"+
-                                "<li><a href='Parentesco'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
-                        "</li></ul>" +           
-                      "<li class='treeview'>" +//Menu Secciones
-                        "<a href='#'>"+
-                            "<i class='fa fa-circle-o text-aqua'></i> Secciones"+
-                            "<span class='pull-right-container'>"+
-                                "<i class='fa fa-angle-left pull-right'></i>"+
-                            "</span>"+
-                       " </a>"+
-                        "<ul class='treeview-menu'>"+
-                            "<li>"+
-                                "<a href='#' data-toggle='modal' data-target='' id='m'>"+
-                                    "<i class='fa fa-circle-o text-yellow'></i> Agregar"+
-                                "</a>"+
-                            "</li>"+
-                            "<li class='treeview'>"+
-                                "<li><a href=' method=' GET'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
-                        "</li></ul>"+                    
+                                "<li><a href='Parentescos_Vista'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
+                        "</li></ul>" +                   
                       "<li class='treeview'>" +//Menu Turnos
                         "<a href='#'>"+
                             "<i class='fa fa-circle-o text-aqua'></i> Turnos"+
@@ -120,7 +104,8 @@
                                 "</a>"+
                             "</li>"+
                             "<li class='treeview'>"+
-                                "<li><a href=' method=' GET'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
+                                "<li><a href='Turnos'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
+
                         "</li></ul>"+
                     "</ul >" //Fin Menu Administra
                
@@ -128,27 +113,39 @@
     if (text == "2 ") {
         $('#rol_u').text("Docente")//Pone tipo de usuario en sesion
         document.getElementById("menu_u").innerHTML = //inserta item Usuarios
-            "<li class='header' > Menu Navegacion</li >" +
-            "<li id='menu_usuarios' class='treeview'>"+//Menu Notas
+            "<li class='header' > Menu Navegacion</li >"+
+            "<li id='menu_Notas' class='treeview'>"+//Menu Notas
                 "<a href='#'>"+
-                   "<i class='fa fa-user'></i> <span> Notas</span>"+
+                   "<i class='fa fa-user'></i> <span>Notas</span>"+
                     "<span class='pull-right-container'>"+
                         "<i class='fa fa-angle-left pull-right'></i>"+
                     "</span>"+
                 "</a>"+
                 "<ul class='treeview-menu'>"+
-                    "<li><a href='#' ><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"
+                    "<li><a href='' ><i class='fa fa-circle-o text-aqua'></i>Agregar</a></li>"+
+                "</ul>"+
+			"</li >" +
+			 "<li id='menu_Asistencia' class='treeview'>"+//Menu Asistencia
+                "<a href='#'>"+
+                   "<i class='fa fa-user'></i> <span>Asistencia</span>"+
+                    "<span class='pull-right-container'>"+
+                        "<i class='fa fa-angle-left pull-right'></i>"+
+                    "</span>"+
+                "</a>"+
+                "<ul class='treeview-menu'>"+
+                    "<li><a href='#' ><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"+
+                    "<li><a href='#' ><i class='fa fa-circle-o text-aqua'></i> Mostrar</a></li>"+
                 "</ul>"+
             "</li >" +
-                    "<li id='menu_usuarios' class='treeview'>"+//Menu Asistencia
+            "<li id='menu_Estudiantes' class='treeview'>"+//Menu Estudiantes
                 "<a href='#'>"+
-                   "<i class='fa fa-user'></i> <span> Asistencia</span>"+
+                   "<i class='fa fa-user'></i> <span>Estudiantes</span>"+
                     "<span class='pull-right-container'>"+
                         "<i class='fa fa-angle-left pull-right'></i>"+
                     "</span>"+
                 "</a>"+
                 "<ul class='treeview-menu'>"+
-                    "<li><a href='#' ><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"
+                    "<li><a href='#' ><i class='fa fa-circle-o text-aqua'></i> Mostrar</a></li>"+
                 "</ul>"+
             "</li >" 
     }
