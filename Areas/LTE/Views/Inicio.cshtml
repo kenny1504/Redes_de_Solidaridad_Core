@@ -80,12 +80,12 @@
 				<div class="row">
 					<div class="col-md-8">
 						<p class="text-center">
-							<strong>Instituciones registradas</strong>
+							<strong>Matriculas por Grado</strong>
 						</p>
 
 						<div class="chart">
 							<!-- Sales Chart Canvas -->
-							<canvas id="salesChart" style="height: 180px;"></canvas>
+							<canvas id="GradosChart" style="height: 180px;"></canvas>
 						</div>
 						<!-- /.chart-responsive -->
 					</div>
@@ -141,36 +141,36 @@
 				<div class="row">
 					<div class="col-sm-3 col-xs-6">
 						<div class="description-block border-right">
-							<span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
-							<h5 class="description-header">$35,210.43</h5>
-							<span class="description-text">TOTAL REVENUE</span>
+							<span id="PmasculinoE" class="description-percentage text-green">0%</span>
+							<h5 id="masculinoE" class="description-header">0000</h5>
+							<span  class="description-text">ESTUDIANTES MASCULINO</span>
 						</div>
 						<!-- /.description-block -->
 					</div>
 					<!-- /.col -->
 					<div class="col-sm-3 col-xs-6">
 						<div class="description-block border-right">
-							<span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-							<h5 class="description-header">$10,390.90</h5>
-							<span class="description-text">TOTAL COST</span>
+							<span id="PfemeninoE"  class="description-percentage text-yellow"> 0%</span>
+							<h5 id="fememeninoE" class="description-header">0000</h5>
+							<span class="description-text">ESTUDIANTES FEMENINO</span>
 						</div>
 						<!-- /.description-block -->
 					</div>
 					<!-- /.col -->
 					<div class="col-sm-3 col-xs-6">
 						<div class="description-block border-right">
-							<span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
-							<h5 class="description-header">$24,813.53</h5>
-							<span class="description-text">TOTAL PROFIT</span>
+							<span id="PmasculinoT" class="description-percentage text-green">0%</span>
+							<h5 id="masculinoT" class="description-header">0000</h5>
+							<span class="description-text">TUTORES MASCULINO</span>
 						</div>
 						<!-- /.description-block -->
 					</div>
 					<!-- /.col -->
 					<div class="col-sm-3 col-xs-6">
 						<div class="description-block">
-							<span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
-							<h5 class="description-header">1200</h5>
-							<span class="description-text">GOAL COMPLETIONS</span>
+							<span id="PfemeninoT" class="description-percentage text-red"> 0%</span>
+							<h5 id="fememeninoT" class="description-header">0000</h5>
+							<span class="description-text">TUTORES FEMENINO</span>
 						</div>
 						<!-- /.description-block -->
 					</div>
@@ -178,5 +178,5 @@
 @section Scripts {
 
 	<script type="text/javascript" src="~/js/js-redes/Dashboard_Admin.js"></script> <!-- script Cargar Grados-->
-
+	<script type="text/javascript" src="~/lte/bower_components/Chart.js"></script>
 }

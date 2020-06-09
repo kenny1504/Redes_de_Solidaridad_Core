@@ -1156,6 +1156,7 @@
     <None Include="wwwroot\lte\bower_components\bootstrap\nuget\MyGet.ps1" />
     <None Include="wwwroot\lte\bower_components\bootstrap\package.js" />
     <None Include="wwwroot\lte\bower_components\bootstrap\README.md" />
+    <None Include="wwwroot\lte\bower_components\Chart.js" />
     <None Include="wwwroot\lte\bower_components\chart.js\Chart.js" />
     <None Include="wwwroot\lte\bower_components\fastclick\lib\fastclick.js" />
     <None Include="wwwroot\lte\bower_components\fastclick\LICENSE" />

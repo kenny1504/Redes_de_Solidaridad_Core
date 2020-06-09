@@ -58,7 +58,53 @@ namespace Redes_De_Solidaridad.Controllers
 
             return Json(selec);
         }
+        public async Task<IActionResult> Total_Grados()
+        {
+            var selec = (from gr in _context.Gradoacademico
+                         join o in _context.Ofertas on gr.Id equals o.GradoAcademicoId
+                         join m in _context.Matriculas on o.Id equals m.OfertasId
+                         where m.Fecha.Year == DateTime.Today.Year
+                         group gr by new { gr.Grado, gr.Id } into grados
+                         select new
+                         {
+                             Grado = grados.Key.Grado,
+                             Cantidad = grados.Count()
+                         }); //Consulta para recuperar 
 
+            return Json(selec);
+        }
 
+        public async Task<IActionResult> Estudiantes_Sexo()
+        {
+            var selec = (from p in _context.Personas
+                         join e in _context.Estudiantes on p.Id equals e.PersonasId
+                         join m in _context.Matriculas on e.Id equals m.EstudiantesId
+                         where m.Fecha.Year == DateTime.Today.Year
+                         group p by new { p.Sexo} into sexo
+                         select new
+                         {
+                             sexo = sexo.Key.Sexo,
+                             Cantidad = sexo.Count()
+                         }); //Consulta para recuperar 
+
+            return Json(selec);
+        }
+
+        public async Task<IActionResult> Tutores_Sexo()
+        {
+            var selec = (from p in _context.Personas
+                         join t in _context.Tutores on p.Id equals t.PersonasId
+                         join e in _context.Estudiantes on t.Id equals e.TutorId
+                         join m in _context.Matriculas on e.Id equals m.EstudiantesId
+                         where m.Fecha.Year == DateTime.Today.Year
+                         group p by new { p.Sexo} into sexo
+                         select new
+                         {
+                             sexo = sexo.Key.Sexo,
+                             Cantidad = sexo.Count()
+                         }); //Consulta para recuperar 
+
+            return Json(selec);
+        }
     }
 }
