@@ -1,7 +1,182 @@
 ﻿
 @{
-    ViewData["Title"] = "Inicio";
-     Layout = "~/Areas/LTE/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Inicio";
+	Layout = "~/Areas/LTE/Views/Shared/_Layout.cshtml";
 }
 
+	<div class="row">
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-aqua"><i class="ion ion-ios-list-outline"></i></span>
+				<div class="info-box-content">
+					<span class="info-box-text">Instituciones</span>
+					<span id="Total_Institucion" class="info-box-number"></span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+			<!-- /.info-box -->
+		</div>
+		<!-- fix for small devices only -->
+		<div class="clearfix visible-sm-block"></div>
 
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-green"><i class="ion ion-ios-book-outline"></i></span>
+				<div class="info-box-content">
+					<span class="info-box-text">Docentes</span>
+					<span id="Total_Docentes" class="info-box-number"></span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+			<!-- /.info-box -->
+		</div>
+		<!-- /.col -->
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Estudiantes</span>
+					<span id="Total_Estudiantes" class="info-box-number"></span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+			<!-- /.info-box -->
+		</div>
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-blue-active"><i class="ion ion-ios-people-outline"></i></span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Matriculas</span>
+					<span id="Total_Matriculas" class="info-box-number"></span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+			<!-- /.info-box -->
+		</div>
+		<!-- /.col -->
+	</div>
+<!-- /.row -->
+<div class="row">
+	<div class="col-md-12">
+		<div class="box">
+			<div class="box-header with-border">
+				<h3 class="box-title">Detalles</h3>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>
+					<div class="btn-group">
+						<button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-wrench"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<div class="row">
+					<div class="col-md-8">
+						<p class="text-center">
+							<strong>Instituciones registradas</strong>
+						</p>
+
+						<div class="chart">
+							<!-- Sales Chart Canvas -->
+							<canvas id="salesChart" style="height: 180px;"></canvas>
+						</div>
+						<!-- /.chart-responsive -->
+					</div>
+					<!-- /.col -->
+					<div class="col-md-4">
+						<p class="text-center">
+							<strong>Ultimas intituciones/Matriculas</strong>
+						</p>
+
+						<div class="progress-group">
+							<span id="institucion1" class="progress-text"></span>
+							<span id="institucion_Valor1" class="progress-number"><b id="institucion_Valor_1">160</b>/0</span>
+
+							<div class="progress sm">
+								<div  id="institucion_style1" class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+							</div>
+						</div>
+						<!-- /.progress-group -->
+						<div class="progress-group">
+							<span id="institucion2" class="progress-text"></span>
+							<span id="institucion_Valor2" class="progress-number"><b id="institucion_Valor_2">160</b>/0</span>
+
+							<div class="progress sm">
+								<div id="institucion_style2" class="progress-bar progress-bar-red" style="width: 80%"></div>
+							</div>
+						</div>
+						<!-- /.progress-group -->
+						<div class="progress-group">
+							<span id="institucion3" class="progress-text"></span>
+							<span id="institucion_Valor3" class="progress-number"> <b id="institucion_Valor_3">160</b >/0</span>
+
+							<div class="progress sm">
+								<div id="institucion_style3" class="progress-bar progress-bar-green" style="width: 80%"></div>
+							</div>
+						</div>
+						<!-- /.progress-group -->
+						<div class="progress-group">
+							<span id="institucion4" class="progress-text"></span>
+							<span id="institucion_Valor4" class="progress-number"><b id="institucion_Valor_4">0</b>/0</span>
+
+							<div class="progress sm">
+								<div id="institucion_style4" class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+							</div>
+						</div>
+						<!-- /.progress-group -->
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- ./box-body -->
+			<div class="box-footer">
+				<div class="row">
+					<div class="col-sm-3 col-xs-6">
+						<div class="description-block border-right">
+							<span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
+							<h5 class="description-header">$35,210.43</h5>
+							<span class="description-text">TOTAL REVENUE</span>
+						</div>
+						<!-- /.description-block -->
+					</div>
+					<!-- /.col -->
+					<div class="col-sm-3 col-xs-6">
+						<div class="description-block border-right">
+							<span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
+							<h5 class="description-header">$10,390.90</h5>
+							<span class="description-text">TOTAL COST</span>
+						</div>
+						<!-- /.description-block -->
+					</div>
+					<!-- /.col -->
+					<div class="col-sm-3 col-xs-6">
+						<div class="description-block border-right">
+							<span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
+							<h5 class="description-header">$24,813.53</h5>
+							<span class="description-text">TOTAL PROFIT</span>
+						</div>
+						<!-- /.description-block -->
+					</div>
+					<!-- /.col -->
+					<div class="col-sm-3 col-xs-6">
+						<div class="description-block">
+							<span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
+							<h5 class="description-header">1200</h5>
+							<span class="description-text">GOAL COMPLETIONS</span>
+						</div>
+						<!-- /.description-block -->
+					</div>
+				</div>
+@section Scripts {
+
+	<script type="text/javascript" src="~/js/js-redes/Dashboard_Admin.js"></script> <!-- script Cargar Grados-->
+
+}
