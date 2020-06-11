@@ -174,7 +174,7 @@
                 "</a>"+
                 "<ul class='treeview-menu'>"+
                     "<li><a href='#' ><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"+
-                    "<li><a href='#' ><i class='fa fa-circle-o text-aqua'></i> Mostrar</a></li>"+
+                    "<li><a href='Docentes' ><i class='fa fa-circle-o text-aqua'></i> Mostrar</a></li>"+
                 "</ul>"+
             "</li >" +
              "<li id='menu_Estudiantes' class='treeview'>"+//Menu Estudiantes

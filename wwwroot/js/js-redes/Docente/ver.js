@@ -100,4 +100,42 @@ function ver_docente(button){
    }
     });
     
-   };//fin metodo
+};//fin metodo
+
+
+$(document).ready(function () { //Carga los docentes en la tabla Docentes
+    var ide = $("#id_u").text()//Capturamos el id de la Institucion logueada
+
+    $.ajax({  // ajax para para recuperar datos de Usuarios Docentes
+        type: "GET",
+        url: "Docente/Mostrar",
+        data: { id: ide },
+        success: function (data) {
+            data.forEach(element => {
+                if (element.estado == 1)
+                    var estado = "Activo"
+                else
+                    var estado = "Inactivo"
+                var datos = "<tr>" +
+                    "<td>" + element.cedula + "</td>" +
+                    "<td>" + element.nombre + "</td>" +
+                    "<td>" + element.sexo + "</td> " +
+                    "<td>" + element.correo + "</td> " +
+                    "<td>" + element.telefono + "</td>" +
+                    "<td style='padding-top:0.1%; padding-bottom:0.1%;' class='hidden' id=" + element.id + " >" +
+                    "<button class='btn btn-primary'  onclick='ver_docente(this);'  data-id=" + element.id + " id='Ver-docente'>ver</button>" +
+                    "<button class='btn btn-success' onclick='editar_Docente(this);' data-id=" + element.id + "><i class='fa fa-fw fa-pencil'></i></button>" +
+                    "<button class='btn btn-info' onclick='eliminar_oferta(this);' data-id=" + element.id + "><i class='fa fa-fw fa-trash '></i></button>" +
+                    " <i class='fa fa-angle-double-right pull-right' onclick='ver_completo(this);'  data-id=" + element.id + "></i>" +
+                    "</td>" +
+                    "</td>" +
+                    "<td id=" + element.id + "a>" + estado + "<i class='fa fa-angle-double-right pull-right' onclick='ver_completo(this);' data-id=" + element.id + "></i> </td>"
+                "</tr>" 
+                $('#Docentes tbody ').append(datos); //insertamos datos en tabla
+            })
+        }
+    })
+})
+
+
+ 

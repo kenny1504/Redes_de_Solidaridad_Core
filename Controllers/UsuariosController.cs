@@ -31,6 +31,7 @@ namespace Redes_De_Solidaridad
             else //si no existe una sesion retorna inicio de sesion 
                 return View("~/Areas/Inicio de sesion/Views/login.cshtml");
         }
+
         [Route("Usuarios2")]
         public IActionResult Index2() //Envia vista de Mostrar usuarios
         {

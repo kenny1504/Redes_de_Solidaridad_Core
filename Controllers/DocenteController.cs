@@ -35,10 +35,45 @@ namespace Redes_De_Solidaridad.Controllers
                             telefono = item3.Telefono,
                             fecha = item3.FechaNacimiento,
                             estado = item4.Estado
+                        }).ToList();
+
+            return Json(data);
+
+        }
+        public async Task<IActionResult> Mostrar(uint? id)
+        {
+
+            var data = (from item2 in _context.Institucion.ToList() 
+                        join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
+                        join item4 in _context.Docentes.ToList() on item3.Id equals item4.PersonasId
+                        where item2.Id==id
+                        select new
+                        {
+                            id=item4.Id,
+                            cedula = item3.Cedula,
+                            nombre = item3.Nombre +" "+ item3.Apellido1 +" "+ item3.Apellido2,
+                            sexo = item3.Sexo,
+                            correo = item3.Correo,
+                            telefono = item3.Telefono,
+                            estado = item4.Estado
                         });
 
             return Json(data);
 
         }
-  }
+
+
+        [Route("Docentes")]
+        public IActionResult Index() //Envia vista de Mostrar usuarios
+        {
+            var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
+
+            if (usuario != null) //verifica si existe una sesion Valida
+            {
+                return View("~/Areas/Docente/Views/Mostrar.cshtml");
+            }
+            else //si no existe una sesion retorna inicio de sesion 
+                return View("~/Areas/Inicio de sesion/Views/login.cshtml");
+        }
+    }
 }
