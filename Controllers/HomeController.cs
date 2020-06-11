@@ -17,9 +17,20 @@ namespace Redes_De_Solidaridad.Areas.LTE.Controllers
         {
             var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
 
-            if (usuario != null) //verifica si existe una sesion Valida
+
+            string tipo = (string)usuario[4];//conversiona  entero
+
+            if(usuario != null && tipo =="1") //usuario tipo ADMINISTRADOR
             {
-                return View("~/Areas/LTE/Views/Inicio.cshtml");
+                return View("~/Areas/LTE/Views/Inicio_Admin.cshtml");
+            }
+            else if (usuario != null && tipo == "2")//usuario tipo DOCENTE
+            { 
+                return View("~/Areas/LTE/Views/Inicio_Docente.cshtml");
+            }
+            else if (usuario != null && tipo == "3") //Usuario tipo INSTITUCION
+            {
+                return View("~/Areas/LTE/Views/Inicio_Institucion.cshtml");
             }
             else //si no existe una sesion retorna inicio de sesion 
                 return View("~/Areas/Inicio de sesion/Views/login.cshtml");
