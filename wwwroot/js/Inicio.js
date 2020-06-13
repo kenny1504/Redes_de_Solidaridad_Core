@@ -16,7 +16,19 @@
                 "<ul class='treeview-menu'>"+
                     "<li><a href='Usuarios' ><i class='fa fa-circle-o text-aqua'></i> Mostrar</a></li>"+
                 "</ul>"+
-            "</li >" +
+                "</li >" +
+                     "<li id='menu_Docentes' class='treeview'>"+//Menu Docentes
+                        "<a href='#'>"+
+                           "<i class='fa fa-user'></i> <span>Docentes</span>"+
+                            "<span class='pull-right-container'>"+
+                                "<i class='fa fa-angle-left pull-right'></i>"+
+                            "</span>"+
+                        "</a>"+
+                        "<ul class='treeview-menu'>"+
+                            "<li><a href='#' ><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"+
+                            "<li><a href='DocentesADMIN' ><i class='fa fa-circle-o text-aqua'></i> Mostrar</a></li>"+
+                        "</ul>"+
+                    "</li >" +
             "<li class='treeview ' id='menu_Administra'>"+//Menu Administra
                 "<a href='#'>"+
                     "<i class='fa fa-cogs'></i> <span>Administra</span>"+

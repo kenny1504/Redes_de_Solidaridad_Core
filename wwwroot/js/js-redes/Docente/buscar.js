@@ -14,7 +14,7 @@ else
 });
 
 function filtrar(cadena) { //busca coincidencias 
-$("#docentes tbody tr").each(function () { //recorre todas las filas de las tablas
+    $("#Docentes tbody tr").each(function () { //recorre todas las filas de las tablas
     //$(this).removeClass('muestra'); //remueve la clase mostrar
     contenido_fila = $(this).find('td:eq(0)').text(); //verifica si el contenido de la celdas en la columna 0
     contenido_fila2 = $(this).find('td:eq(1)').text();
@@ -28,7 +28,7 @@ $("#docentes tbody tr").each(function () { //recorre todas las filas de las tabl
 //Este metodo se invoca cuando el campo de búsqueda está vacío, o quiero mostrar
 //todos los campos
 function mostrarfilas() {
-$("#docentes tbody tr").each(function () {
+    $("#Docentes tbody tr").each(function () {
     $(this).removeClass('oculta');
     //$(this).addClass('muestra');
 })
