@@ -90,6 +90,9 @@ namespace Redes_De_Solidaridad.Controllers
                     where item4.Id == dato.IdInstitucion && item5.Id == dato.IdGrado && item7.Id==dato.IdGrupo && item1.Fecha.Year == DateTime.Today.Year //valida que es año sea igual al año actual
                     select new ListaEstudiantesWS
                     {
+                        Idestudiante=item2.Id,
+                        idGrupo=item7.Id,
+                        Idgrado=item5.Id,
                         Nombre= item3.Nombre+" "+item3.Apellido1 +" "+item3.Apellido2,
                         Sexo=item3.Sexo
 

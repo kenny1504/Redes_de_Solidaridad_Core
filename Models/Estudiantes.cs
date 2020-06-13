@@ -32,6 +32,10 @@ namespace Redes_De_Solidaridad.Models
     }
     public class ListaEstudiantesWS
     {
+
+        public int Idestudiante { get; set; }
+        public int Idgrado { get; set; }
+        public int idGrupo { get; set; }
         public string Nombre { get; set; }
         public string Sexo { get; set; }
 
