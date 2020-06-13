@@ -38,6 +38,7 @@ namespace Redes_De_Solidaridad.Controllers
                         group item5 by new { item5.Id, item5.Grado } into grados
                         select new Estudiantes_grado
                         {
+                            Idgrado=grados.Key.Id,
                             Grado=grados.Key.Grado,
                             Cantidad=grados.Count()
 
@@ -65,6 +66,8 @@ namespace Redes_De_Solidaridad.Controllers
                         group item7 by new { item7.Id, item7.Grupo } into grupo
                         select new Gruposws
                         {
+
+                            Idgrupo= grupo.Key.Id,
                             Grupo = grupo.Key.Grupo,
                             Cantidad = grupo.Count()
 

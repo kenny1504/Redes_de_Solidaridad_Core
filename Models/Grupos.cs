@@ -10,6 +10,7 @@ namespace Redes_De_Solidaridad.Models
     }
     public class Gruposws // clase que Retorna Datos
     {
+        public int Idgrupo { get; set; }
         public int Cantidad { get; set; }
         public string Grupo { get; set; }
     }

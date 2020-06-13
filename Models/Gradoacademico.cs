@@ -12,5 +12,6 @@ namespace Redes_De_Solidaridad.Models
     {
         public int Grado { get; set; }
         public int Cantidad { get; set; }
+        public int Idgrado { get; set; }
     }
 }
