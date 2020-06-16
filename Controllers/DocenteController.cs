@@ -86,23 +86,17 @@ namespace Redes_De_Solidaridad.Controllers
         [Route("Docentes")]
         public IActionResult Index() //Envia vista de Mostrar usuarios
         {
+          
             var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
+            string tipo = (string)usuario[4];//conversiona  entero
 
-            if (usuario != null) //verifica si existe una sesion Valida
-            {
-                return View("~/Areas/Docente/Views/Mostrar.cshtml");
-            }
-            else //si no existe una sesion retorna inicio de sesion 
-                return View("~/Areas/Inicio de sesion/Views/login.cshtml");
-        }
-        [Route("DocentesADMIN")]
-        public IActionResult IndexADMIN() //Envia vista de Mostrar usuarios
-        {
-            var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
-
-            if (usuario != null) //verifica si existe una sesion Valida
+            if (usuario != null && tipo == "1") //usuario tipo ADMINISTRADOR
             {
                 return View("~/Areas/Docente/Views/Mostrar_Admin.cshtml");
+            }
+            else if (usuario != null && tipo == "3") //Usuario tipo INSTITUCION
+            {
+                return View("~/Areas/Docente/Views/Mostrar.cshtml");
             }
             else //si no existe una sesion retorna inicio de sesion 
                 return View("~/Areas/Inicio de sesion/Views/login.cshtml");

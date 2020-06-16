@@ -1,5 +1,4 @@
 ﻿<!-- Mostrar Estudiantes-->
-
 @{
     ViewData["Title"] = "Estudiantes";
     Layout = "~/Areas/LTE/Views/Shared/_Layout.cshtml";
@@ -92,7 +91,7 @@
     <div class="box-header">
         <h2 class="box-title text-light-blue">Estudiantes</h2>
         <div class="pull-right box-tools">
-            <a href="#" onclick="ingresar_estudiante();" class="btn btn-warning btn-sm pull-right b1">Agregar Estudiante</a>
+            <a href="#" onclick="" class="btn btn-warning btn-sm pull-right b1">Agregar Estudiante</a>
             <div class="input-group input-group-sm hidden-xs" style="width: 350px;">
                 <input type="text" id="buscarE" name="table_search" class="form-control " placeholder="Buscar Nombre o codigo">
                 <div class="input-group-btn">
@@ -129,7 +128,7 @@
     <div class="box-header">
         <h2 class="box-title text-light-blue">Tutores</h2>
         <div class="pull-right box-tools">
-            <a href="#" onclick="ingresar_tutor();" class="btn btn-warning btn-sm pull-right b1">Agregar Tutor</a>
+            <a href="#" onclick="" class="btn btn-warning btn-sm pull-right b1">Agregar Tutor</a>
             <div class="input-group input-group-sm hidden-xs" style="width: 350px;">
                 <input type="text" id="buscarT" name="table_search" class="form-control " placeholder="Buscar Nombre o cedula">
                 <div class="input-group-btn">
@@ -152,48 +151,19 @@
                     <th>Telefono</th>
                 </tr>
             </thead>
-            <tbody>
-                <!--Cuerpo de la tabla -->
-                <?php foreach ($Tutores ->getResultArray() as $Tutor): ?><!--ciclo que recorre el arreglo retonrnado del controlador-->
-                <tr>
-                    <!--abre fila-->
-                    <td><?php echo $Tutor['Cedula'];?></td>  <!--agrega dato a la columna-->
-                    <td><?php echo $Tutor['Nombre'];?></td>  <!--agrega dato a la columna-->
-                    <td><?php echo $Tutor['Sexo'];?></td>  <!--agrega dato a la columna-->
-                    <td><?php echo $Tutor['Correo'];?></td>  <!--agrega dato a la columna-->
-                    <td><?php echo $Tutor['Oficio'];?>  <!--inicio columna que contienen botones-->
-                    <td style="padding-top:0.1%; padding-bottom:0.1%;" class="hidden" id="<?php echo $Tutor['id']; ?>T">
-                        <button class="btn btn-primary " onclick="ver_tutor(this);" data-id="<?php echo $Tutor['id']; ?>" id="Ver-tutor">ver</button>
-                        <button class="btn btn-success " onclick="editar_Tutor(this);" data-id="<?php echo $Tutor['id']; ?>"><i class=" fa fa-fw fa-pencil"></i></button>
-                        <button class="btn btn-info" onclick="eliminar_tutor(this);" data-id="<?php echo $Tutor['id']; ?>"><i class="fa fa-fw fa-trash "></i></button>
-                        <i class="fa fa-angle-double-right pull-right " onclick="mostrarT(this);" data-id="<?php echo $Tutor['id']; ?>"></i>
-                    </td>
-                    </td>  <!--fin columna botones-->
-                    <td id="<?php echo $Tutor['id']; ?>T2"><?php echo $Tutor['Telefono'];?> <i class="fa fa-angle-double-right pull-right" onclick="mostrarT(this);" data-id="<?php echo $Tutor['id']; ?>"></i> </td>  <!--agrega dato a la columna-->
-
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
+			<tbody>
+				<!--Datos tutor -->
+			</tbody>
         </table>
     </div>
     <div class="panel box box-primary"></div><!-- /.box-body -->
 
 </div>
 
-<!--Modales-->
-@Html.Partial("~/Areas/Estudiante/Views/Editar.cshtml");
-@Html.Partial("~/Areas/Estudiante/Views/Eliminar.cshtml");
-@Html.Partial("~/Areas/Estudiante/Views/Ver.cshtml");
 
 
 @section Scripts {
-    <script type="text/javascript" src="~/js/js-redes/Estudiante/buscar.js"></script> <!-- script Buscar un estudiante-->
-    <script type="text/javascript" src="~/js/js-redes/Estudiante/ver.js"></script> <!-- script ver un estudiante-->
-    <script type="text/javascript" src="~/js/js-redes/Estudiante/crear.js"></script> <!-- script crear un nuevo estudiante-->
-    <script type="text/javascript" src="js/js-redes/Estudiante/eliminar.js"></script> <!-- script eliminar un nuevo estudiante-->
-    <script type="text/javascript" src="js/js-redes/Estudiante/editar.js"></script> <!-- script editar un nuevo estudiante-->
-    <script type="text/javascript" src="js/js-redes/Estudiante/select2.full.min.js"></script> <!-- Plugins para buscar en combobox-->
-    <script src="~/js/js-redes/Estudiante/Paginacion.js"></script><!-- script para paginar datos-->
+    
 }
 
 

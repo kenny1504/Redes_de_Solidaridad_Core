@@ -40,8 +40,8 @@ namespace Redes_De_Solidaridad.Models
         public string Nombre { get; set; }
         public int Id { get; set; }
         public int tipo { get; set; }
-        public String Cedula { get; set; }
-        public String Institucion { get; set; }
+        public string Cedula { get; set; }
+        public string Institucion { get; set; }
     }
 
     public class Busqueda//Recive el id de la isntitucion

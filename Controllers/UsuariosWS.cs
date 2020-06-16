@@ -76,6 +76,79 @@ namespace Redes_De_Solidaridad.Controllers
 
             return data;
         }
+        [HttpPost("usuarios/AgregarDocente")] //metodo para Agregar un usuario docente
+        public async Task<usuariosWS> Registro_Usuario_Docente(Usuarios docent)
+        {
+            usuariosWS r;
+            userview data = (from item in _context.Personas //verifica si la cedula ingresada pertenece a un docente de ka institucion
+                        join item2 in _context.Docentes on item.Id equals item2.PersonasId
+                        join item3 in _context.Institucion on item.IdInstitucion equals item3.Id
+                        where item.Cedula == docent.Cedula && item.IdInstitucion == docent.IdInstitucion
+                        select new userview
+                        {
+                            username = item.Nombre + " " + item.Apellido1 + item.Apellido2,
+                            password = item3.Nombre
+
+                        }).FirstOrDefault();
+
+            if (data!=null)
+            {
+                var user = _context.Usuarios.Where(x => x.Usuario == docent.Usuario && x.IdInstitucion == docent.IdInstitucion).FirstOrDefault(); //verifica si el nombre de usuario existe en la institucion
+
+                if (user == null)
+                {     //agrega asignaturas
+                    Usuarios usuarios = new Usuarios();
+
+                    usuarios.Cedula = docent.Cedula;
+                    usuarios.Usuario = docent.Usuario;
+                    usuarios.Contraseña = docent.Contraseña;
+                    usuarios.IdInstitucion = docent.IdInstitucion;
+                    _context.Add(usuarios);
+                    await _context.SaveChangesAsync();
+
+                    r = new usuariosWS
+                    {
+                        Id = usuarios.Id,
+                        Nombre = data.username,
+                        NombreDeUsuario = usuarios.Usuario,
+                        tipo = 2,
+                        Cedula = usuarios.Cedula,
+                        Institucion = data.password
+                    };
+                    return r;
+                }
+                else
+                {
+                    r =new usuariosWS 
+                    {
+                         Id = -1,
+                        Nombre = "Ya existe",
+                        NombreDeUsuario = "Ya existe",
+                        tipo = -1,
+                        Cedula = "Ya existe",
+                        Institucion = "Ya existe"
+                    };
+                    return r;// error el usuario que ingreso ya existe en esta institucion
+                }
+                   
+
+            }
+            else
+            {
+                r = new usuariosWS
+                {
+                    Id = 0,
+                    Nombre = "No pertenece",
+                    NombreDeUsuario = "No pertenece",
+                    tipo = 0,
+                    Cedula = "No pertenece",
+                    Institucion = "No pertenece"
+                };
+                return r; //si retorna 0 es porque el numero de cedula no pertene a un docente de la institucion
+            }
+               
+        }
+
 
 
     }

@@ -8,15 +8,12 @@
 
 <div class="box">
 	<div class="box-header">
-		<h2 class="box-title text-light-blue">Usarios</h2>
+		<h2 class="box-title text-light-blue">Usarios Docentes</h2>
 
 		<div class="box-tools pull-right" id="filtros-Usarios">
 			<div class="form-group">
-				<div class=" col-lg-2">
-					<a href="#" data-toggle="modal" data-target="#ingresar_Institucion" class="btn btn-warning btn-sm" id="m2">Agregar Institucion</a>
-				</div>
-				<div class=" col-lg-2">
-					<a href="#" onclick="ingresar_Usuario_D();" class="btn btn-warning btn-sm" id="m2">Agregar Docente</a>
+				<div class=" col-lg-3">
+					<a href="#" onclick="ingresar_Usuario_D()" class="btn btn-warning btn-sm" id="m2">Agregar Docente</a>
 				</div>
 				<div class=" col-lg-2">
 					<div class="input-group input-group-sm hidden-xs" style="width: 350px;">
@@ -26,14 +23,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-3 pull-right">
-					<select aria-required="true" required style="width: 70%; padding-top: 2.5%; " name="tipo" id="tipo">
-						<option value="" disabled selected>Tipo</option>
-						<option value="2">Docente</option>
-						<option value="3">Institucion</option>
-					</select>
-					<a type="submit" style="width: 30%; padding-top: 1.4%; " onclick="Mostrar_Usuarios();" class="btn btn-primary btn-sm pull-right" id="Mostrar "><i class="fa fa-search"></i></a>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -41,6 +30,19 @@
 	<div class="box-body panel box box-primary">
 		<form>
 			<table id="Usuarios" class="table table-bordered table-striped">
+				<thead>
+					<!--Header de la tabla -->
+					<tr>
+						<th>Usuario</th>
+						<th>Contraseña</th>
+						<th>Nombre completo</th>
+						<th>Institucion</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--Cuerpo de la tabla -->
+
+				</tbody>
 			</table>
 		</form>
 	</div>
@@ -125,22 +127,18 @@
 </style>
 
 <!--Modales-->
-@Html.Partial("~/Areas/Usuarios/Views/Admin/Agregar_Institucion.cshtml")
-@Html.Partial("~/Areas/Usuarios/Views/Admin/Eliminar.cshtml")
-@Html.Partial("~/Areas/Usuarios/Views/Admin/Editar_Institucion.cshtml")
-@Html.Partial("~/Areas/Usuarios/Views/Admin/Agregar_Docente.cshtml")
+@Html.Partial("~/Areas/Usuarios/Views/Docente/Agregar.cshtml")
 @Html.Partial("~/Areas/Usuarios/Views/Admin/Eliminar_Docente.cshtml")
-@Html.Partial("~/Areas/Usuarios/Views/Admin/Editar_Docente.cshtml")
+@Html.Partial("~/Areas/Usuarios/Views/Docente/Editar.cshtml")
 @Html.Partial("~/Areas/Docente/Views/Ver.cshtml")
 
+
 @section Scripts {
-	<script type="text/javascript" src="~/js/js-redes/Usuario/ver.js"></script> <!-- script mostrar usuarios-->
-	<script type="text/javascript" src="~/js/js-redes/Usuario/crear.js"></script> <!-- script Crear usuarios-->
+
+	<script type="text/javascript" src="~/js/js-redes/Usuario/Docente/Ver.js"></script> <!-- script editar usuarios Docente-->
 	<script type="text/javascript" src="~/js/js-redes/Usuario/Eliminar_Usuario_Docente.js"></script> <!-- script eliminar usuarios Docentes-->
-	<script type="text/javascript" src="~/js/js-redes/Usuario/eliminar.js"></script> <!-- script eliminar usuarios-->
-	<script type="text/javascript" src="~/js/js-redes/Usuario/editar.js"></script> <!-- script editar usuarios-->
-	<script type="text/javascript" src="~/js/js-redes/Usuario/crear_Usuario_Docente.js"></script> <!-- script Crear usuarios Docente-->
-	<script type="text/javascript" src="~/js/js-redes/Usuario/Editar_Usuario_Docente.js"></script> <!-- script editar usuarios Docente-->
+	<script type="text/javascript" src="~/js/js-redes/Usuario/Docente/Agregar.js"></script> <!-- script Crear usuarios Docente-->
+	<script type="text/javascript" src="~/js/js-redes/Usuario/Docente/Editar.js"></script> <!-- script editar usuarios Docente-->
 	<script type="text/javascript" src="~/js/js-redes/Usuario/buscar.js"></script> <!-- script buscar usuarios Docente-->
 	<script type="text/javascript" src="~/js/js-redes/Usuario/Ver_Usuario_Docente.js"></script> <!-- script editar usuarios Docente-->
 }

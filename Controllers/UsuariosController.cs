@@ -344,11 +344,11 @@ namespace Redes_De_Solidaridad
                             };
                     return Json(r);
                  }
-                 else
+                else 
                     return Json(-1);
 
             }
-            else
+            else// error el usuario que ingreso ya existe en esta institucion
                 return Json(0);
         }
 

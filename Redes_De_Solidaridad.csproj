@@ -2115,6 +2115,7 @@
 
 
   <ItemGroup>
+    <Folder Include="Areas\Estudiante\Views\Institucion\" />
     <Folder Include="Areas\Seccion\Views\" />
   </ItemGroup>
 
