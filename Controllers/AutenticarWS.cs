@@ -60,7 +60,7 @@ namespace Redes_De_Solidaridad.Controllers
                                 Institucion = i.Nombre,
                                 Id_Institucion=u.IdInstitucion
                             }).ToList();
-                if (data.Count == 0) // si encuntra un usuario Guarda el Usuario en cache  ...
+                if (data.Count == 0) //
                 {
                     data= (from u in _context.UsuariosInstituciones
                            join i in _context.Institucion on u.IdInstitucion equals i.Id

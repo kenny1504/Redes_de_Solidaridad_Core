@@ -72,7 +72,7 @@ namespace Redes_De_Solidaridad
             app.UseSession();
 
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(endpoints => //Ruta inicial 
             {
                 endpoints.MapControllerRoute(
                     name: "default",

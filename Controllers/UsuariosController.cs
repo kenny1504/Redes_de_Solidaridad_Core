@@ -23,26 +23,25 @@ namespace Redes_De_Solidaridad
         public IActionResult Index() //Envia vista de Mostrar usuarios
         {
             var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
+            string tipo = "0";
+            if (usuario != null)
+            {
+                tipo = (string)usuario[4];//conversiona a string
+            }
 
-            if (usuario != null) //verifica si existe una sesion Valida
+
+
+            if (usuario != null && tipo == "1") //usuario tipo ADMINISTRADOR
             {
                 return View("~/Areas/Usuarios/Views/Admin/Mostrar.cshtml");
             }
-            else //si no existe una sesion retorna inicio de sesion 
-                return View("~/Areas/Inicio de sesion/Views/login.cshtml");
-        }
-
-        [Route("Usuarios2")]
-        public IActionResult Index2() //Envia vista de Mostrar usuarios
-        {
-            var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
-
-            if (usuario != null) //verifica si existe una sesion Valida
+            else if (usuario != null && tipo == "3")//usuario tipo DOCENTE
             {
                 return View("~/Areas/Usuarios/Views/Docente/Mostrar.cshtml");
             }
             else //si no existe una sesion retorna inicio de sesion 
                 return View("~/Areas/Inicio de sesion/Views/login.cshtml");
+
         }
 
         //metodo para Cargar todas las Docentes

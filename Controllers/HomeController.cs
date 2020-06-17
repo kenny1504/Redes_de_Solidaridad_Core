@@ -12,15 +12,18 @@ namespace Redes_De_Solidaridad.Areas.LTE.Controllers
     {
 
 
-         [Route ("Inicio")]
+        [Route ("Inicio")] //Ruta a llamar
         public IActionResult Index()
         {
+            
             var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
+            string tipo="0";
+            if (usuario != null)
+            {
+              tipo = (string)usuario[4];//conversiona  entero
+            }
 
-
-            string tipo = (string)usuario[4];//conversiona  entero
-
-            if(usuario != null && tipo =="1") //usuario tipo ADMINISTRADOR
+            if(usuario != null && tipo == "1") //usuario tipo ADMINISTRADOR
             {
                 return View("~/Areas/LTE/Views/Inicio_Admin.cshtml");
             }

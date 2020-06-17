@@ -3,6 +3,7 @@ var labes = [];
 var datas = [];
 
 $(document).ready(function () {
+
     var TotalMatriculas; var ide = $("#id_u").text()
 
     $.ajax({  // ajax para para recuperar datos de Usuarios Docentes
@@ -13,7 +14,7 @@ $(document).ready(function () {
             $('#Total_Docentes').text(data);
         }
     })
-    $.ajax({  // ajax para para recuperar datos de instituciones Estudiantes
+    $.ajax({  // ajax para para recuperar datos de instituciones, Estudiantes
         type: "GET",
         url: "Dashboard/TotalEstudiantes_Institucion",
         data: { id: ide},
@@ -21,7 +22,7 @@ $(document).ready(function () {
             $('#Total_Estudiantes').text(data);
         }
     })
-    $.ajax({  // ajax para para recuperar datos de instituciones Estudiantes
+    $.ajax({  // ajax para para recuperar datos de instituciones Matriculas Estudiantes
         type: "GET",
         url: "Dashboard/TotalMatriculas_Institucion",
         data: { id: ide },
@@ -128,7 +129,7 @@ $(document).ready(function () {
         data: { id: ide },
         success: function (data) {
             data.forEach(element => {
-                labes.push("Grado " + element.grado.toString());
+                labes.push(element.grado.toString() + "Grado");
                 datas.push(element.cantidad);
             })
 
@@ -155,7 +156,7 @@ $(document).ready(function () {
 
     var PfemeninoE, PmasculinoE, femeninoE, masculinoE, PfemeninoT, PmasculinoT, femeninoT, MasculinoT;
 
-    $.ajax({  // ajax para para recuperar datos de instituciones Estudiantes
+    $.ajax({  // ajax para para recuperar Totales de porcentaje estudiantes
         type: "GET",
         url: "Dashboard/Estudiantes_Sexo_Institucion",
         data: { id: ide },
@@ -178,7 +179,7 @@ $(document).ready(function () {
         }
     })
 
-    $.ajax({  // ajax para para recuperar datos de instituciones Estudiantes
+    $.ajax({  // ajax para para recuperar Totales de porcentaje tutores
         type: "GET",
         url: "Dashboard/Tutores_Sexo_Institucion",
         data: { id: ide },
