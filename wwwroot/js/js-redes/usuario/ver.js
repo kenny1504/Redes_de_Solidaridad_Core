@@ -44,6 +44,8 @@ function Mostrar_Usuarios() {
                     +"</tbody>";
                     $('#Usuarios').append(html); //insertamos datos en tabla
                 })
+
+              
             }
         })
     }
