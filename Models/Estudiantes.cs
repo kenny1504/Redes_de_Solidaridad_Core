@@ -34,6 +34,7 @@ namespace Redes_De_Solidaridad.Models
     {
 
         public int Idestudiante { get; set; }
+        public int IdMatricula { get; set; }
         public int Idgrado { get; set; }
         public int idGrupo { get; set; }
         public string Nombre { get; set; }

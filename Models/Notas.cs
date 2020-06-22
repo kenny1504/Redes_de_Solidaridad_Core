@@ -24,4 +24,12 @@ namespace Redes_De_Solidaridad.Models
         public int IdAsignatura { get; set; }
         public int IdDetalleNota { get; set; }
     }
+
+    public class AgregarNota
+    {
+        public int IdMatricula { get; set; }
+        public int IdDetalle{ get; set; }
+        public int IdAsigntura { get; set; }
+        public int Nota { get; set; }
+    }
 }

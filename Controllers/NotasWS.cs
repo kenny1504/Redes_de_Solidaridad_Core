@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,7 @@ namespace Redes_De_Solidaridad.Controllers
                     join item5 in _context.Asignaturas.ToList() on item4.AsignaturasId equals item5.Id
                     join item7 in _context.Matriculas.ToList() on item2.Id equals item7.OfertasId
                     where item6.Id == dato.IdInstitucion && item3.Id == dato.IdGrado && item2.GruposId == dato.IdGrupo && item7.Fecha.Year == DateTime.Today.Year //valida que es año sea igual al año actual
-                    group item5 by new { item5.Id,item5.Nombre} into Asignaturas
+                    group item5 by new { item5.Id, item5.Nombre } into Asignaturas
                     select new Asignaturas
                     {
                         Id = Asignaturas.Key.Id,
@@ -60,25 +61,49 @@ namespace Redes_De_Solidaridad.Controllers
         {
             var data = new List<Notas_Estudiante>();
 
-            data = (from item in _context.Matriculas 
+            data = (from item in _context.Matriculas
                     join item1 in _context.Detallematricula on item.Id equals item1.MatriculasId
-                    join item2 in _context.Notas on  item1.Id equals item2.DetalleMatriculaId
+                    join item2 in _context.Notas on item1.Id equals item2.DetalleMatriculaId
                     join item3 in _context.Detallenota on item2.DetalleNotaId equals item3.Id
                     join item4 in _context.Ofertas on item.OfertasId equals item4.Id
                     join item5 in _context.Estudiantes on item.EstudiantesId equals item5.Id
                     join item6 in _context.Personas on item5.PersonasId equals item6.Id
-                    where item4.GradoAcademicoId==dato.IdGrado && item4.GruposId==dato.IdGrupo && item6.IdInstitucion==dato.IdInstitucion &&
-                    item1.AsignaturasId==dato.IdAsignatura && item3.Id==dato.IdDetalleNota && item.Fecha.Year == DateTime.Today.Year //valida que es año sea igual al año actual
+                    where item4.GradoAcademicoId == dato.IdGrado && item4.GruposId == dato.IdGrupo && item6.IdInstitucion == dato.IdInstitucion &&
+                    item1.AsignaturasId == dato.IdAsignatura && item3.Id == dato.IdDetalleNota && item.Fecha.Year == DateTime.Today.Year //valida que es año sea igual al año actual
                     select new Notas_Estudiante
                     {
-                        Id=item5.Id,
-                        Nombre=item6.Nombre+" "+item6.Apellido1+" "+ item6.Apellido2,
-                        Nota=item2.Nota
+                        Id = item5.Id,
+                        Nombre = item6.Nombre + " " + item6.Apellido1 + " " + item6.Apellido2,
+                        Nota = item2.Nota
 
                     }).ToList();
 
             return data;
 
+        }
+        [HttpPost("AgregarNotas_Estudiantes")] //Metodo Para Agregar Nota
+        public async Task<ActionResult<int>> AgregarNota(AgregarNota dato)
+        {
+            //Busca el detalle Matricula del estudiante matriculado
+            var DetalleMatricula = _context.Detallematricula.Where(x => x.AsignaturasId == dato.IdAsigntura && x.MatriculasId == dato.IdMatricula).FirstOrDefault();
+
+            //Verifica si existe ya una Nota en esa Matricula
+            var Existe = _context.Notas.Where(X => X.DetalleMatriculaId == DetalleMatricula.Id).FirstOrDefault();
+
+            if (Existe == null)
+            {   //Agregar Nota
+
+                Notas Nota = new Notas();
+
+                Nota.Nota = dato.Nota;
+                Nota.DetalleNotaId = dato.IdDetalle;
+                Nota.DetalleMatriculaId = DetalleMatricula.Id;
+                _context.Add(Nota);
+                await _context.SaveChangesAsync();
+                return 1;
+            }
+            else //si Retorna -1 es porque ya existe una Nota
+                return -1;
         }
     }
 }
