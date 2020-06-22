@@ -163,7 +163,7 @@ namespace Redes_De_Solidaridad.Controllers
             return _context.Tutores.Any(e => e.Id == id);
         }
 
-        public async Task<ActionResult> Ver (int id)// metodo ajax para recuperar datos de estudiantes
+        public async Task<ActionResult> Ver (int id)// metodo ajax para recuperar datos del tutor
         {
             var data =  (from item in  _context.Tutores
                         join item2 in _context.Personas on item.PersonasId equals item2.Id
@@ -187,7 +187,7 @@ namespace Redes_De_Solidaridad.Controllers
             return Json(data);
         }
 
-        public async Task<ActionResult> Datos()// metodo ajax para recuperar datos de estudiantes
+        public async Task<ActionResult> Datos()// metodo ajax para recuperar datos de tutores (ADMINISTRADOR)
         {
             var data = (from item in _context.Tutores.ToList()
                         join item2 in _context.Personas.ToList() on item.PersonasId equals item2.Id
@@ -197,6 +197,25 @@ namespace Redes_De_Solidaridad.Controllers
                             Idtutor = item.Id,
                             Cedulat = item2.Cedula,
                             Nombret = item2.Nombre+" "+ item2.Apellido1+" "+ item2.Apellido2,
+                            Sexot = item2.Sexo,
+                            Oficiot = item3.Nombre,
+                            Correot = item2.Correo,
+                            telefonot = item2.Telefono,
+                        });
+
+            return Json(data);
+        }
+        public async Task<ActionResult> Datos2(int id)// metodo ajax para recuperar datos de tutores (Institucion)
+        {
+            var data = (from item in _context.Tutores.ToList()
+                        join item2 in _context.Personas.ToList() on item.PersonasId equals item2.Id
+                        join item3 in _context.Oficios.ToList() on item.OficiosId equals item3.Id
+                        where item2.IdInstitucion==id
+                        select new
+                        {
+                            Idtutor = item.Id,
+                            Cedulat = item2.Cedula,
+                            Nombret = item2.Nombre + " " + item2.Apellido1 + " " + item2.Apellido2,
                             Sexot = item2.Sexo,
                             Oficiot = item3.Nombre,
                             Correot = item2.Correo,

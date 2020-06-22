@@ -27,7 +27,7 @@ namespace Redes_De_Solidaridad.Controllers
             }
             else if (usuario != null && tipo == "3") //Usuario tipo INSTITUCION
             {
-                return View("~/Areas/LTE/Views/Inicio_Institucion.cshtml");
+                return View("~/Areas/Estudiante/Views/Institucion/Mostrar.cshtml");
             }
             else //si no existe una sesion retorna inicio de sesion 
                 return View("~/Areas/Inicio de sesion/Views/login.cshtml");
@@ -61,7 +61,7 @@ namespace Redes_De_Solidaridad.Controllers
             return Json(data);
         }
 
-        public async Task<ActionResult> Datos()// metodo ajax para recuperar datos de estudiantes
+        public async Task<ActionResult> Datos()// metodo ajax para recuperar datos de estudiantes (ADMINISTRADOR)
         {
             var data = (from item in db.Estudiantes.ToList()
                     join item2 in db.Personas.ToList() on item.PersonasId equals item2.Id
@@ -78,6 +78,29 @@ namespace Redes_De_Solidaridad.Controllers
                         telefono_tutor=item4.Telefono
 
                     });
+
+            return Json(data);
+        }
+
+        public async Task<ActionResult> Datos2(int id)// metodo ajax para recuperar datos de estudiantes (Institucion)
+        {
+            var data = (from item in db.Estudiantes.ToList()
+                        join item2 in db.Personas.ToList() on item.PersonasId equals item2.Id
+                        join item3 in db.Tutores.ToList() on item.TutorId equals item3.Id
+                        join item4 in db.Personas.ToList() on item3.PersonasId equals item4.Id
+                        where item2.IdInstitucion==id
+                        select new
+                        {
+                            IdEstudiante = item.Id,
+                            IdPersona = item2.Id,
+                            Codigo = item.CodigoEstudiante,
+                            Nombre = item2.Nombre + " " + item2.Apellido1 + " " + item2.Apellido2,
+                            sexo = item2.Sexo,
+                            direccion = item2.Direccion,
+                            tutor = item4.Nombre + " " + item4.Apellido1 + " " + item4.Apellido2,
+                            telefono_tutor = item4.Telefono
+
+                        });
 
             return Json(data);
         }

@@ -60,22 +60,20 @@ namespace Redes_De_Solidaridad.Controllers
         {
             var data = new List<Notas_Estudiante>();
 
-            data = (from item in _context.Institucion.ToList()
-                    join item1 in _context.Personas.ToList() on item.Id equals item1.IdInstitucion
-                    join item2 in _context.Estudiantes.ToList() on item1.Id equals item2.PersonasId
-                    join item3 in _context.Matriculas.ToList() on item2.Id equals item3.EstudiantesId
-                    join item4 in _context.Ofertas.ToList() on item3.OfertasId equals item4.Id
-                    join item5 in _context.Detallematricula.ToList() on item4.Id equals item5.MatriculasId
-                    join item6 in _context.Asignaturas.ToList() on item5.AsignaturasId equals item6.Id
-                    join item7 in _context.Notas.ToList() on item5.Id equals item7.DetalleMatriculaId
-                    join item8 in _context.Detallenota.ToList() on item7.DetalleNotaId equals item8.Id
-                    where item4.GradoAcademicoId==dato.IdGrado && item4.GruposId==dato.IdGrupo && item1.IdInstitucion==dato.IdInstitucion &&
-                    item6.Id==dato.IdAsignatura && item8.Id==dato.IdDetalleNota && item3.Fecha.Year == DateTime.Today.Year //valida que es año sea igual al año actual
+            data = (from item in _context.Matriculas 
+                    join item1 in _context.Detallematricula on item.Id equals item1.MatriculasId
+                    join item2 in _context.Notas on  item1.Id equals item2.DetalleMatriculaId
+                    join item3 in _context.Detallenota on item2.DetalleNotaId equals item3.Id
+                    join item4 in _context.Ofertas on item.OfertasId equals item4.Id
+                    join item5 in _context.Estudiantes on item.EstudiantesId equals item5.Id
+                    join item6 in _context.Personas on item5.PersonasId equals item6.Id
+                    where item4.GradoAcademicoId==dato.IdGrado && item4.GruposId==dato.IdGrupo && item6.IdInstitucion==dato.IdInstitucion &&
+                    item1.AsignaturasId==dato.IdAsignatura && item3.Id==dato.IdDetalleNota && item.Fecha.Year == DateTime.Today.Year //valida que es año sea igual al año actual
                     select new Notas_Estudiante
                     {
-                        Id=item2.Id,
-                        Nombre=item1.Nombre+" "+item1.Apellido1+" "+ item1.Apellido2,
-                        Nota=item7.Nota
+                        Id=item5.Id,
+                        Nombre=item6.Nombre+" "+item6.Apellido1+" "+ item6.Apellido2,
+                        Nota=item2.Nota
 
                     }).ToList();
 
