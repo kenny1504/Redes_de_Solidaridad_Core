@@ -22,7 +22,7 @@ namespace Redes_De_Solidaridad.Controllers
                         join item2 in _context.Institucion.ToList() on item.IdInstitucion equals item2.Id
                         join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
                         join item4 in _context.Docentes.ToList() on item3.Id equals item4.PersonasId
-                        where item.Id==id && item.Cedula == item3.Cedula
+                        where item.Id == id && item.Cedula == item3.Cedula
                         select new
                         {
                             cedula = item3.Cedula,
@@ -43,15 +43,15 @@ namespace Redes_De_Solidaridad.Controllers
         public async Task<IActionResult> Mostrar(uint? id)
         {
 
-            var data = (from item2 in _context.Institucion.ToList() 
+            var data = (from item2 in _context.Institucion.ToList()
                         join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
                         join item4 in _context.Docentes.ToList() on item3.Id equals item4.PersonasId
-                        where item2.Id==id
+                        where item2.Id == id
                         select new
                         {
-                            id=item4.Id,
+                            id = item4.Id,
                             cedula = item3.Cedula,
-                            nombre = item3.Nombre +" "+ item3.Apellido1 +" "+ item3.Apellido2,
+                            nombre = item3.Nombre + " " + item3.Apellido1 + " " + item3.Apellido2,
                             sexo = item3.Sexo,
                             correo = item3.Correo,
                             telefono = item3.Telefono,
@@ -86,10 +86,14 @@ namespace Redes_De_Solidaridad.Controllers
         [Route("Docentes")]
         public IActionResult Index() //Envia vista de Mostrar usuarios
         {
-          
-            var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
-            string tipo = (string)usuario[4];//conversiona  entero
 
+            var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
+            string tipo = "0";
+
+            if (usuario != null)
+            {
+                tipo = (string)usuario[4];//conversiona  entero
+            }
             if (usuario != null && tipo == "1") //usuario tipo ADMINISTRADOR
             {
                 return View("~/Areas/Docente/Views/Mostrar_Admin.cshtml");

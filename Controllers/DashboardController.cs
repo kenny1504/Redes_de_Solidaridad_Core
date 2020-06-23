@@ -38,9 +38,9 @@ namespace Redes_De_Solidaridad.Controllers
         }
         public async Task<IActionResult> TotalMatriculas()
         {
-            var docente = _context.Matriculas.Where(x => x.Fecha.Year == DateTime.Today.Year).Count();
+            var matriculas = _context.Matriculas.Where(x => x.Fecha.Year == DateTime.Today.Year).Count();
 
-            return Json(docente);
+            return Json(matriculas);
         }
         public async Task<IActionResult> Total_Estudiantes()
         {
@@ -109,7 +109,7 @@ namespace Redes_De_Solidaridad.Controllers
         public async Task<IActionResult> TotalMatriculas_Institucion(uint? id)
         {
             //consulta para ver cantidad de matriculas por la institucion
-            var estudiantes = (from m in _context.Matriculas
+            var matriculas = (from m in _context.Matriculas
                                join e in _context.Estudiantes on m.EstudiantesId equals e.Id
                                join p in _context.Personas on e.PersonasId equals p.Id
                                where p.IdInstitucion == id
@@ -118,7 +118,7 @@ namespace Redes_De_Solidaridad.Controllers
                                    id=m.Id
                                }).Count();
 
-            return Json(estudiantes);
+            return Json(matriculas);
         }
         public async Task<IActionResult> TotalEstudiantes_Institucion(uint? id)
         {

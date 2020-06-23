@@ -88,7 +88,7 @@ namespace Redes_De_Solidaridad.Controllers
             var DetalleMatricula = _context.Detallematricula.Where(x => x.AsignaturasId == dato.IdAsigntura && x.MatriculasId == dato.IdMatricula).FirstOrDefault();
 
             //Verifica si existe ya una Nota en esa Matricula
-            var Existe = _context.Notas.Where(X => X.DetalleMatriculaId == DetalleMatricula.Id).FirstOrDefault();
+            var Existe = _context.Notas.Where(X => X.DetalleMatriculaId == DetalleMatricula.Id && X.DetalleNotaId==dato.IdDetalle).FirstOrDefault();
 
             if (Existe == null)
             {   //Agregar Nota

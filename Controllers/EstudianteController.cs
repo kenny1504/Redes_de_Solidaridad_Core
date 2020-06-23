@@ -19,7 +19,12 @@ namespace Redes_De_Solidaridad.Controllers
         public ActionResult Index()
         {
             var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
-            string tipo = (string)usuario[4];//conversiona  entero
+            string tipo = "0";
+
+            if (usuario != null)
+            {
+                tipo = (string)usuario[4];//conversiona  entero
+            }
 
             if (usuario != null && tipo == "1") //usuario tipo ADMINISTRADOR
             {

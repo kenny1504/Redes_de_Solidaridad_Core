@@ -59,5 +59,54 @@ namespace Redes_De_Solidaridad.Controllers
             return Grados;
         }
 
+        [HttpGet("Dashboard/Datos_Admin")] //Servicio para llenar Cuadros de Dashboard
+        public async Task<ActionResult<DasboardWS>> DatosAdmin()
+        {
+            var Datos = new DasboardWS();
+
+            var estudiantes = _context.Estudiantes.Count();
+            var institucion = _context.Institucion.Count(); 
+            var docente = _context.Docentes.Count();
+            var matriculas = _context.Matriculas.Where(x => x.Fecha.Year == DateTime.Today.Year).Count();
+
+            Datos.Docentes = docente;
+            Datos.Estudiantes = estudiantes;
+            Datos.Instituciones = institucion;
+            Datos.Matriculas = matriculas;
+
+            return Datos;
+        }
+
+        [HttpGet("Dashboard/Datos_Institucion")] //Servicio para llenar Cuadros de Dashboard
+        public async Task<ActionResult<DasboardWS>> DatosInstitucion(Busqueda inst)
+        {
+            var Datos = new DasboardWS();
+
+            //consulta para ver cantidad de matriculas por la institucion
+            var matriculas = (from m in _context.Matriculas
+                               join e in _context.Estudiantes on m.EstudiantesId equals e.Id
+                               join p in _context.Personas on e.PersonasId equals p.Id
+                               where p.IdInstitucion == inst.Id
+                              select new
+                               {
+                                   id = m.Id
+                               }).Count();
+
+            //consulta para ver cantidad de estudiantes por la institucion
+            var estudiantes = _context.Personas.Join
+               (_context.Estudiantes, p => p.Id, e => e.PersonasId, (p, e) => p)
+               .Where(x => x.IdInstitucion == inst.Id).Count();
+
+            //consulta para ver cantidad de Docentes por la institucion
+            var docente = _context.Personas.Join
+                (_context.Docentes, p => p.Id, d => d.PersonasId, (p, d) => p)
+                .Where(x => x.IdInstitucion == inst.Id).Count();
+
+            Datos.Docentes = docente;
+            Datos.Estudiantes = estudiantes;
+            Datos.Matriculas = matriculas;
+
+            return Datos;
+        }
     }
 }
