@@ -105,7 +105,7 @@ namespace Redes_De_Solidaridad.Controllers
             return Json(selec);
         }
 
-        //Peticiones para Dashboard ADMINISTRADOR
+        //Peticiones para Dashboard Institucion
         public async Task<IActionResult> TotalMatriculas_Institucion(uint? id)
         {
             //consulta para ver cantidad de matriculas por la institucion
@@ -123,7 +123,7 @@ namespace Redes_De_Solidaridad.Controllers
         public async Task<IActionResult> TotalEstudiantes_Institucion(uint? id)
         {
             var estudiantes = _context.Personas.Join
-                (_context.Estudiantes,p=>p.Id, e=>e.ParentescosId, (p,e)=>p)
+                (_context.Estudiantes,p=>p.Id, e=>e.PersonasId, (p,e)=>p)
                 .Where(x=>x.IdInstitucion==id).Count();
 
             return Json(estudiantes);

@@ -6,29 +6,29 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Redes_De_Solidaridad.Areas.LTE.Controllers
 {
-   // [Area ("LTE")]
-   // [Route ("home")]
+    // [Area ("LTE")]
+    // [Route ("home")]
     public class HomeController : Controller
     {
 
 
-        [Route ("Inicio")] //Ruta a llamar
+        [Route("Inicio")] //Ruta a llamar
         public IActionResult Index()
         {
-            
+
             var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
-            string tipo="0";
+            string tipo = "0";
             if (usuario != null)
             {
-              tipo = (string)usuario[4];//conversiona  entero
+                tipo = (string)usuario[4];//conversiona  entero
             }
 
-            if(usuario != null && tipo == "1") //usuario tipo ADMINISTRADOR
+            if (usuario != null && tipo == "1") //usuario tipo ADMINISTRADOR
             {
                 return View("~/Areas/LTE/Views/Inicio_Admin.cshtml");
             }
             else if (usuario != null && tipo == "2")//usuario tipo DOCENTE
-            { 
+            {
                 return View("~/Areas/LTE/Views/Inicio_Docente.cshtml");
             }
             else if (usuario != null && tipo == "3") //Usuario tipo INSTITUCION
@@ -38,7 +38,7 @@ namespace Redes_De_Solidaridad.Areas.LTE.Controllers
             else //si no existe una sesion retorna inicio de sesion 
                 return View("~/Areas/Inicio de sesion/Views/login.cshtml");
 
-            
+
         }
     }
 }
