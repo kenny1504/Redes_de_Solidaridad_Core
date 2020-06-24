@@ -1,0 +1,180 @@
+﻿<!-- Mostrar Estudiantes-->
+@{
+	ViewData["Title"] = "Estudiantes";
+	Layout = "~/Areas/LTE/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+	.btn-default {
+		border-color: #075f75;
+	}
+
+	.btn-primary {
+		background-color: #3c8dbc;
+		border-color: #367fa9;
+		color: white;
+		border-color: white;
+	}
+
+	.stepwizard-step p {
+		margin-top: 10px;
+	}
+
+	.stepwizard-row {
+		display: table-row;
+	}
+
+	.stepwizard {
+		display: table;
+		width: 100%;
+		position: relative;
+	}
+
+	.stepwizard-step button[disabled] {
+		opacity: 1 !important;
+		filter: alpha(opacity=100) !important;
+	}
+
+	.stepwizard-row:before {
+		top: 14px;
+		bottom: 0;
+		position: absolute;
+		content: " ";
+		width: 100%;
+		height: 2.5px;
+		background-color: #075f75;
+		z-order: 0;
+	}
+
+	.stepwizard-step {
+		display: table-cell;
+		text-align: center;
+		position: relative;
+	}
+
+	.btn-circle {
+		width: 30px;
+		height: 30px;
+		text-align: center;
+		padding: 6px 0;
+		font-size: 12px;
+		line-height: 1.428571429;
+		border-radius: 15px;
+	}
+
+	.oculta {
+		display: none;
+	}
+
+	.muestra {
+		display: table-row;
+	}
+</style>   <!--Estilo aplicado solamente al Mostrar estudiantes-->
+
+<link href="~/js/js-redes/pagination.css" rel="stylesheet" />
+
+<div class="container">
+	<div class="stepwizard">
+		<div class="stepwizard-row setup-panel" style="width:90%">
+			<div class="stepwizard-step col-xs-5">
+				<a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+				<p>Estudiantes</p>
+			</div>
+			<div class="stepwizard-step col-xs-5">
+				<a href="#step-2" type="button" class="btn btn-default btn-circle">2</a>
+				<p>Tutores</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="box setup-content" id="step-1">
+	<div class="box-header">
+		<h2 class="box-title text-light-blue">Estudiantes</h2>
+		<div class="pull-right box-tools">
+			<div class="input-group input-group-sm hidden-xs" style="width: 350px;">
+				<input type="text" id="buscarE" name="table_search" class="form-control " placeholder="Buscar Nombre o codigo">
+				<div class="input-group-btn">
+					<span style="margin-right:2em;" class="btn btn-default"><i class="fa fa-search"></i></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.box-header -->
+	<div class="box-body panel box box-primary">
+		<table id="estudiantes" class="table table-bordered table-striped display">
+			<thead>
+				<!--Header de la tabla -->
+				<tr>
+					<th>Codigo estudiante</th>
+					<th>Nombre completo</th>
+					<th>Sexo</th>
+					<th>Direccion</th>
+					<th>Tutor</th>
+					<th>Tutor Telefono</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!--Cuerpo de la tabla -->
+			</tbody>
+		</table>
+
+		<div id="pagination-container"></div> <!-- Indica donde vamos a ubicar paginacion-->
+	</div>
+	<div class="panel box box-primary"></div><!-- /.box-body -->
+</div>
+<div class="box setup-content" id="step-2">
+	<!-- Datos Tutores -->
+	<div class="box-header">
+		<h2 class="box-title text-light-blue">Tutores</h2>
+		<div class="pull-right box-tools">
+			<a href="#" onclick="" class="btn btn-warning btn-sm pull-right b1">Agregar Tutor</a>
+			<div class="input-group input-group-sm hidden-xs" style="width: 350px;">
+				<input type="text" id="buscarT" name="table_search" class="form-control " placeholder="Buscar Nombre o cedula">
+				<div class="input-group-btn">
+					<span style="margin-right:2em;" class="btn btn-default"><i class="fa fa-search"></i></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.box-header -->
+	<div class="box-body panel box box-primary">
+		<table id="tutor" class="table table-bordered table-striped">
+			<thead>
+				<!--Header de la tabla -->
+				<tr>
+					<th>Cedula</th>
+					<th>Nombre completo</th>
+					<th>Sexo</th>
+					<th>Correo</th>
+					<th>Oficio</th>
+					<th>Telefono</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!--Datos tutor -->
+			</tbody>
+		</table>
+	</div>
+	<div class="panel box box-primary"></div><!-- /.box-body -->
+
+</div>
+
+<!--Modales Estudiantes-->
+@Html.Partial("~/Areas/Estudiante/Views/Agregar.cshtml")
+@Html.Partial("~/Areas/Estudiante/Views/Editar.cshtml")
+@Html.Partial("~/Areas/Estudiante/Views/Eliminar.cshtml")
+@Html.Partial("~/Areas/Estudiante/Views/Ver.cshtml")
+<!--Modales Tutores-->
+@Html.Partial("~/Areas/Tutor/Views/Agregar.cshtml")
+@Html.Partial("~/Areas/Tutor/Views/Ver.cshtml")
+
+
+@section Scripts {
+	<script type="text/javascript" src="~/js/js-redes/Estudiante/buscar.js"></script>
+	<script type="text/javascript" src="~/js/js-redes/Tutor/buscar.js"></script>
+	<script type="text/javascript" src="~/js/js-redes/Estudiante/Docente/ver.js"></script>
+	<script type="text/javascript" src="~/js/js-redes/Estudiante/Docente/Paginacion.js"></script> <!-- script Cargar Grados-->
+}
+
+
+

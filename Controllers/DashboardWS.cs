@@ -86,7 +86,7 @@ namespace Redes_De_Solidaridad.Controllers
             var matriculas = (from m in _context.Matriculas
                                join e in _context.Estudiantes on m.EstudiantesId equals e.Id
                                join p in _context.Personas on e.PersonasId equals p.Id
-                               where p.IdInstitucion == inst.Id
+                               where p.IdInstitucion == inst.Id && m.Fecha.Year == DateTime.Today.Year
                               select new
                                {
                                    id = m.Id
