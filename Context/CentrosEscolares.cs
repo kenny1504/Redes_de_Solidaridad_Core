@@ -47,8 +47,8 @@ namespace Redes_De_Solidaridad.Context
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-         optionsBuilder.UseMySql("server=localhost;port=3306;user=root;database=centrosescolares3", x => x.ServerVersion("10.1.10-mariadb"));
-         //optionsBuilder.UseMySql("server=sql10.freemysqlhosting.net;port=3306;user=sql10342007;password=pg34A4G6GL;database=sql10342007", x => x.ServerVersion("10.1.10-mariadb"));
+        // optionsBuilder.UseMySql("server=localhost;port=3306;user=root;database=centrosescolares3", x => x.ServerVersion("10.1.10-mariadb"));
+         optionsBuilder.UseMySql("server=sql10.freemysqlhosting.net;port=3306;user=sql10342007;password=pg34A4G6GL;database=sql10342007", x => x.ServerVersion("10.1.10-mariadb"));
             }
         }
 

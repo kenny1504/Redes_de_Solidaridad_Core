@@ -1,30 +1,6 @@
-$('#año_oferta').datepicker({ //Fecha Matricula
-	format: 'yyyy',
-	viewMode: "years",
-	minViewMode: "years",
-	autoclose: true,
-})
 
-var id = $("#id_u").text() //Id de la institucion 
 
 $(document).ready(function () { //ajax para cargar combo box en vista Notas 
-
-	$.ajax({
-		type: 'POST',
-		url: 'Grados/Grados', // llamada a ruta para cargar combobox con datos de tabla grados
-		dataType: "JSON", // tipo de respuesta del controlador
-		success: function (data) {
-
-			$('#grado_nota').empty();//limpia el combobox
-			var datos = "<option value='' disabled selected>Grado</option>";
-			data.forEach(element => { //ciclo para recorrer el arreglo de grados
-				//variable para asignarle los valores al combobox
-				datos += '<option  value="' + element.id + '">' + element.grado + '</option>';
-			});
-			$('#grado_nota').append(datos);//ingresa valores al combobox
-
-		}
-	});//Fin ajax combobox Grado
 
 	$.ajax({
 		type: 'POST',
@@ -43,35 +19,9 @@ $(document).ready(function () { //ajax para cargar combo box en vista Notas
 		}
 	});//Fin ajax combobox Detalle de Nota
 
-
 	$.ajax({
 		type: 'POST',
-		url: 'Grupo/Grupos', // llamada a ruta para cargar combobox con datos de tabla grupos
-		dataType: "JSON", // tipo de respuesta del controlador
-		success: function (data) {
-
-			$('#grupo_nota').empty();//limpia el combobox
-			var datos = "<option value='' disabled selected>Grupo</option>";
-			data.forEach(element => { //ciclo para recorrer el arreglo de grupos
-				//variable para asignarle los valores al combobox
-				datos += '<option  value="' + element.id + '">' + element.grupo + '</option>';
-			});
-			$('#grupo_nota').append(datos);//ingresa valores al combobox
-
-		}
-	});//Fin ajax combobox Grupo
-
-});
-
-
-$("#grado_nota").change(function () {
-
-	var id_nota = $('#grado_nota').val();
-
-	$.ajax({
-		type: 'POST',
-		url: 'Nota/Materias', // llamada a ruta para cargar asignaturas en las tablas
-		data: { idGrado: id_nota, IdInstitucion: id },
+		url: 'Nota/MateriasDocente', // llamada a ruta para cargar asignaturas en las tablas
 		dataType: "JSON", // tipo de respuesta del controlador
 		success: function (data) {
 
@@ -103,18 +53,16 @@ function Mostar_Notas() {
 		"<th>Nota</th>" + "</tr>" + "</thead> ";
 	$('#estudiantes_Notas').append(dat);
 
-	var año = $('#año_oferta').val();
-	var id_grado = $('#grado_nota').val();
-	var id_grupo = $('#grupo_nota').val();
+	var cedula = $("#id_u").text() //Cedula del Docente
 	var id_detalle = $('#Detalle_nota').val();
 	var id_materia = $('#materias_nota').val();
 
-	if ($('#grado_nota').val() != null && $('#grupo_nota').val() != null && $('#Detalle_nota').val() != null && $('#materias_nota').val() != null) {
+	if ( $('#Detalle_nota').val() != null && $('#materias_nota').val() != null) {
 
 		$.ajax({ //ajax Mostra Notas
 			type: 'POST',
-			url: 'Nota/Mostrar_Notas', // llamada a ruta para cargar combobox con datos de tabla grupos
-			data: { año: año, idgrado: id_grado, idgrupo: id_grupo, id_detalle_Nota: id_detalle, id_materia: id_materia, idInstitucion: id },
+			url: 'Nota/Mostrar_Notas_Docente', // llamada a ruta para cargar combobox con datos de tabla grupos
+			data: { cedula: cedula, id_detalle_Nota: id_detalle, idMateria: id_materia},
 			dataType: "JSON", // tipo de respuesta del controlador
 			success: function (data) {
 
@@ -173,7 +121,7 @@ function Guardar_Notas() {
 	$('#estudiantes_Notas tbody tr').each(function () {
 
 		var nota = $(this).find('input[type="number"]').val();
-		if (nota > 100) {//si un valor ingresado es incorrecto
+		if (nota > 100 || nota <0) {//si un valor ingresado es incorrecto
 			Incorecto = true;
 		}
 		Nota[i] = nota;//ingresa nota al arreglo

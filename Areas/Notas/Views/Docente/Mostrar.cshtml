@@ -8,20 +8,13 @@
 		<h2 class="box-title text-light-blue">Notas</h2>
 		<div class="box-tools" id="filtros">
 			<div class="form-group ">
-				<input style="width: 20%; padding-top: 1.5%; " name="año_oferta" type="text" class="form-control pull-left requerido" id="año_oferta" required placeholder="Año">
-				<select aria-required="true" required style="width: 15%; padding-top: 2.3%; " name="grado_nota" id="grado_nota">
-					<option value=" " disabled selected>Grado</option>
-				</select>
-				<select aria-required="true" required style="width: 15%; padding-top: 2.3%; " name="grupo_nota" id="grupo_nota">
-					<option value=" " disabled selected>Grupo</option>
-				</select>
-				<select aria-required="true" required style="width: 15%; padding-top: 2.3%; " name="Detalle_nota" id="Detalle_nota">
+				<select aria-required="true" required style="width: 40%; padding-top: 2.3%; " name="Detalle_nota" id="Detalle_nota">
 					<option value=" " disabled selected>Semestre</option>
 				</select>
-				<select aria-required="true" required style="width: 15%; padding-top: 2.3%; " name="materias_nota" id="materias_nota">
+				<select aria-required="true" required style="width: 40%; padding-top: 2.3%; " name="materias_nota" id="materias_nota">
 					<option value=" " disabled selected>Materia</option>
 				</select>
-				<a type="submit" style="width: 10%; padding-top: 1.4%; " onclick="Mostar_Notas();" class="btn btn-primary btn-sm pull-right" id="guardar_notas"><i class="fa fa-search"></i></a>
+				<a type="submit" style="width: 17%; padding-top: 1.4%; " onclick="Mostar_Notas();" class="btn btn-primary btn-sm pull-right" id="guardar_notas"><i class="fa fa-search"></i></a>
 
 			</div>
 		</div>
@@ -67,5 +60,5 @@
 
 @section Scripts {
 
-	<script type="text/javascript" src="~/js/js-redes/Nota/asignar.js"></script>
+	<script type="text/javascript" src="~/js/js-redes/Nota/Docente/asignar.js"></script>
 }
