@@ -1,0 +1,71 @@
+﻿@{
+	Layout = "~/Areas/LTE/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Notas";
+}
+
+<div class="box">
+	<div class="box-header">
+		<h2 class="box-title text-light-blue">Notas</h2>
+		<div class="box-tools" id="filtros">
+			<div class="form-group ">
+				<input style="width: 20%; padding-top: 1.5%; " name="año_oferta" type="text" class="form-control pull-left requerido" id="año_oferta" required placeholder="Año">
+				<select aria-required="true" required style="width: 15%; padding-top: 2.3%; " name="grado_nota" id="grado_nota">
+					<option value=" " disabled selected>Grado</option>
+				</select>
+				<select aria-required="true" required style="width: 15%; padding-top: 2.3%; " name="grupo_nota" id="grupo_nota">
+					<option value=" " disabled selected>Grupo</option>
+				</select>
+				<select aria-required="true" required style="width: 15%; padding-top: 2.3%; " name="Detalle_nota" id="Detalle_nota">
+					<option value=" " disabled selected>Semestre</option>
+				</select>
+				<select aria-required="true" required style="width: 15%; padding-top: 2.3%; " name="materias_nota" id="materias_nota">
+					<option value=" " disabled selected>Materia</option>
+				</select>
+				<a type="submit" style="width: 10%; padding-top: 1.4%; " onclick="Mostar_Notas();" class="btn btn-primary btn-sm pull-right" id="guardar_notas"><i class="fa fa-search"></i></a>
+
+			</div>
+		</div>
+	</div>
+	<!-- /.box-header -->
+	<div class="box-body panel box box-primary">
+		<form id="Estudiante_Notas">
+			<table id="estudiantes_Notas" class="table table-bordered table-striped">
+				<thead>
+					<!--Header de la tabla -->
+					<tr>
+						<th>Codigo estudiante</th>
+						<th>Nombre completo</th>
+						<th>Sexo</th>
+						<th>Grado</th>
+						<th>Grupo</th>
+						<th>Materia</th>
+						<th>Nota</th>
+					</tr>
+				</thead>
+				
+					<!--Cuerpo de la tabla -->
+			</table>
+		</form>
+	</div>
+	<tfoot>
+		<a href="#" onclick="Guardar_Notas();" style="padding:1em" class="btn btn-warning btn-sm pull-right" id="guardar_notas">Guardar</a>
+	</tfoot>
+	<div class="panel box box-primary"></div><!-- /.box-body -->
+</div>
+
+
+<style>
+	/* Codigo para aplicar placeholder a combobox */
+	option[value=""][disabled] {
+		display: none;
+	}
+
+	.register-box-body {
+		color: gray !important;
+	}
+</style>
+
+@section Scripts {
+
+	<script type="text/javascript" src="~/js/js-redes/Nota/asignar.js"></script>
+}

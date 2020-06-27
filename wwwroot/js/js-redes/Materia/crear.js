@@ -1,7 +1,3 @@
-$(document).ready(function () {
-    var screen = $('#Cargando'); //obtiene modal Cargando
-    configureLoadingScreen(screen); //llamada a metodo usando AJAX
-})
 
 $("#m,#m2").click(function () { 
     $('.error').addClass('hidden');// agrega la clase hidden para ocultar label error
@@ -49,12 +45,3 @@ $("#m,#m2").click(function () {
          }
   }); //fin del ajax
 
-function configureLoadingScreen(screen) {  // metodo para mostrar Loader
-    $(document)
-        .ajaxStart(function () { //muestra imagen
-            screen.modal("show");
-        })
-        .ajaxStop(function () { //oculta imagen
-            screen.modal("hide");
-        });
-}

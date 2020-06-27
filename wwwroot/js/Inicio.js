@@ -145,7 +145,7 @@
                     "</span>"+
                 "</a>"+
                 "<ul class='treeview-menu'>"+
-                    "<li><a href='' ><i class='fa fa-circle-o text-aqua'></i>Agregar</a></li>"+
+                    "<li><a href='Notas' ><i class='fa fa-circle-o text-aqua'></i>Mostrar</a></li>"+
                 "</ul>"+
 			"</li >" +
 			 "<li id='menu_Asistencia' class='treeview'>"+//Menu Asistencia
@@ -211,7 +211,18 @@
                     "<li><a href='#' ><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"+
                     "<li><a href='Estudiantes' ><i class='fa fa-circle-o text-aqua'></i> Mostrar</a></li>"+
                 "</ul>"+
-            "</li >" +
+        "</li >" +
+            "<li id='menu_Notas' class='treeview'>"+//Menu Notas
+                "<a href='#'>"+
+                   "<i class='fa fa-user'></i> <span>Notas</span>"+
+                    "<span class='pull-right-container'>"+
+                        "<i class='fa fa-angle-left pull-right'></i>"+
+                    "</span>"+
+                "</a>"+
+                "<ul class='treeview-menu'>"+
+                    "<li><a href='Notas' ><i class='fa fa-circle-o text-aqua'></i>Mostrar</a></li>"+
+                "</ul>"+
+			"</li >" +
              "<li id='menu_Ofertas' class='treeview'>"+//Menu Ofertas
                 "<a href='#'>"+
                    "<i class='fa fa-address-book'></i> <span>Ofertas</span>"+

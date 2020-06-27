@@ -19,7 +19,6 @@ $(document).ready(function () {
                         + '<td style="padding-top:0.1%; padding-bottom:0.1%;"class= "hidden" id="' + element.idEstudiante + '" >'
                         + '<button class="btn btn-primary" onclick="ver_estudiante(this);" data-id="' + element.idEstudiante + '" id="Ver-estudiante">ver</button>'
                         + '<button class="btn btn-success " data-id="' + element.idEstudiante + '" data-idper="' + element.idPersona + '" onclick="editar_estudiante(this);" ><i class=" fa fa-fw fa-pencil"></i></button>'
-                        + '<button class="btn btn-info" data-id="' + element.idEstudiante + '" onclick="eliminar_estudiante(this);"><i class="fa fa-fw fa-trash "></i></button>'
                         + '<i class="fa fa-angle-double-right pull-right" onclick="mostrar(this);" data-id="' + element.idEstudiante + '"></i>'
                         + '</td>'
                         + '<td id="' + element.idEstudiante + 'a" >' + element.telefono_tutor + '<i class="fa fa-angle-double-right pull-right" onclick="mostrar(this);" data-id="' + element.idEstudiante + '"></i> </td>'
