@@ -105,5 +105,30 @@ namespace Redes_De_Solidaridad.Controllers
             else //si Retorna -1 es porque ya existe una Nota
                 return -1;
         }
+
+        [HttpGet("Ver_MateriasDocentes")]
+        public async Task<ActionResult<List<Asignaturasdocente>>> Materias_Docente(BusquedaUD dato)
+        {
+            var data = new List<Asignaturasdocente>();
+
+            data = (from item in _context.Personas.ToList()
+                    join item2 in _context.Docentes.ToList() on item.Id equals item2.PersonasId
+                    join item3 in _context.Ofertas.ToList() on item2.Id equals item3.DocentesId
+                    join item4 in _context.Gradoacademico.ToList() on item3.GradoAcademicoId equals item4.Id
+                    join item5 in _context.Gradoasignaturas.ToList() on item4.Id equals item5.GradoAcademicoId
+                    join item6 in _context.Asignaturas.ToList() on item5.AsignaturasId equals item6.Id
+                    where item.Cedula == dato.Cedula && item3.FechaOferta.Year == DateTime.Today.Year
+                    select new Asignaturasdocente
+                    {
+                        Idasignaturas=item6.Id,
+                        Idgrupo=item3.GruposId,
+                        Idgrado=item3.GradoAcademicoId,
+                        Nombre=item6.Nombre
+                    }
+            ).ToList();
+
+            return data;
+
+        }
     }
 }

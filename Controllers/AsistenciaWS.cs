@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,12 +26,29 @@ namespace Redes_De_Solidaridad.Controllers
         [HttpPost("AgregarAsistencia")]
         public async Task<ActionResult<int>> Agregar_Asistencia(List<Asistencia> dato)
         {
-            for (int i = 0; i < dato.Count(); i++)
+
+            //verifica que no exista no se repita una asistencia en esa fecha
+            var verificar = (from item in _context.Matriculas
+                     join item2 in _context.Asistencia on item.Id equals item2.IdMatricula
+                     where item2.IdMatricula == dato.ElementAt(0).IdMatricula && item2.Fecha.Date == dato.ElementAt(0).Fecha.Date
+                             select new
+                     {
+                         id = item2.IdMatricula
+                     }).Count();
+            if(verificar!=0)
             {
-                _context.Add(dato[i]);
-                await _context.SaveChangesAsync();
+                return 0;
             }
-            return 1;
+            else
+            {
+
+                for (int i = 0; i < dato.Count(); i++)
+                {
+                    _context.Add(dato[i]);
+                    await _context.SaveChangesAsync();
+                }
+                return 1;
+            }
         }
 
 
@@ -54,6 +72,9 @@ namespace Redes_De_Solidaridad.Controllers
                                     Nombre= item6.Nombre+" "+item6.Apellido1+" "+item6.Apellido2
 
                                 }).ToList();
+
+          
+
             return data;
 
         }

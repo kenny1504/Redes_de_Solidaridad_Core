@@ -5,6 +5,9 @@ $(document).ready(function () {
         type: "GET",
         url: "Asistencia/Datos",
         data: { cedula: cedula },
+        beforeSend: function () {
+            $('#Cargando2').modal('show');
+        },
         success: function (data) {
             var html = "<table class='table table-bordered table-striped display'><thead><tr><th>Codigo estudiante</th><th>Nombre completo</th><th>Sexo</th><th>Direccion</th><th>Tutor</th><th>Tutor Telefono</th></tr></thead><tbody>";
             data.forEach(element => {
@@ -22,6 +25,7 @@ $(document).ready(function () {
                 +"</tbody></table>";
                 $('#estudiantes').append(html); //insertamos datos en tabla
             })
+            $('#Cargando2').modal('hide');
         }
     })
 });
