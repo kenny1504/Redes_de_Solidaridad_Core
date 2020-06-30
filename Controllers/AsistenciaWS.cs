@@ -32,6 +32,30 @@ namespace Redes_De_Solidaridad.Controllers
             }
             return 1;
         }
+
+
+        //Servicio para recuperar la cantidad de estudiantes segun la institucion 
+        [HttpGet("ListaAsistencia")]
+        public async Task<ActionResult< List<ListaAsistencia>>> Listar_Asistencia(BuscarAsistencia dato)
+        {
+            var data  = new List<ListaAsistencia>();
+
+            data = (from item in _context.Personas.ToList()
+                                join item2 in _context.Docentes.ToList() on item.Id equals item2.PersonasId
+                                join item3 in _context.Ofertas.ToList() on item2.Id equals item3.DocentesId
+                                join item4 in _context.Matriculas.ToList() on item3.Id equals item4.OfertasId
+                                join item5 in _context.Estudiantes.ToList() on item4.EstudiantesId equals item5.Id
+                                join item6 in _context.Personas.ToList() on item5.PersonasId equals item6.Id
+                                where item.Cedula == dato.Cedula && item.IdInstitucion == dato.IdInstitucion && item4.Fecha.Year == DateTime.Today.Year
+                                select new ListaAsistencia
+                                {
+                                    IdMatricula=item4.Id,
+                                    CodigoEstudinte=item5.CodigoEstudiante,
+                                    Nombre= item6.Nombre+" "+item6.Apellido1+" "+item6.Apellido2
+
+                                }).ToList();
+            return data;
+
+        }
     }
 }
-
