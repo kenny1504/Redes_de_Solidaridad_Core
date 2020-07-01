@@ -63,7 +63,7 @@ $(document).ready(function () {
                         + '<td>' + element.direccion + '</td>'
                         + '<td>' + element.tutor
                         + '<td style="padding-top:0.1%; padding-bottom:0.1%;"class= "hidden" id="' + element.idEstudiante + '" >'
-                        + '<button class="btn btn-primary" onclick="ingresar_matricula(this);"  data-id="'+element.idEstudiante+'" id="Ver-matricula">Matricular</button>'
+                       + '<button class="btn btn-primary" onclick="ingresar_matricula(this);"  data-codigo="' + element.codigo + '" data-nombre="' + element.nombre +'" data-id="'+element.idEstudiante+'" id="Ver-matricula">Matricular</button>'
                         + '<button class="btn btn-primary" onclick="ver_estudiante(this);" data-id="' + element.idEstudiante + '" id="Ver-estudiante">ver</button>'
                         + '<button class="btn btn-success " data-id="' + element.idEstudiante + '" data-idper="' + element.idPersona + '" onclick="editar_estudiante(this);" ><i class=" fa fa-fw fa-pencil"></i></button>'
                         + '<button class="btn btn-info" data-id="' + element.idEstudiante + '" onclick="eliminar_estudiante(this);"><i class="fa fa-fw fa-trash "></i></button>'
