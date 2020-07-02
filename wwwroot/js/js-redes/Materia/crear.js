@@ -5,16 +5,18 @@ $("#m,#m2").click(function () {
 
 });
 
-
+var id = $("#id_u").text() //Id de la institucion 
   $("#Materia").click(function() { //ajax para ingresar materias
-    
-    if($('input[name=Nombre]').val()!="") // si el input contiene valores entra 
+
+      var nombre = $('input[name=Nombre]').val();
+
+      if (nombre != "") // si el input contiene valores entra 
     {
      
         $.ajax({
         type: 'POST',
         url: 'Asignaturas/Crear', //llamada a la ruta ingresar materia
-        data: { "nombre": $('#Nombre').val() }, // manda el form donde se encuentra la modal materia
+            data: { Nombre: nombre, idinstitucion: id  }, // manda el form donde se encuentra la modal materia
         success: function(data){ //agregar el nuevo ingreso a la tabla
         if ((data[0].tipo==-1)) { // si el ajax contiene errores agrega un label indicando el error 
           $('.error').removeClass('hidden');
@@ -27,7 +29,7 @@ $("#m,#m2").click(function () {
                   + "<td style='padding-top:0.1%; padding-bottom:0.1%;'>" + "<button class='btn btn-success' data-id=" + data[0].id +"  onclick='editar_Materia(this);' ><i class=' fa fa-fw fa-pencil'></i></button>"
                   + "<button class='btn btn-info' data-id=" + data[0].id +" onclick='eliminar(this);'><i class='fa fa-fw fa-trash '></i></button>"                                   
                 +"</td>"+"</tr>"; // variable guarda el valor 
-               $('#asignaturas').append(datos); // agrega nuevo registro a tabla
+              $('#Asignaturas tbody ').append(datos); // agrega nuevo registro a tabla
       
                $("#exito").modal("show"); //abre modal de exito
                $("#exito").fadeTo(2000,500).slideUp(450,function(){   // cierra la modal despues del tiempo determinado  

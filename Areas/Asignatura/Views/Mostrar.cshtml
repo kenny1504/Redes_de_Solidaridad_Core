@@ -1,57 +1,41 @@
-﻿@model IEnumerable<Redes_De_Solidaridad.Models.Asignaturas>
-@using Redes_De_Solidaridad.Models;
+﻿
 @{
-    Layout = "~/Areas/LTE/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Asignaturas";
-    // var Ofertas = ViewBag.pepa as OfertaView;
-    //Mandar datos del controlador a la vista
+	Layout = "~/Areas/LTE/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Asignaturas";
 }
-
 <div class="box">
-    <div class="box-header">
-        <h2 class="box-title text-light-blue">Asignaturas</h2>
-        <a href="#" data-toggle="modal" data-target="#modal_Materia" class="btn btn-warning btn-sm pull-right" id="m2">Agregar asignatura</a>
-    </div><!-- /.box-header -->
-    <div class="box-body panel box box-primary">
-        <table id="asignaturas" class="table table-bordered table-hover">
-            <thead>
-                <!--Header de la tabla -->
-                <tr>
-                    <th>Nombre Asignatura</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nombre)
-                        </td>
-                        <td style="padding-top:0.1%; padding-bottom:0.1%;">
-                            <button class="btn btn-success " onclick="editar_Materia(this);" data-id="@item.Id" data-Nombre="@item.Nombre"><i class=" fa fa-fw fa-pencil"></i></button>  <!--botton para editar -->
-                            <button class="btn btn-info" onclick='eliminar(this);' data-id="@item.Id" data-Nombre="@item.Nombre"><i class="fa fa-fw fa-trash "></i></button>  <!--botton para eliminar-->
-                        </td>
-                    </tr>
-                }
-
-
-            </tbody>
-            <!-- <h3>Usuario: @TempData.Peek("usuario")</h3>    Codigo para mostrar usuario logueado -->
-        </table>
-    </div>
-    <div class="panel box box-primary"></div><!-- /.box-body -->
+	<div class="box-header">
+		<h2 class="box-title text-light-blue">Lista de Asignaturas</h2>
+		<a href="#" data-toggle="modal" data-target="#modal_Materia" class="btn btn-warning btn-sm pull-right" id="m2">Agregar Asignatura</a>
+		<a href="#" data-toggle="modal" data-target="#" class="btn btn-success btn-sm pull-right" id="m2">Asignar</a>
+	</div><!-- /.box-header -->
+	<div class="box-body panel box box-primary">
+		<table id="Asignaturas" class="table table-bordered table-striped">
+			<thead>
+				<!--Header de la tabla -->
+				<tr>
+					<th>Asignaturas</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+	<div class="panel box box-primary"></div><!-- /.box-body -->
 </div>
 
-<!--Modales-->
-@Html.Partial("~/Areas/Asignatura/Views/Editar.cshtml");
-@Html.Partial("~/Areas/Asignatura/Views/Eliminar.cshtml");
+<!--Modales -->
+
+@Html.Partial("~/Areas/Asignatura/Views/Agregar.cshtml")
+@Html.Partial("~/Areas/Asignatura/Views/Eliminar.cshtml")
+
 
 @section Scripts {
-    <!--********************* script  "Asignaturas" *************************-->
-    <script type="text/javascript" src="~/js/js-redes/Materia/eliminar.js"></script> <!-- script eliminar materia-->
-    <script type="text/javascript" src="~/js/js-redes/Materia/editar.js"></script> <!-- script editar materia-->
-    <script type="text/javascript" src="~/js/js-redes/Materia/asignar.js"></script> <!-- script asignar materia-->
+
+	<script type="text/javascript" src="~/js/js-redes/Materia/Ver.js"></script> <!-- script Cargar Asignaturas-->
+	<script type="text/javascript" src="~/js/js-redes/Materia/crear.js"></script> <!-- script agregar asigntura-->
+	<script type="text/javascript" src="~/js/js-redes/Materia/eliminar.js"></script> <!-- script agregar asigntura-->
 }
 
 

@@ -243,8 +243,8 @@
                         "</span>"+
                     "</a>"+
                     "<ul class='treeview-menu'>"+
-                        "<li><a href='#' ><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"+
-                        "<li><a href='#' ><i class='fa fa-circle-o text-aqua'></i> Mostrar</a></li>"+
+                      "<li><a data-toggle='modal' data-target='#modal_Materia' ><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"+
+                        "<li><a href='Asignaturas' ><i class='fa fa-circle-o text-aqua'></i> Mostrar</a></li>"+
                     "</ul>"+
                 "</li >"
 	}

@@ -25,19 +25,21 @@ namespace Redes_De_Solidaridad.Controllers
 
 
         // GET: Asignaturas
-        [Route("Asig")]
+        [Route("Asignaturas")]
         public async Task<IActionResult> Index()
         {
-
-            var data = await _context.Asignaturas.ToListAsync();
-
             var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
-
-            if (usuario != null) //verifica si existe una sesion Valida
+            string tipo = "0";
+            if (usuario != null)
             {
-                return View("~/Areas/Asignatura/Views/Mostrar.cshtml", data);
+                tipo = (string)usuario[4];//conversiona  entero
             }
-            else //si no existe una sesion retorna inicio de sesion
+
+            if (usuario != null && tipo == "3") //Usuario tipo INSTITUCION
+            {
+                return View("~/Areas/Asignatura/Views/Mostrar.cshtml");
+            }
+            else //si no existe una sesion retorna inicio de sesion 
                 return View("~/Areas/Inicio de sesion/Views/login.cshtml");
 
         }
@@ -47,15 +49,36 @@ namespace Redes_De_Solidaridad.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Crear(string Nombre)//Metodo para crear una asignatura
+        public async Task<IActionResult> Crear(string Nombre, int idinstitucion)//Metodo para crear una asignatura
         {
-            var asignatura = _context.Asignaturas.Where(x => x.Nombre == Nombre).FirstOrDefault(); //verifica si existe una asignatura
-            if (asignatura == null)
+
+            var data = (from item in _context.Detalleasignaturasinstitucion
+                        join item2 in _context.Asignaturas on item.IdAsignatura equals item2.Id
+                        where item.IdInstitucion == idinstitucion && item2.Nombre==Nombre
+                        select new
+                        {
+                            id = item2.Id,
+                            nombre = item2.Nombre
+
+                        }).Count();
+
+            if (data == 0)
             {     //agrega asignaturas
+
+
                 Asignaturas asignaturas = new Asignaturas();
                 asignaturas.Nombre = Nombre;
                 _context.Add(asignaturas);
                 await _context.SaveChangesAsync();
+
+
+                Detalleasignaturasinstitucion detalleasignaturasinstitucion = new Detalleasignaturasinstitucion();
+                detalleasignaturasinstitucion.IdAsignatura = asignaturas.Id;
+                detalleasignaturasinstitucion.IdInstitucion = idinstitucion;
+                _context.Add(detalleasignaturasinstitucion);
+                await _context.SaveChangesAsync();
+
+
                 var materia = new[]
                {
                     new {
@@ -105,10 +128,10 @@ namespace Redes_De_Solidaridad.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Eliminar(uint? id)
+        public async Task<IActionResult> Eliminar(int id)
 
         {     //Consulta JOIN para verificar si existe la materia asignada a algun grado
-            var datos = _context.Asignaturas.Join(_context.Gradoasignaturas, a => a.Id, gr => gr.Id , (a, gr) => a).Where(x => x.Id == id).FirstOrDefault();
+            var datos = _context.Gradoasignaturas.Where(x => x.AsignaturasId == id).FirstOrDefault();
 
 
             if (datos != null) //si existe
@@ -125,10 +148,19 @@ namespace Redes_De_Solidaridad.Controllers
             }
         }
 
-        public async Task<ActionResult> Datos()// metodo ajax para recuperar 
+        public async Task<ActionResult> Datos(int idinstitucion)// metodo ajax para recuperar datos de asignaturas
         {
-            var data = await _context.Asignaturas.ToListAsync(); 
-            return Json(data);
+            var data = (from item in _context.Detalleasignaturasinstitucion.ToList()
+                        join item2 in _context.Asignaturas.ToList() on item.IdAsignatura equals item2.Id
+                        where item.IdInstitucion==idinstitucion
+                        select new
+                        {
+                            id=item2.Id,
+                            nombre=item2.Nombre
+
+                        }).ToList();
+
+            return Json(data); 
         }
     }
 }
