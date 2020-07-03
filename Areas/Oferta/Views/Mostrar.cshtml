@@ -6,7 +6,7 @@
 <div class="box">
 	<div class="box-header">
 		<h2 class="box-title text-light-blue">Lista de Ofertas</h2>
-		<a href="#" data-toggle="modal" data-target="#modal_Grado" class="btn btn-warning btn-sm pull-right" id="m2">Agregar Oferta</a>
+		<a href="#" data-toggle="modal" data-target="#crear_oferta" class="btn btn-warning btn-sm pull-right" id="cargar2">Agregar Oferta</a>
 	</div><!-- /.box-header -->
 	<div class="box-body panel box box-primary">
 		<table id="ofertas" class="table table-bordered table-striped">
@@ -27,9 +27,12 @@
 	</div>
 	<div class="panel box box-primary"></div><!-- /.box-body -->
 </div>
+<!--Modales -->
+
+@Html.Partial("~/Areas/Oferta/Views/Agregar.cshtml")
 
 @section Scripts {
 
-	<script type="text/javascript" src="~/js/js-redes/Oferta/Ver.js"></script> <!-- script Cargar Grados-->
-	
+	<script type="text/javascript" src="~/js/js-redes/Oferta/Ver.js"></script> <!-- script Cargar datos ofertas-->
+	<script type="text/javascript" src="~/js/js-redes/Oferta/crear.js"></script> <!-- script Agregar una oferta-->
 }

@@ -130,7 +130,7 @@ namespace Redes_De_Solidaridad.Controllers
         [HttpPost]
         public async Task<IActionResult> Eliminar(int id)
 
-        {     //Consulta JOIN para verificar si existe la materia asignada a algun grado
+        {   //Consulta para verificar si existe la materia asignada a algun grado
             var datos = _context.Gradoasignaturas.Where(x => x.AsignaturasId == id).FirstOrDefault();
 
 

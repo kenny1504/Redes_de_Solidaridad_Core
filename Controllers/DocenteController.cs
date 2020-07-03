@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Redes_De_Solidaridad.Context;
 
@@ -22,7 +23,7 @@ namespace Redes_De_Solidaridad.Controllers
                         join item2 in _context.Institucion.ToList() on item.IdInstitucion equals item2.Id
                         join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
                         join item4 in _context.Docentes.ToList() on item3.Id equals item4.PersonasId
-                        where item.Id == id && item.Cedula == item3.Cedula
+                        where item.Id == id && item.Cedula == item3.Cedula 
                         select new
                         {
                             cedula = item3.Cedula,
@@ -61,6 +62,25 @@ namespace Redes_De_Solidaridad.Controllers
             return Json(data);
 
         }
+        //Metodo para cargar datos de los docentes en select Oferta
+        public async Task<IActionResult> MostrarDocentes(int id)
+        {
+
+            //var data = (from item2 in _context.Institucion.ToList()
+            //            join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
+            //            join item4 in (from d in _context.) on item3.Id equals item4.PersonasId
+            //            join item5 in _context.Ofertas.ToList() on  item4.Id equals item5.DocentesId
+            //            where && item2.Id == id && item4.Estado==1 && item5.FechaOferta.Year==DateTime.Today.Year
+            //            select new
+            //            {
+            //                id = item4.Id,
+            //                nombre = item3.Nombre + " " + item3.Apellido1 + " " + item3.Apellido2,
+            //            });
+
+            return Json(1);
+
+        }
+
         public async Task<IActionResult> MostrarADMIN(uint? id)
         {
 

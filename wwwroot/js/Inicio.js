@@ -230,8 +230,8 @@
                         "<i class='fa fa-angle-left pull-right'></i>"+
                     "</span>"+
                 "</a>"+
-                "<ul class='treeview-menu'>"+
-                    "<li><a href='#' ><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"+
+                "<ul class='treeview-menu'>" + 
+                    "<li><a  data-toggle='modal' data-target='#crear_oferta'><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"+
                     "<li><a href='Ofertas' ><i class='fa fa-circle-o text-aqua'></i> Mostrar</a></li>"+
                 "</ul>"+
             "</li >"+

@@ -150,6 +150,40 @@ namespace Redes_De_Solidaridad.Controllers
         }
 
 
+        [HttpPost("editarUsuario")]
+        public async Task<int> Editar_Usuario(Usuarios usuarios ) //metodo para actualizar una asignatura
+        {
+           
+            var user = _context.Usuarios.Where(x => x.Id == usuarios.Id).FirstOrDefault(); //verifica si existe una institucion
+
+            //si solo cambia el nombre de usuario
+            if (usuarios.Usuario!=null && usuarios.Contraseña==null) // si existen nombre de institucion y nombre de usuario, verifica que sea el mismo a actualizar
+            {
+                //Verifica que no exista el nombre de usuario
+                var nombre = _context.Usuarios.Where(x => x.Usuario == usuarios.Usuario).FirstOrDefault();
+
+                if (nombre==null)// si no existe el nombre, actualiza
+                {
+                    user.Usuario = usuarios.Usuario;
+                    _context.Update(user);
+                    await _context.SaveChangesAsync(); //guarda
+
+                    return 1;
+
+                }
+                else // de lo contrario retorna 0
+                    return 0;
+
+            }
+            else // si envia nombre y contraseña
+            {
+                user.Usuario = usuarios.Usuario;
+                user.Contraseña = usuarios.Contraseña;
+                _context.Update(user);
+                await _context.SaveChangesAsync(); //guarda
+                return 1;
+            }
+        }
 
     }
 }

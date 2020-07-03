@@ -16,7 +16,7 @@ var id = $("#id_u").text() //Id de la institucion
         $.ajax({
         type: 'POST',
         url: 'Asignaturas/Crear', //llamada a la ruta ingresar materia
-            data: { Nombre: nombre, idinstitucion: id  }, // manda el form donde se encuentra la modal materia
+        data: { Nombre: nombre, idinstitucion: id  }, // manda el form donde se encuentra la modal materia
         success: function(data){ //agregar el nuevo ingreso a la tabla
         if ((data[0].tipo==-1)) { // si el ajax contiene errores agrega un label indicando el error 
           $('.error').removeClass('hidden');

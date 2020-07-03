@@ -21,14 +21,14 @@ $(function() //funcion para buscar dentro del combobox
 $("#cargar,#cargar2").click(function() { //ajax para cargar datos en el combobox Grados
     $.ajax({
         type: 'POST',
-        url: 'cargargrados/oferta', // llamada a ruta para cargar combobox con datos de tabla grados
+        url: 'Grados/Grados', // llamada a ruta para cargar combobox con datos de tabla grados
         dataType: "JSON", // tipo de respuesta del controlador
         success: function(data){ 
         
           $('#Grado').empty();//limpia el combobox
           data.forEach(element => { //ciclo para recorrer el arreglo de grados
               //variable para asignarle los valores al combobox
-            var datos='<option  value="'+element.id+'">'+element.Grado+'</option>';
+            var datos='<option  value="'+element.id+'">'+element.grado+'</option>';
 
               $('#Grado').append(datos);//ingresa valores al combobox
               $('#Grado').val(''); // limpiar el grado
@@ -57,14 +57,14 @@ $("#cargar,#cargar2").click(function() { //ajax para cargar datos en el combobox
 
     $.ajax({
         type: 'POST',
-        url: 'cargargrupos/grupo', // llamada a ruta para cargar combobox con datos de tabla grupos
+        url: 'Grupo/Grupos', // llamada a ruta para cargar combobox con datos de tabla grupos
         dataType: "JSON", // tipo de respuesta del controlador
         success: function(data){ 
         
           $('#Grupo').empty();//limpia el combobox
           data.forEach(element => { //ciclo para recorrer el arreglo de grupos
               //variable para asignarle los valores al combobox
-            var datos='<option  value="'+element.id+'">'+element.Grupo+'</option>';
+            var datos='<option  value="'+element.id+'">'+element.grupo+'</option>';
 
               $('#Grupo').append(datos);//ingresa valores al combobox
               $('#Grupo').val(''); // limpiar el grupo
@@ -73,18 +73,21 @@ $("#cargar,#cargar2").click(function() { //ajax para cargar datos en el combobox
       }
     });//Fin ajax combobox Grupo
 
+    var id = $("#id_u").text() //Id de la institucion 
     $.ajax({
         type: 'POST',
-        url: '/docente/cargardoc/'+ $('#datepickerOferta').val(), // llamada a ruta para cargar combobox con datos de tabla docentes
+        url: 'Docente/MostrarDocentes', // llamada a ruta para cargar combobox con datos de tabla docentes
+        data: { id: id },
         dataType: "JSON", // tipo de respuesta del controlador
         success: function(data){ 
           $('#Docente').empty();//limpia el combobox
           var datos="";
           for(var i=0; i<data.length;i++){
-            datos+='<option  value="'+data[i].id+'">'+data[i].Nombre+'</option>';
-          }
-          $('#Docente').append(datos);//ingresa valores al combobox
+              datos += '<option  value="' + data[i].id + '">' + data[i].nombre+'</option>';
+            }
+
           $('#Docente').val(''); // limpiar el docente
+          $('#Docente').append(datos);//ingresa valores al combobox
       }
     });//Fin ajax combobox Docentes
 });
