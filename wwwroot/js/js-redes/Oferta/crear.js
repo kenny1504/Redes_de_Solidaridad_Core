@@ -39,14 +39,14 @@ $("#cargar,#cargar2").click(function() { //ajax para cargar datos en el combobox
 
     $.ajax({
         type: 'POST',
-        url: 'cargarsecciones/seccion', // llamada a ruta para cargar combobox con datos de tabla secciones
+        url: 'Secciones/Secciones', // llamada a ruta para cargar combobox con datos de tabla secciones
         dataType: "JSON", // tipo de respuesta del controlador
         success: function(data){ 
         
           $('#Seccion').empty();//limpia el combobox
           data.forEach(element => { //ciclo para recorrer el arreglo de secciones
               //variable para asignarle los valores al combobox
-            var datos='<option  value="'+element.id+'">'+element.Codigo+'</option>';
+              var datos = '<option  value="' + element.id+'">'+element.codigo+'</option>';
 
               $('#Seccion').append(datos);//ingresa valores al combobox
               $('#Seccion').val(''); // limpiar la seccion
@@ -74,6 +74,7 @@ $("#cargar,#cargar2").click(function() { //ajax para cargar datos en el combobox
     });//Fin ajax combobox Grupo
 
     var id = $("#id_u").text() //Id de la institucion 
+    $('#Docente').empty();
     $.ajax({
         type: 'POST',
         url: 'Docente/MostrarDocentes', // llamada a ruta para cargar combobox con datos de tabla docentes

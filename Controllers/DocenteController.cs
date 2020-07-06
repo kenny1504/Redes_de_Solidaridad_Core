@@ -66,18 +66,25 @@ namespace Redes_De_Solidaridad.Controllers
         public async Task<IActionResult> MostrarDocentes(int id)
         {
 
-            //var data = (from item2 in _context.Institucion.ToList()
-            //            join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
-            //            join item4 in (from d in _context.) on item3.Id equals item4.PersonasId
-            //            join item5 in _context.Ofertas.ToList() on  item4.Id equals item5.DocentesId
-            //            where && item2.Id == id && item4.Estado==1 && item5.FechaOferta.Year==DateTime.Today.Year
-            //            select new
-            //            {
-            //                id = item4.Id,
-            //                nombre = item3.Nombre + " " + item3.Apellido1 + " " + item3.Apellido2,
-            //            });
+            var lista = _context.Ofertas.Join
+               (_context.Detalleofertasinstitucion.Where(i => i.IdInstitucion==id), o => o.Id, d => d.IdInstitucion, (p, d) => p)
+               .Where(x => x.FechaOferta.Year == DateTime.Today.Year).Select(o => o.Id).ToList();
 
-            return Json(1);
+
+
+
+            var data = (from item2 in _context.Institucion.ToList()
+                        join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
+                        join item4 in _context.Docentes on item3.Id equals item4.PersonasId
+                        join item5 in _context.Ofertas.Where(x=> !lista.Contains(x.Id)).ToList() on item4.Id equals item5.DocentesId
+                        where  item4.Estado == 1 && item5.FechaOferta.Year == DateTime.Today.Year
+                        select new
+                        {
+                            id = item4.Id,
+                            nombre = item3.Nombre + " " + item3.Apellido1 + " " + item3.Apellido2,
+                        });
+
+            return Json(data);
 
         }
 

@@ -69,12 +69,12 @@ namespace Redes_De_Solidaridad.Controllers
                            {
                                NombreDeUsuario = u.Usuario,
                                Nombre = i.Nombre,
-                               Cedula = " ",
-                               Id = " ",
+                               Cedula =i.Direccion, //Direccion de la institucion
+                               Id ="",
 
                                tipo = 3,
                                Institucion = i.Nombre,
-                               Id_Institucion=u.IdInstitucion
+                               Id_Institucion=u.IdInstitucion //ID del usuario  de la institucion
                            }).ToList();
                 }              
             }
