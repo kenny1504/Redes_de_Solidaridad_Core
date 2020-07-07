@@ -231,7 +231,7 @@
                     "</span>"+
                 "</a>"+
                 "<ul class='treeview-menu'>" + 
-                    "<li><a  data-toggle='modal' data-target='#crear_oferta'><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"+
+             "<li><a onclick='CargarModal()' data-toggle='modal' data-target='#crear_oferta'><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"+
                     "<li><a href='Ofertas' ><i class='fa fa-circle-o text-aqua'></i> Mostrar</a></li>"+
                 "</ul>"+
             "</li >"+

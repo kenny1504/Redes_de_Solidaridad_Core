@@ -157,12 +157,12 @@ namespace Redes_De_Solidaridad.Controllers
             var user = _context.Usuarios.Where(x => x.Cedula == usuarios.Cedula).FirstOrDefault(); //verifica si existe una institucion
 
             //si solo cambia el nombre de usuario
-            if (usuarios.Usuario != null && usuarios.Contraseña == null) // si existen nombre de institucion y nombre de usuario, verifica que sea el mismo a actualizar
+            if (usuarios.Usuario != null  && usuarios.Contraseña == null) // si existen nombre de institucion y nombre de usuario, verifica que sea el mismo a actualizar
             {
                 //Verifica que no exista el nombre de usuario
                 var nombre = _context.Usuarios.Where(x => x.Usuario == usuarios.Usuario).FirstOrDefault();
 
-                if (nombre == null)// si no existe el nombre, actualiza
+                if (nombre == null || nombre.Id == user.Id)// si no existe el nombre, actualiza
                 {
                     user.Usuario = usuarios.Usuario;
                     _context.Update(user);
@@ -201,7 +201,7 @@ namespace Redes_De_Solidaridad.Controllers
                 //Verifica que no exista el nombre de usuario
                 var nombre = _context.UsuariosInstituciones.Where(x => x.Usuario ==institucion.Usuario).FirstOrDefault();
 
-                if (nombre == null)// si no existe el nombre, actualiza
+                if (nombre == null || user.Id == nombre.Id)// si no existe el nombre, actualiza
                 {
                     user.Usuario = institucion.Usuario;
                     _context.Update(user);

@@ -21,7 +21,7 @@ function ingresar_matricula(button) {
 	$('#crear_matricula').modal('show'); // abre ventana modal
 
 	var fecha = new Date();//fecha actual
-	$('#Fecha').val(fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear()); //Establece la fecha actual en la MOdal 
+	$('#Fecha').text(fecha.toLocaleString()); //Establece la fecha actual en la MOdal 
 
 
 	var ide = $(button).attr("data-id");//obtiene el id del estudiante a matricular
