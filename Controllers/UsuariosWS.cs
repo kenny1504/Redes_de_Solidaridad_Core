@@ -299,7 +299,7 @@ namespace Redes_De_Solidaridad.Controllers
         }
 
 
-        [HttpGet("DatosInstitucionADMIN")] //Metodo para optener Datos de Intitucion (ADMINISTRADOR)
+        [HttpGet("DatosInstitucionADMIN")] //Metodo#1 para optener Datos de Intitucion (ADMINISTRADOR)
 
         public async Task<UsuarioInstitucion> DatosInstituciones(Busqueda dato)
         {
@@ -317,7 +317,7 @@ namespace Redes_De_Solidaridad.Controllers
             return Datos;
         }
 
-        [HttpGet("DatosInstitucionADMIN2")] //Metodo para optener Datos  Academicos de Intitucion (ADMINISTRADOR)
+        [HttpGet("DatosInstitucionADMIN2")] //Metodo#2 para optener Datos  Academicos de Intitucion (ADMINISTRADOR)
         public async Task<ActionResult<DasboardWS>> DatosInstitucion(Busqueda inst)
         {
             //Busca el usuario institucion para obtener su idInstitucion

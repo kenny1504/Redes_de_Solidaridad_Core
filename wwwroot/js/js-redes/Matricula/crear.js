@@ -10,7 +10,7 @@ $('#datepickerFechaMatricula').datepicker({ //sirve para mostrar fehca actual
 	autoclose: true
 }).datepicker("setDate", new Date());
 
-var dat;
+var dat; var idEstudiante;
 function ingresar_matricula(button) {
 	$('#Seccion_M').val("");
 	$('#Docente_M').val("");
@@ -24,7 +24,7 @@ function ingresar_matricula(button) {
 	$('#Fecha').text(fecha.toLocaleString()); //Establece la fecha actual en la MOdal 
 
 
-	var ide = $(button).attr("data-id");//obtiene el id del estudiante a matricular
+    idEstudiante = $(button).attr("data-id");//obtiene el id del estudiante a matricular
 	var codigo = $(button).attr("data-codigo");//obtiene el id del estudiante a matricular
 	var nombre = $(button).attr("data-nombre");//obtiene el id del estudiante a matricular
 
@@ -129,7 +129,7 @@ $("#Oferta_M").change(function () { //ajax para ver detalles de oferta
 				for (var a = 0; a < data.length; a++) {
 					var datos = "<tr value=" + data[a].id + ">" + "<td>" + data[a].nombre + "</td>"
 						+ "<td>" + "<button type='button' class='btn btn-danger' data-id=" + data[a].id + " onclick='remover_Materia_Grado(this)'><i class='fa fa-fw fa-trash '></i></button>"
-						+ "</td>" + "</tr>" + "<td><input type='hidden' name='MateriasM[]' value='" + data[a].id + "'></td>";
+						+ "</td>" + "</tr>";
 					$('#asignaturas_grado_M').append(datos); // agrega nuevo registro a tabla
 				}
 			}
@@ -157,12 +157,25 @@ function nueva_matricula() { // ajax para guardar en la tabla matricula
 		evt.preventDefault();
 	});
 
-	if ($('#Oferta_M').val() != null && $('#Turno').val() != null && $('#Situacion_Matricula').val() != null) // si el input contiene valores entra 
+	var OfertaId = $('#Oferta_M').val();
+	var Turno = $('#Turno').val();
+	var Situacion = $('#Situacion_Matricula').val();
+	var AsignaturasId = [];
+
+	//recorremos la tabla Asignaturas para capturar IdAsignaturas
+	$('#asignaturas_grado_M  tr').each(function () {
+		var Id = $(this).attr("value");
+		AsignaturasId[i] = Id;//ingresa Id al arreglo
+		i++;
+	});
+
+
+	if (OfertaId != null && Turno != null && Situacion!= null) // si el input contiene valores entra 
 	{
 		$.ajax({
 			type: 'POST',
-			url: 'matricula/guardar', // llamada a ruta para guardar la nueva matricula
-			data: $('#ingresar_Matricula').serialize(), // manda el form donde se encuentra la modal dataType: "JSON", // tipo de respuesta del controlador
+			url: 'Matricula/Agregar', // llamada a ruta para guardar la nueva matricula
+			data: { OfertasId: OfertaId, TurnoId: Turno, SituacionMatriculaId: Situacion, EstudiantesId: idEstudiante, AsignaturasId:AsignaturasId }, // manda el form donde se encuentra la modal dataType: "JSON", // tipo de respuesta del controlador
 			dataType: "JSON", // tipo de respuesta del controlador
 			success: function (data) {
 				if (data == 0) {
@@ -187,6 +200,7 @@ function nueva_matricula() { // ajax para guardar en la tabla matricula
 		$('#asignaturas_grado_M').val('');
 		$('#Turno').val('');
 		$('#Situacion_Matricula').val('');
+		$("body").removeAttr('style'); //Atributo para Que no haga el Padding-Right
 	}
 }
 

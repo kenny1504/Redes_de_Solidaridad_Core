@@ -119,16 +119,17 @@ function nueva_oferta() { // ajax para guardar en la tabla oferta
 						"<td>" + data[0].grado + "</td>" +
 						"<td>" + data[0].grupo + "</td>" +
 						"<td>" + data[0].seccion + "</td>"
-						+ "<td style='padding-top:0.1%; padding-bottom:0.1%;'>" + "<button class='btn btn-success' onclick='editar_Oferta(this);' data-id=" + data[0].idOferta + " data-Nombre=" + data[0].Descripcion + "  ><i class=' fa fa-fw fa-pencil'></i></button>"
-						+ "<button class='btn btn-info' data-id=" + data[0].idOferta + " onclick='eliminar_oferta(this);'><i class='fa fa-fw fa-trash '></i></button>"
+						+ "<td style='padding-top:0.1%; padding-bottom:0.1%;'>" + "<button class='btn btn-success' onclick='editar_Oferta(this);' data-id=" + data[0].idoferta + " data-Nombre=" + data[0].Descripcion + "  ><i class=' fa fa-fw fa-pencil'></i></button>"
+						+ "<button class='btn btn-info' data-id=" + data[0].idoferta + " onclick='eliminar_oferta(this);'><i class='fa fa-fw fa-trash '></i></button>"
 							+ "</td>" + "</tr>";
 
 						$('#ofertas tbody ').append(datos); //insertamos datos en tabla
-
+					
 					$("#exito").modal("show"); //abre modal de exito
 					$("#exito").fadeTo(2000, 500).slideUp(450, function () {   // cierra la modal despues del tiempo determinado  
 						$("#exito").modal("hide"); // cierra modal
 					});
+					$("#crear_oferta").modal("hide");
 				}
 			}
 		});

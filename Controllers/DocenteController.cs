@@ -67,16 +67,14 @@ namespace Redes_De_Solidaridad.Controllers
         {
 
             var lista = _context.Ofertas.Join
-               (_context.Detalleofertasinstitucion.Where(i => i.IdInstitucion==id), o => o.Id, d => d.IdInstitucion, (p, d) => p)
-               .Where(x => x.FechaOferta.Year == DateTime.Today.Year).Select(o => o.Id).ToList();
-
-
+               (_context.Detalleofertasinstitucion.Where(i => i.IdInstitucion==id), o => o.Id, d => d.IdOferta, (p, d) => p)
+               .Where(x => x.FechaOferta.Year == DateTime.Today.Year).ToList();
 
 
             var data = (from item2 in _context.Institucion.ToList()
                         join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
                         join item4 in _context.Docentes on item3.Id equals item4.PersonasId
-                        join item5 in _context.Ofertas.Where(x=> !lista.Contains(x.Id)).ToList() on item4.Id equals item5.DocentesId
+                        join item5 in _context.Ofertas.Where(x=> !lista.Select(l => l.DocentesId).Contains(x.DocentesId)).ToList() on item4.Id equals item5.DocentesId
                         where  item4.Estado == 1 && item5.FechaOferta.Year == DateTime.Today.Year
                         select new
                         {
