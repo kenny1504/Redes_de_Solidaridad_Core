@@ -20,4 +20,5 @@ namespace Redes_De_Solidaridad.Models
         public string Contraseña { get; set; }
 
     }
+
 }

@@ -287,5 +287,69 @@ namespace Redes_De_Solidaridad.Controllers
             return data;
         }
 
+       
+ 
+        [HttpGet("InstitucionesADMIN")] //Metodo para listar todos los usuarios Intitucion (ADMINISTRADOR)
+
+        public async Task<List<Usuariosinstituciones>> Instituciones()
+        {
+            var Instituciones = _context.UsuariosInstituciones.ToList();
+
+            return Instituciones;
+        }
+
+
+        [HttpGet("DatosInstitucionADMIN")] //Metodo para optener Datos de Intitucion (ADMINISTRADOR)
+
+        public async Task<UsuarioInstitucion> DatosInstituciones(Busqueda dato)
+        {
+            var Datos = (from item in _context.UsuariosInstituciones
+                         join item2 in _context.Institucion on item.IdInstitucion equals item2.Id
+                         where item.Id == dato.Id
+                         select new UsuarioInstitucion
+                         {
+                             Institucion=item2.Nombre,
+                             Usuario=item.Usuario,
+                             Direcccion=item2.Direccion
+
+                         }).FirstOrDefault();
+
+            return Datos;
+        }
+
+        [HttpGet("DatosInstitucionADMIN2")] //Metodo para optener Datos  Academicos de Intitucion (ADMINISTRADOR)
+        public async Task<ActionResult<DasboardWS>> DatosInstitucion(Busqueda inst)
+        {
+            //Busca el usuario institucion para obtener su idInstitucion
+            var intitucion = _context.UsuariosInstituciones.Where(x => x.Id == inst.Id).FirstOrDefault();
+
+            var Datos = new DasboardWS();
+
+            //consulta para ver cantidad de matriculas por la institucion
+            var matriculas = (from m in _context.Matriculas
+                              join e in _context.Estudiantes on m.EstudiantesId equals e.Id
+                              join p in _context.Personas on e.PersonasId equals p.Id
+                              where p.IdInstitucion == intitucion.IdInstitucion && m.Fecha.Year == DateTime.Today.Year
+                              select new
+                              {
+                                  id = m.Id
+                              }).Count();
+
+            //consulta para ver cantidad de estudiantes por la institucion
+            var estudiantes = _context.Personas.Join
+               (_context.Estudiantes, p => p.Id, e => e.PersonasId, (p, e) => p)
+               .Where(x => x.IdInstitucion == intitucion.IdInstitucion).Count();
+
+            //consulta para ver cantidad de Docentes por la institucion
+            var docente = _context.Personas.Join
+                (_context.Docentes, p => p.Id, d => d.PersonasId, (p, d) => p)
+                .Where(x => x.IdInstitucion == intitucion.IdInstitucion).Count();
+
+            Datos.Docentes = docente;
+            Datos.Estudiantes = estudiantes;
+            Datos.Matriculas = matriculas;
+
+            return Datos;
+        }
     }
 }
