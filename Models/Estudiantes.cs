@@ -11,6 +11,30 @@ namespace Redes_De_Solidaridad.Models
         public int Id { get; set; }
         public int TutorId { get; set; }
     }
+
+    //Clase para mostrar lista de estudiantes (ADMINISTRADOR)
+    public class EstudiantesADMIN
+    {
+        public string Institucion { get; set; }
+        public string Nombre { get; set; }
+        public int Id { get; set; }
+    }
+
+    //Clase para mostrar Datos de estudiante (ADMINISTRADOR)
+    public class DatosEstudiantesADMIN
+    {
+        public string Institucion { get; set; }
+        public string Nombre { get; set; }
+        public string CodigoEstudiante { get; set; }
+        public string Sexo { get; set; }
+        public string Direccion { get; set; }
+        public DateTime FechaNacimiento { get; set; }
+        public string Tutor { get; set; }
+        public int TelefonoTutor { get; set; }
+        public int Grado { get; set; }
+        public string Grupo { get; set; }
+    }
+
     public class estudianteWS
     {
         public int IdInstitucion{ get; set; }

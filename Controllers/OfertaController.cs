@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Redes_De_Solidaridad.Context;
 using Redes_De_Solidaridad.Models;
 
@@ -151,6 +152,53 @@ namespace Redes_De_Solidaridad.Controllers
                 return Json(data);
             }
 
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EliminarOferta(int id) //metodo para cargar ofertas en select matricula
+        {
+           
+            //Busca si existe una oferta con matriculas
+            var buscar = db.Matriculas.Where(x => x.OfertasId == id).FirstOrDefault();
+
+            if(buscar==null)
+            {
+                var  oferta = await db.Ofertas.FindAsync(id); //busca la asignatura
+                db.Ofertas.Remove(oferta); //Elimina
+                await db.SaveChangesAsync(); //Guarda
+                return Json(1);
+            }
+            else
+            {
+                return Json(0); //si no ya possee matriculas no elimina
+            }
+
+        }
+        [HttpPost]
+        public ActionResult Materiasoferta(int idoferta, int idinstitucion) //metodo para cargar materias segun la oferta
+        {
+            var data = (from item in db.Detalleasignaturasinstitucion.ToList()
+                        join item2 in db.Asignaturas.ToList() on item.IdAsignatura equals item2.Id
+                        join item3 in db.Gradoasignaturas.ToList() on item2.Id equals item3.AsignaturasId
+                        join item4 in db.Gradoacademico.ToList() on item3.GradoAcademicoId equals item4.Id
+                        join item5 in db.Ofertas.ToList() on item4.Id equals item5.GradoAcademicoId
+                        where item5.Id == idoferta && item.IdInstitucion == idinstitucion
+                        select new
+                        {
+                            Id = item2.Id,
+                            Nombre = item2.Nombre
+                        }
+                ).ToList();
+
+            return Json(data);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> situacionMatricula() //metodo para cargar situcion de matricula en ventana modal
+        {
+            var data = await db.Situacionmatricula.ToListAsync();
+
+            return Json(data);
         }
 
     }

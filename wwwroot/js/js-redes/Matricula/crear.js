@@ -39,13 +39,13 @@ function ingresar_matricula(button) {
 
 	$.ajax({
 		type: 'POST',
-		url: 'cargarturnos/turno', // llamada a ruta para cargar combobox con datos de tabla turno
+		url: 'Turno/Turnos', // llamada a ruta para cargar combobox con datos de tabla turno
 		dataType: "JSON", // tipo de respuesta del controlador
 		success: function (data) {
 			$('#Turno').empty();//limpia el combobox
 			data.forEach(element => { //ciclo para recorrer el arreglo de turno
 				//variable para asignarle los valores al combobox
-				var datos = '<option  value="' + element.id + '">' + element.Nombre + '</option>';
+				var datos = '<option  value="' + element.id + '">' + element.nombre + '</option>';
 
 				$('#Turno').append(datos);//ingresa valores al combobox
 				$('#Turno').val(''); // limpiar los turno
@@ -55,13 +55,13 @@ function ingresar_matricula(button) {
 
 	$.ajax({
 		type: 'POST',
-		url: 'cargarsituacion_matricula/matricula', // llamada a ruta para cargar combobox con datos de tabla situacion matricula
+		url: 'Oferta/situacionMatricula', // llamada a ruta para cargar combobox con datos de tabla situacion matricula
 		dataType: "JSON", // tipo de respuesta del controlador
 		success: function (data) {
 			$('#Situacion_Matricula').empty();//limpia el combobox
 			data.forEach(element => { //ciclo para recorrer el arreglo de turno
 				//variable para asignarle los valores al combobox
-				var datos = '<option  value="' + element.id + '">' + element.Descripcion + '</option>';
+				var datos = '<option  value="' + element.id + '">' + element.descripcion + '</option>';
 
 				$('#Situacion_Matricula').append(datos);//ingresa valores al combobox
 				$('#Situacion_Matricula').val(''); // limpiar la situacion matricula
@@ -150,10 +150,6 @@ function remover_Materia_Grado(button) {
 //  var datos= "</td>"+"</tr>"+"<td><input type='hidden' name='MateriasMe[]' value='"+ty[a].id+"'></td>"; 
 //   }
 //}
-$("#datepickerMatricula").change(function () { //esta funcion sirve para que las ofertas cambien segun cambie el año
-	cargar_oferta(); //llamado a funcion
-}); //fin de funcion
-
 
 function nueva_matricula() { // ajax para guardar en la tabla matricula
 

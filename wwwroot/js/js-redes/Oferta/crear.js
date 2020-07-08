@@ -104,7 +104,7 @@ function nueva_oferta() { // ajax para guardar en la tabla oferta
 			success: function (data) {
 				if (data == 0) { // si el ajax contiene errores agrega un label indicando el error 
 
-					var error = "Favor revise los datos ingresador, Datos ya existen";
+					var error = "Favor revise los datos ingresador, Datos ya existen (Grado y Grupo)";
 					$('#mensaje').text(error);   //manda el error a la modal
 					$("#Mensaje-error").modal("show"); //abre modal de error
 					$("#Mensaje-error").fadeTo(2900, 500).slideUp(450, function () {// cierra la modal despues del tiempo determinado  
