@@ -78,5 +78,90 @@ namespace Redes_De_Solidaridad.Controllers
             return data;
 
         }
+
+        //Servicio para recuperar la cantidad de estudiantes segun la institucion 
+        [HttpGet("VerAsistencia")]
+        public async Task<ActionResult<List<int>>> Ver_Asistencia(Busqueda dato)
+        {
+            //busca la matricula segun el id matricula recivido
+            var busqueda = _context.Matriculas.Where(x => x.Id == dato.Id).FirstOrDefault();
+
+
+            //consulta para ver cantidad de Asistencias
+            var Asistencias = (from a in _context.Asistencia.ToList()
+                               join m in _context.Matriculas.ToList() on a.IdMatricula equals m.Id
+                               join o in _context.Ofertas.ToList() on m.OfertasId equals o.Id
+                               join dm in _context.Detalleofertasinstitucion.ToList() on o.Id equals dm.IdOferta
+                               where o.Id==busqueda.OfertasId && m.Fecha.Year == DateTime.Today.Year
+                               group a by new { a.Fecha } into asistencias
+                               select new
+                               {
+                                   fecha = asistencias.Key.Fecha
+
+                               }).Count();
+
+            //consulta para ver cantidad de veces asistidas por el estudiante
+            var asistidas = (from a in _context.Asistencia.ToList()
+                             join m in _context.Matriculas.ToList() on a.IdMatricula equals m.Id
+                             join o in _context.Ofertas.ToList() on m.OfertasId equals o.Id
+                             join dm in _context.Detalleofertasinstitucion.ToList() on o.Id equals dm.IdOferta
+                             where m.Id==dato.Id && m.Fecha.Year == DateTime.Today.Year && a.Estado == 1
+                             group a by new { a.Fecha } into asistencias
+                             select new
+                             {
+                                 fecha = asistencias.Key.Fecha
+
+                             }).Count();
+
+            //calculo de faltas o ausensias
+            var ausencias = Asistencias - asistidas;
+
+            //Crea Lista de Enteros
+            var asistencia = new List<int>();
+            asistencia.Add(ausencias);//Agrega cantidad de Ausencias
+            asistencia.Add(asistidas);//Agrega cantidad de Asistidas
+
+            return asistencia;//Retorna lista
+
+        }
+
+        //Servicio para recuperar la fechas (Ausencias)
+        [HttpGet("Fechas")]
+        public async Task<List<string>> Fechas(Busqueda dato)
+        {
+            //busca la matricula segun el id matricula recivido
+            var busqueda = _context.Matriculas.Where(x => x.Id == dato.Id).FirstOrDefault();
+
+            //Fechas asistidas
+            var asisti = (from a in _context.Asistencia.ToList()
+                          join m in _context.Matriculas.ToList() on a.IdMatricula equals m.Id
+                          join o in _context.Ofertas.ToList() on m.OfertasId equals o.Id
+                          join dm in _context.Detalleofertasinstitucion.ToList() on o.Id equals dm.IdOferta
+                          where m.Id == dato.Id && m.Fecha.Year == DateTime.Today.Year && a.Estado == 1
+                          group a by new { a.Fecha } into asistencias
+                          select new
+                          {
+                              fecha = asistencias.Key.Fecha.ToShortDateString()
+
+                          });
+
+            //Fechas Totas de Fechas 
+            var Asistencias = (from a in _context.Asistencia.ToList()
+                               join m in _context.Matriculas.ToList() on a.IdMatricula equals m.Id
+                               join o in _context.Ofertas.ToList() on m.OfertasId equals o.Id
+                               join dm in _context.Detalleofertasinstitucion.ToList() on o.Id equals dm.IdOferta
+                               where o.Id == busqueda.OfertasId && m.Fecha.Year == DateTime.Today.Year
+                               group a by new { a.Fecha } into asistencias
+                               select new
+                               {
+                                   fecha = asistencias.Key.Fecha.ToShortDateString()
+
+                               });
+
+            //Fechas de Inasistencias
+            var ausencia = Asistencias.Where(a => !asisti.Select(l => l.fecha).Contains(a.fecha)).Select(x=> x.fecha).ToList();
+
+            return ausencia;
+        }
     }
 }

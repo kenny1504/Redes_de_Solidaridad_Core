@@ -62,7 +62,7 @@ namespace Redes_De_Solidaridad.Controllers
                           join m in db.Matriculas.ToList() on a.IdMatricula equals m.Id
                           join o in db.Ofertas.ToList() on m.OfertasId equals o.Id
                           join dm in db.Detalleofertasinstitucion.ToList() on o.Id equals dm.IdOferta
-                          where m.EstudiantesId==id && m.Fecha.Year == DateTime.Today.Year
+                          where a.Estado == 1 && m.EstudiantesId==id && m.Fecha.Year == DateTime.Today.Year
                           group a by new { a.Fecha } into asistencias
                           select new
                           {
@@ -74,7 +74,7 @@ namespace Redes_De_Solidaridad.Controllers
                                join m in db.Matriculas.ToList() on a.IdMatricula equals m.Id
                                join o in db.Ofertas.ToList() on m.OfertasId equals o.Id
                                join dm in db.Detalleofertasinstitucion.ToList() on o.Id equals dm.IdOferta
-                               where o.GradoAcademicoId == grado && o.GruposId == grupo && m.Fecha.Year == DateTime.Today.Year
+                               where  o.GradoAcademicoId == grado && o.GruposId == grupo && m.Fecha.Year == DateTime.Today.Year
                                group a by new { a.Fecha} into asistencias
                                select new
                                {
