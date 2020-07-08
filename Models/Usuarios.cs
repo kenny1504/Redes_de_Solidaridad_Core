@@ -52,4 +52,26 @@ namespace Redes_De_Solidaridad.Models
     {
         public string Cedula { get; set; }
     }
+
+    public class UsuariosADMIN//Clase para Mostrar Usuarios (ADMINISTRADOR)
+    {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Institucion { get; set; }
+    }
+
+
+    public class DatosUsuariosADMIN//Clase para Mostrar Datos Usuario (ADMINISTRADOR)
+    {
+        public string Institucion { get; set; }
+        public string Cedula { get; set; }
+        public string Nombre { get; set; }
+        public string Sexo { get; set; }
+        public string Direccion { get; set; }
+        public string Correo { get; set; }
+        public int Telefono { get; set; }
+        public DateTime FechaNacimiento { get; set; }
+    }
+
+
 }

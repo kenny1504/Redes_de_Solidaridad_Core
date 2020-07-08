@@ -235,5 +235,57 @@ namespace Redes_De_Solidaridad.Controllers
             }
         }
 
+
+        [HttpGet("UsuariosADMIN")] //Metodo para listar todos los usuarios docentes (ADMINISTRADOR)
+
+        public async Task<ActionResult<List<UsuariosADMIN>>> Usuarios()
+        {
+
+            var data = new List<UsuariosADMIN>();
+
+            data = (from item in _context.Usuarios.ToList()
+                    join item2 in _context.Institucion.ToList() on item.IdInstitucion equals item2.Id
+                    join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
+                    where item.Cedula == item3.Cedula 
+                    select new UsuariosADMIN
+                    {
+                        Id=item.Id,
+                        Nombre = item3.Nombre + " " + item3.Apellido1 + " " + item3.Apellido2,
+                        Institucion = item2.Nombre
+
+                    }).ToList();
+
+            return data;
+        }
+
+
+        [HttpGet("DatosUsuariosADMIN")] //Metodo para listar todos los usuarios docentes (ADMINISTRADOR)
+
+        public async Task<ActionResult<DatosUsuariosADMIN>> DatosUsuarios(Busqueda id)
+        {
+
+            DatosUsuariosADMIN data = new DatosUsuariosADMIN();
+
+            data = (from item in _context.Usuarios.ToList()
+                    join item2 in _context.Institucion.ToList() on item.IdInstitucion equals item2.Id
+                    join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
+                    where item.Cedula == item3.Cedula  && item.Id==id.Id
+                    select new DatosUsuariosADMIN
+                    {
+                        
+                        Nombre = item3.Nombre + " " + item3.Apellido1 + " " + item3.Apellido2,
+                        Institucion = item2.Nombre,
+                        Cedula=item3.Cedula,
+                        Direccion=item3.Direccion,
+                        Correo=item3.Correo,
+                        Sexo=item3.Sexo,
+                        FechaNacimiento=item3.FechaNacimiento,
+                        Telefono=item3.Telefono
+
+                    }).FirstOrDefault();
+
+            return data;
+        }
+
     }
 }
