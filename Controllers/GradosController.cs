@@ -30,13 +30,24 @@ namespace Redes_De_Solidaridad.Controllers
         public async Task<IActionResult> Index()
         {
             var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
+            string tipo = "0";
 
-            if (usuario != null) //verifica si existe una sesion Valida
+            if (usuario != null)
+            {
+                tipo = (string)usuario[4];//conversiona  entero
+            }
+
+            if (usuario != null && tipo == "1") //usuario tipo ADMINISTRADOR
             {
                 return View("~/Areas/Grado/Views/Mostrar.cshtml");
             }
-            else //si no existe una sesion retorna inicio de sesion
+            else if (usuario != null && tipo == "3") //Usuario tipo INSTITUCION
+            {
+                return View("~/Areas/Grado/Views/Mostrar.cshtml");
+            }
+            else //si no existe una sesion retorna inicio de sesion 
                 return View("~/Areas/Inicio de sesion/Views/login.cshtml");
+
 
         }
 

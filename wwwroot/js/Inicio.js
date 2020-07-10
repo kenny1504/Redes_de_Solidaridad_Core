@@ -246,6 +246,17 @@
                       "<li><a data-toggle='modal' data-target='#modal_Materia' ><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"+
                         "<li><a href='Asignaturas' ><i class='fa fa-circle-o text-aqua'></i> Mostrar</a></li>"+
                     "</ul>"+
+            "</li >" +
+             "<li class='treeview'>"+//Menu Grados
+                    "<a href='#'>"+
+                       "<i class='fa fa-circle-o text-aqua'></i> <span>Grados</span>"+
+                        "<span class='pull-right-container'>"+
+                            "<i class='fa fa-angle-left pull-right'></i>"+
+                        "</span>"+
+                    "</a>"+
+                    "<ul class='treeview-menu'>"+
+                      "<li><a href='Grados'><i class='fa fa-circle-o text-yellow'></i> Mostrar</a></li>"+
+                    "</ul>"+
                 "</li >"
 	}
 	

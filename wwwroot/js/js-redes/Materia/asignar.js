@@ -1,10 +1,12 @@
-$("#asignar-ma").click(function() { //ajax para cargar combobox Asignaturas y Grados
+function Asignar() { //ajax para cargar combobox Asignaturas y Grados
 
+    var id = $("#id_u").text() //Id de la institucion 
       $.ajax({
           type: 'POST',
           url: 'Asignaturas/Datos', // llamada a ruta para cargar combobox con datos de tabla materia
+          data: { idinstitucion: id },
           dataType: "JSON", // tipo de respuesta del controlador
-          success: function(data){ 
+          success: function (data) { 
               $('#Asignaturaid').empty();
           //ciclo para recorrer el arreglo de asignaturas
             data.forEach(element => {
@@ -19,7 +21,7 @@ $("#asignar-ma").click(function() { //ajax para cargar combobox Asignaturas y Gr
       
       $.ajax({
         type: 'POST',
-        url: 'Grados/Datos', // llamada a ruta para cargar combobox con datos de tabla grados
+          url: 'Grados/Grados', // llamada a ruta para cargar combobox con datos de tabla grados
         dataType: "JSON", // tipo de respuesta del controlador
         success: function(data){ 
         
@@ -33,19 +35,22 @@ $("#asignar-ma").click(function() { //ajax para cargar combobox Asignaturas y Gr
           
       }
     });//Fin ajax combobox Grados
-});
+};
 
-$("#asignar_Mate").click(function() { // ajax para guardar en la tabla detalleAsignatura
+function AsignarMateria() { // ajax para guardar en la tabla detalleAsignatura
+
+    var idasignatura = $('#Asignaturaid').val();
+    var idgrado = $('#Gradoid').val();
 
     $.ajax({
-      type: 'POST', 
-      url: 'Gradoaasignaturas/Crear', // llamada a ruta para cargar combobox con datos de tabla materia
-      data: $('#asignar_materia').serialize(), // manda el form donde se encuentra la modal dataType: "JSON", // tipo de respuesta del controlador
+        type: 'POST',
+        url: 'Asignaturas/Asignar', // llamada a ruta para cargar combobox con datos de tabla materia
+        data: { GradoAcademicoId: idgrado, AsignaturasId: idasignatura }, // manda el form donde se encuentra la modal dataType: "JSON", // tipo de respuesta del controlador
       dataType: "JSON", // tipo de respuesta del controlador
       success: function(data){ 
         if(data==1) // si la aun no se asigna  a ese grado manda mensaje de exito
         {
-          $("#asignar_materia_confirmar").modal("hide"); // cierra modal confirmar
+          $("#asignar_asignatura").modal("hide"); // cierra modal confirmar
           $("#exito").modal("show"); //abre modal de exito
           $("#exito").fadeTo(2000,500).slideUp(450,function(){   // cierra la modal despues del tiempo determinado  
                    $("#exito").modal("hide"); // cierra modal exito
@@ -62,4 +67,4 @@ $("#asignar_Mate").click(function() { // ajax para guardar en la tabla detalleAs
         }      
     }   
   });//Fin ajax guardar materia asignada
-});
+};

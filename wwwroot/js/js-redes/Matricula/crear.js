@@ -178,30 +178,49 @@ function nueva_matricula() { // ajax para guardar en la tabla matricula
 			data: { OfertasId: OfertaId, TurnoId: Turno, SituacionMatriculaId: Situacion, EstudiantesId: idEstudiante, AsignaturasId:AsignaturasId }, // manda el form donde se encuentra la modal dataType: "JSON", // tipo de respuesta del controlador
 			dataType: "JSON", // tipo de respuesta del controlador
 			success: function (data) {
-				if (data == 0) {
-					$('#crear_matricula').modal('hide'); // cierra ventana modal
-					$('#ver_matricula_confirmar').modal('show'); // cierra ventana modal
-				}
-				else {
+				if (data == 1) {
 					$('#crear_matricula').modal('hide'); // cierra ventana modal
 					$("#exito").modal("show"); //abre modal de exito          
 					$("#exito").fadeTo(2000, 500).slideUp(450, function () {   // cierra la modal despues del tiempo determinado  
 						$("#exito").modal("hide"); // cierra modal
 					});
+					limpiar();
+				}
+				else {
+					limpiar(); //Limpia campos 
+
+					//Muestra mensaje de error
+					var error = "El Estudiante Ya posee una Matricula.... Cargando datos de matricula...";
+					$('#mensaje').text(error);   //manda el error a la modal
+					$("#Mensaje-error").modal("show"); //abre modal de error
+					$("#Mensaje-error").fadeTo(3100, 600).slideUp(450, function () {// cierra la modal despues del tiempo determinado  
+						$("#Mensaje-error").modal("hide"); // cierra modal error
+					});
+
+					//coloca Datos de matricula
+					$('#Oferta_M').val(data.ofertasId);
+					$('#Turno').val(data.turnoId);
+					$('#Situacion_Matricula').val(data.situacionMatriculaId);
+					$("#Oferta_M").change();//Llamado a evento change para cargar detalles de matricula
 				}
 			}
 		});
-		//limpiar cajas de textos
-		$('#Seccion_M').val("");
-		$('#Docente_M').val("");
-		$('#Grado_M').val("");
-		$('#Grupo_M').val("");
-		$('#Oferta_M').val('');
-		$('#asignaturas_grado_M').val('');
-		$('#Turno').val('');
-		$('#Situacion_Matricula').val('');
-		$("body").removeAttr('style'); //Atributo para Que no haga el Padding-Right
+		
 	}
 }
 
 
+
+function limpiar() {
+
+	//limpiar cajas de textos
+	$('#Seccion_M').val("");
+	$('#Docente_M').val("");
+	$('#Grado_M').val("");
+	$('#Grupo_M').val("");
+	$('#Oferta_M').val('');
+	$('#asignaturas_grado_M').empty();
+	$('#Turno').val('');
+	$('#Situacion_Matricula').val('');
+	$("body").removeAttr('style'); //Atributo para Que no haga el Padding-Right
+}

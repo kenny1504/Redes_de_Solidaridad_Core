@@ -162,5 +162,44 @@ namespace Redes_De_Solidaridad.Controllers
 
             return Json(data); 
         }
+
+        public async Task<IActionResult> Asignar(int GradoAcademicoId, int AsignaturasId) //metodo para actualizar una asignatura
+        {
+            var verifica = _context.Gradoasignaturas.Where(x => x.AsignaturasId == AsignaturasId && x.GradoAcademicoId == GradoAcademicoId).FirstOrDefault();
+
+            if (verifica == null)
+            {
+                Gradoasignaturas gradoasignaturas = new Gradoasignaturas();
+                gradoasignaturas.AsignaturasId = AsignaturasId;
+                gradoasignaturas.GradoAcademicoId = GradoAcademicoId;
+
+                _context.Add(gradoasignaturas);
+                await _context.SaveChangesAsync(); //guarda
+                return Json(1);
+            }
+            else
+                return Json(-1);
+        }
+
+
+        [HttpPost]
+        public ActionResult MateriasGrado(int idGrado, int idinstitucion) //metodo para cargar materias segun la oferta
+        {
+            var data = (from item in _context.Detalleasignaturasinstitucion.ToList()
+                        join item2 in _context.Asignaturas.ToList() on item.IdAsignatura equals item2.Id
+                        join item3 in _context.Gradoasignaturas.ToList() on item2.Id equals item3.AsignaturasId
+                        join item4 in _context.Gradoacademico.ToList() on item3.GradoAcademicoId equals item4.Id
+                        where item4.Id == idGrado && item.IdInstitucion == idinstitucion
+                        select new
+                        {
+                            Id = item3.Id,
+                            Nombre = item2.Nombre
+                        }
+                ).ToList();
+
+            return Json(data);
+
+        }
+
     }
 }

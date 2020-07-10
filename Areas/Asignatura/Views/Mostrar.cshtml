@@ -7,7 +7,7 @@
 	<div class="box-header">
 		<h2 class="box-title text-light-blue">Lista de Asignaturas</h2>
 		<a href="#" data-toggle="modal" data-target="#modal_Materia" class="btn btn-warning btn-sm pull-right" id="m2">Agregar Asignatura</a>
-		<a href="#" data-toggle="modal" data-target="#" class="btn btn-success btn-sm pull-right" id="m2">Asignar</a>
+		<a href="#" onclick="Asignar()" data-toggle="modal" data-target="#asignar_asignatura" class="btn btn-success btn-sm pull-right" id="m2">Asignar</a>
 	</div><!-- /.box-header -->
 	<div class="box-body panel box box-primary">
 		<table id="Asignaturas" class="table table-bordered table-striped">
@@ -29,6 +29,7 @@
 
 @Html.Partial("~/Areas/Asignatura/Views/Agregar.cshtml")
 @Html.Partial("~/Areas/Asignatura/Views/Eliminar.cshtml")
+@Html.Partial("~/Areas/Asignatura/Views/Asignar.cshtml")
 
 
 @section Scripts {
@@ -36,6 +37,9 @@
 	<script type="text/javascript" src="~/js/js-redes/Materia/Ver.js"></script> <!-- script Cargar Asignaturas-->
 	<script type="text/javascript" src="~/js/js-redes/Materia/crear.js"></script> <!-- script agregar asigntura-->
 	<script type="text/javascript" src="~/js/js-redes/Materia/eliminar.js"></script> <!-- script agregar asigntura-->
+	<script type="text/javascript" src="~/js/js-redes/Materia/asignar.js"></script> <!-- script agregar asigntura-->
+
+
 }
 
 
