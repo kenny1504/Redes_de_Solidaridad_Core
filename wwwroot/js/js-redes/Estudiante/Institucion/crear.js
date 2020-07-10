@@ -4,12 +4,12 @@ $(function() //funcion para buscar dentro del combobox
   $('#parent').select2({width:"100%"})// agrega el select2 a combobox parentesco para buscar 
 });
 
-$('#datepicker3').datepicker({ //sirve para mostrar Datepicker
+$('#datepicker').datepicker({ //sirve para mostrar Datepicker
   format: 'yyyy-mm-dd',
   autoclose: true
 })
 
-function ingresar_estudiante()
+function ingresarEstudiante()
 {   
     $('#crear_estudiante').modal('show'); // abre ventana modal
     //limpia campos
@@ -23,10 +23,13 @@ function ingresar_estudiante()
     $('textarea').val ('');
     $('#parent').val(null);
     $('#datepicker3').val(null);
+    var id = $("#id_u").text() //Id de la institucion 
+
 
     $.ajax({ // ajax para cargar datos en el combobox
         type: 'POST',
-        url: 'tutor/tutores', // llamada a ruta para cargar combobox con datos de tabla tutores
+        url: 'Tutores/Tutores', // llamada a ruta para cargar combobox con datos de tabla tutores
+        data:{ idinstitucion: id },
         dataType: "JSON", // tipo de respuesta del controlador
         success: function(data){ 
           $('#tutores').empty();
@@ -34,7 +37,7 @@ function ingresar_estudiante()
           var datos ="<option value='' disabled selected>Tutor</option>";
           data.forEach(element => {
               //variable para asignarle los valores al combobox
-              datos+='<option  value="'+element.id+'">'+element.Nombre+'</option>';
+              datos += '<option  value="' + element.id + '">' + element.nombret+'</option>';
           });
         $('#tutores').append(datos); //ingresa valores al combobox
       }   
@@ -42,7 +45,7 @@ function ingresar_estudiante()
 
     $.ajax({ // ajax para cargar datos en el combobox
       type: 'POST',
-      url: 'parentesco/parentescos', // llamada a ruta para cargar combobox con datos de tabla parentesco
+        url: 'Cargar_P', // llamada a ruta para cargar combobox con datos de tabla parentesco
       dataType: "JSON", // tipo de respuesta del controlador
       success: function(data){ 
         $('#parent').empty();
@@ -50,7 +53,7 @@ function ingresar_estudiante()
         var datos2 ="<option value='' disabled selected>Parentesco</option>";
         data.forEach(element => {
             //variable para asignarle los valores al combobox
-           datos2+='<option  value="'+element.id+'">'+element.Parentesco+'</option>'; 
+           datos2+='<option  value="'+element.id+'">'+element.parentesco+'</option>'; 
         });
         
         $('#parent').append(datos2); //ingresa valores al combobox
@@ -82,8 +85,6 @@ function nuevo_estudiante()
         var tutor=$('#tutores').text();
         
 
-          if($("#Codigo").val().length==8 && ($("#telefono").val().length==8  || $("#telefono").val().length==0 )) //verifica que el input contenga 8 valores 
-          {
 
             $.ajax({ // ajax para guardar estudiante
               type: 'POST',
@@ -157,7 +158,6 @@ function nuevo_estudiante()
               
             }   
           });//Fin ajax Guardar estudiante
-          }
                  
       }
 }
