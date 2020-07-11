@@ -25,16 +25,16 @@ namespace Redes_De_Solidaridad.Controllers
         {
             var Grados = new List<Estudiantes_grado>(); //Lista de tipo grado
 
-           Grados = (from gr in _context.Gradoacademico
-                         join o in _context.Ofertas on gr.Id equals o.GradoAcademicoId
-                         join m in _context.Matriculas on o.Id equals m.OfertasId
-                         where m.Fecha.Year == DateTime.Today.Year
-                         group gr by new { gr.Grado, gr.Id } into grados
-                         select new Estudiantes_grado
-                         {
-                             Grado = grados.Key.Grado,
-                             Cantidad = grados.Count()
-                         }).ToList(); //Consulta para recuperar 
+            Grados = (from gr in _context.Gradoacademico
+                      join o in _context.Ofertas on gr.Id equals o.GradoAcademicoId
+                      join m in _context.Matriculas on o.Id equals m.OfertasId
+                      where m.Fecha.Year == DateTime.Today.Year
+                      group gr by new { gr.Grado, gr.Id } into grados
+                      select new Estudiantes_grado
+                      {
+                          Grado = grados.Key.Grado,
+                          Cantidad = grados.Count()
+                      }).ToList(); //Consulta para recuperar 
 
             return Grados;
         }
@@ -65,7 +65,7 @@ namespace Redes_De_Solidaridad.Controllers
             var Datos = new DasboardWS();
 
             var estudiantes = _context.Estudiantes.Count();
-            var institucion = _context.Institucion.Count(); 
+            var institucion = _context.Institucion.Count();
             var docente = _context.Docentes.Count();
             var matriculas = _context.Matriculas.Where(x => x.Fecha.Year == DateTime.Today.Year).Count();
 
@@ -84,13 +84,13 @@ namespace Redes_De_Solidaridad.Controllers
 
             //consulta para ver cantidad de matriculas por la institucion
             var matriculas = (from m in _context.Matriculas
-                               join e in _context.Estudiantes on m.EstudiantesId equals e.Id
-                               join p in _context.Personas on e.PersonasId equals p.Id
-                               where p.IdInstitucion == inst.Id && m.Fecha.Year == DateTime.Today.Year
+                              join e in _context.Estudiantes on m.EstudiantesId equals e.Id
+                              join p in _context.Personas on e.PersonasId equals p.Id
+                              where p.IdInstitucion == inst.Id && m.Fecha.Year == DateTime.Today.Year
                               select new
-                               {
-                                   id = m.Id
-                               }).Count();
+                              {
+                                  id = m.Id
+                              }).Count();
 
             //consulta para ver cantidad de estudiantes por la institucion
             var estudiantes = _context.Personas.Join
@@ -107,6 +107,28 @@ namespace Redes_De_Solidaridad.Controllers
             Datos.Matriculas = matriculas;
 
             return Datos;
+        }
+
+        [HttpGet("Dashboard/Docente")] //Servicio para dasboard DOCENTE
+        public async Task<ActionResult<DasboarDocente>> DatosDocente(BusquedaUD dato)
+        {
+            DasboarDocente datos = (from item in _context.Usuarios
+                                    join item2 in _context.Institucion on item.IdInstitucion equals item2.Id
+                                    join item3 in _context.Personas on item2.Id equals item3.IdInstitucion
+                                    join item4 in _context.Docentes on item3.Id equals item4.PersonasId
+                                    join item5 in _context.Ofertas on item4.Id equals item5.DocentesId
+                                    join item6 in _context.Gradoacademico on item5.GradoAcademicoId equals item6.Id
+                                    join item7 in _context.Grupos on item5.GruposId equals item7.Id
+                                    where item3.Cedula == dato.Cedula && item.Cedula == item3.Cedula && item5.FechaOferta.Year == DateTime.Today.Year
+                                    select new DasboarDocente
+                                    {
+                                        Institucione = item2.Nombre,
+                                        Grado = item6.Grado.ToString(),
+                                        Grupo = item7.Grupo
+                                    }).FirstOrDefault();
+
+            return datos;
+
         }
     }
 }

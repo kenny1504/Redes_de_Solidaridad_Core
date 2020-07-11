@@ -48,7 +48,7 @@ namespace Redes_De_Solidaridad.Models
     {
         public int Id { get; set; }
     }
-    public class BusquedaUD//Recive el id de la isntitucion
+    public class BusquedaUD//Recive cedula
     {
         public string Cedula { get; set; }
     }

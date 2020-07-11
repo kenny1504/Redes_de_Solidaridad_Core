@@ -12,4 +12,10 @@ namespace Redes_De_Solidaridad.Models
         public int Estudiantes { get; set; }
         public int Matriculas { get; set; }
     }
+    public class DasboarDocente
+    {
+        public string Institucione { get; set; }
+        public string Grupo { get; set; }
+        public string Grado { get; set; }
+    }
 }
