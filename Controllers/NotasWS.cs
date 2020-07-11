@@ -90,7 +90,7 @@ namespace Redes_De_Solidaridad.Controllers
             //Verifica si existe ya una Nota en esa Matricula
             var Existe = _context.Notas.Where(X => X.DetalleMatriculaId == DetalleMatricula.Id && X.DetalleNotaId==dato.IdDetalle).FirstOrDefault();
 
-            if (Existe == null)
+            if (Existe == null) //Si no existe agrega
             {   //Agregar Nota
 
                 Notas Nota = new Notas();
@@ -102,8 +102,13 @@ namespace Redes_De_Solidaridad.Controllers
                 await _context.SaveChangesAsync();
                 return 1;
             }
-            else //si Retorna -1 es porque ya existe una Nota
-                return -1;
+            else // si existe Actualiza
+            {
+                Existe.Nota = dato.Nota;
+                _context.Update(Existe);
+                await _context.SaveChangesAsync();
+                return 2; //Si retorna 2 es porque actualizo la nota
+            }
         }
 
         [HttpGet("Ver_MateriasDocentes")]
