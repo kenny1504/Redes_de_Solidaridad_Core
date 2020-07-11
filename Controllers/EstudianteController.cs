@@ -150,5 +150,58 @@ namespace Redes_De_Solidaridad.Controllers
 
             return Json(data);
         }
+
+        public async Task<ActionResult> AgregarEstudianteAsync(string CodigoEstudiante, string Nombre, string Apellido1, string Apellido2, string Sexo, string Direccion, int Telefono, DateTime FechaNacimiento, int IdInstitucion, int TutorId, int ParentescosId) //metodo para cargar datos de estudiantes DETALLES
+        {
+            var persona = new Personas();
+            var estudiante = new Estudiantes();
+
+            //Verificamos que no exista ningun estudiante con el mismo codigo
+            var verificar = db.Estudiantes.Where(x => x.CodigoEstudiante == CodigoEstudiante).FirstOrDefault();
+            
+            if(verificar==null)
+            {
+
+                persona.Nombre = Nombre;
+                persona.Apellido1 = Apellido1;
+                persona.Apellido2 = Apellido2;
+                persona.Direccion = Direccion;
+                persona.FechaNacimiento = FechaNacimiento;
+                persona.Sexo = Sexo;
+                persona.IdInstitucion = IdInstitucion;
+                persona.Telefono = Telefono;
+
+                db.Add(persona);
+                await db.SaveChangesAsync();
+
+                estudiante.CodigoEstudiante = CodigoEstudiante;
+                estudiante.ParentescosId = ParentescosId;
+                estudiante.TutorId = TutorId;
+                estudiante.PersonasId = persona.Id;
+
+                db.Add(estudiante);
+                await db.SaveChangesAsync();
+
+                //Buscamos el Telefono del Tutor
+                var tutor = (from item in db.Personas
+                               join item2 in db.Tutores on item.Id equals item2.PersonasId
+                               where item2.Id==TutorId
+                               select new 
+                               {
+                                   Telefono = item.Telefono
+                               }
+                           ).FirstOrDefault();
+
+                int[] Datos = { tutor.Telefono, estudiante.Id };
+
+                return Json(Datos);
+            }
+            else //Si el estudiante Ya existe
+            {
+                return Json(-1);
+            }
+
+        }
     }
+
 }

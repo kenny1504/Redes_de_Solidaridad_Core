@@ -14,19 +14,19 @@
                     <div class="register-box-body" style="background-color:#eee;">
                         <img class="profile-user-img img-responsive img-circle" src="~/lte/dist/img/estudiante.png" class="user-image" alt="User Image">
                         <div class="form-group has-feedback">
-                            <input type="text" id="Nombre-completo" class="form-control" placeholder="Codigo estudiante">
+                            <input type="text" id="Codigo" class="form-control" placeholder="Codigo estudiante">
                         </div>
                         <div class="form-group has-feedback">
-                            <input type="text" id="Nombre-completo" class="form-control" placeholder="Nombre">
+                            <input type="text" id="NombreE" class="form-control" placeholder="Nombre">
                         </div>
                         <div class="form-group has-feedback">
-                            <input type="email" id="Nombre-de-usuario" class="form-control" placeholder="Primer apellido">
+                            <input type="text" id="Apellido1" class="form-control" placeholder="Primer apellido">
                         </div>
                         <div class="form-group has-feedback">
-                            <input type="text" id="contraseña" class="form-control" placeholder="Segundo apellido">
+                            <input type="text" id="Apellido2" class="form-control" placeholder="Segundo apellido">
                         </div>
                         <div class="form-group has-feedback">
-                            <select style="width: 20%; padding-top: 2.3%; " name="roles" id="roles" aria-placeholder="sexo">
+                            <select style="width: 20%; padding-top: 2.3%; " name="roles" id="Sexo" aria-placeholder="sexo">
                                 <option value=" " disabled selected>Sexo</option>
                                 <option value="F">F</option>
                                 <option value="M">M</option>
@@ -45,20 +45,20 @@
                                     }
                                 </style>
                             </select>
-                            <input style="width: 75%;" type="text" id="contraseña" class="form-control pull-right" placeholder="Telefono">
+                            <input style="width: 75%;" min="8" maxlength="8" type="number" id="Telefono" class="form-control pull-right" placeholder="Telefono">
                         </div>
                         <div class="form-group has-feedback">
                             <select style="width: 80%; padding-top: 2.7%; " name="tutores" id="tutores">
                                 <option value=" " disabled selected>Tutor</option>
                             </select>
-                            <small style="padding-top: 1.3%;" class=" btn-sm pull-right btn-warning  ver-tutor">Ingresar Tutor</small>
+                            <small style="padding-top: 1.3%;" class=" btn-sm pull-right btn-warning">Ingresar Tutor</small>
                         </div>
                         <div class="form-group has-feedback">
                             <select style="width: 100%; padding-top: 2.5%; " name="parent" id="parent">
                             </select>
                         </div>
                         <div class="form-group has-feedback">
-                            <textarea class="form-control text-primary" rows="3" id="dir" placeholder="Direccion"></textarea>
+                            <textarea class="form-control text-primary" rows="3" id="direccion_estudiante" placeholder="Direccion"></textarea>
                         </div>
                         <div class="input-group date">
                             <div class="input-group-addon">
@@ -69,7 +69,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-                        <button type="button" onclick="return ValidarCedula(cedula.value);" class="btn btn-outline">Guardar</button>
+                        <button type="button" onclick="nuevo_estudiante()" class="btn btn-outline">Guardar</button>
                     </div>
                     <!-- /.modal-content -->
                 </div>
