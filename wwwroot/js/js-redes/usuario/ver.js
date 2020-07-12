@@ -23,7 +23,7 @@ function Mostrar_Usuarios() {
     if (TipoUsuario == 2) {//Si selecciona Docente
 
         $("#Usuarios").empty();//Limpia Datos de la tabla Usuarios
-        var html2 = "<thead><tr><th>Usuario</th><th>Contraseña</th><th>Nombre completo</th><th>Institucion</th><th></th></tr></thead>";
+        var html2 = "<thead><tr><th>Usuario</th><th>Nombre completo</th><th>Institucion</th><th></th></tr></thead>";
         $('#Usuarios').append(html2);
 
         $.ajax({  // ajax para para recuperar datos de Usuarios Docentes
@@ -33,7 +33,6 @@ function Mostrar_Usuarios() {
                 data.forEach(element => {            
                   var  html = '<tbody><tr>'
                         + '<td>' + element.usuario + '</td>'
-                        + '<td>' + element.contraseña + '</td>'
                         + '<td>' + element.nombre + '</td>'
                         + '<td>' + element.institucion + '</td>'
                         + '<td style="padding-top:0.1%; padding-bottom:0.1%; id="' + element.idUsuario + '" >'
@@ -52,7 +51,7 @@ function Mostrar_Usuarios() {
     if (TipoUsuario == 3) {//Si selecciona Instituciones
 
         $("#Usuarios").empty();//Limpia Datos de la tabla Usuarios
-        var html2 = "<thead><tr><th>Usuario</th><th>Contraseña</th><th>Nombre Institucion</th><th>Direccion</th><th></th></tr></thead>";
+        var html2 = "<thead><tr><th>Usuario</th><th>Nombre Institucion</th><th>Direccion</th><th></th></tr></thead>";
         $('#Usuarios').append(html2);
 
         $.ajax({  // ajax para para recuperar datos de Usuarios Docentes
@@ -62,7 +61,6 @@ function Mostrar_Usuarios() {
                 data.forEach(element => {
                     var html = '<tbody><tr>'
                         + '<td>' + element.usuario + '</td>'
-                        + '<td>' + element.contraseña + '</td>'
                         + '<td>' + element.nombre + '</td>'
                         + '<td>' + element.direccion + '</td>'
                         + '<td style="padding-top:0.1%; padding-bottom:0.1%; id="' + element.idUsuario + '" >'

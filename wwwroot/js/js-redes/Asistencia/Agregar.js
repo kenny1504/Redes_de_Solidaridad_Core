@@ -34,21 +34,51 @@ $(document).ready(function () {
 	})
 });
 
-
+var Asistencia = [];
+var idMatricula = [];
 function Guardar() {
 
+	var i = 0;
 	$('#estudiantes tbody  tr').each(function () {
 
 		var Id = $(this).attr("value");
-		console.log("ID" + Id)
-		var Asistencia = $(this).find('input[type="checkbox"]');
+		idMatricula[i] = Id;
+		var Asistencias = $(this).find('input[type="checkbox"]');
 
-		if (Asistencia[0].checked == true)
-			console.log("Asistencia " + 1)
+		if (Asistencias[0].checked == true)
+			Asistencia[i] = 1;
 		else
-			console.log("Asistencia " + 0)
-
+			Asistencia[i] = 0;
+		i++;
 	});
 
 
+	$.ajax({  // ajax para para rGuardar asistencia
+		type: "POST",
+		url: "Asistencia/AgregarAsistencia",
+		data: { idMatricula: idMatricula, asistencia: Asistencia },
+		dataType: "JSON", // tipo de respuesta del controlador
+		success: function (data) {
+
+
+			if (data == 1) {
+				$("#exito").modal("show"); //abre modal de exito          
+				$("#exito").fadeTo(2000, 500).slideUp(450, function () {   // cierra la modal despues del tiempo determinado  
+					$("#exito").modal("hide"); // cierra modal
+				});
+
+			}
+			else {
+				var error = "Error, YA EXISTE  ASISTENCIA EN ESTA FECHA"
+				$('#mensaje').text(error);   //manda el error a la modal
+				$("#Mensaje-error").modal("show"); //abre modal de error
+				$("#Mensaje-error").fadeTo(2900, 500).slideUp(450, function () {// cierra la modal despues del tiempo determinado  
+					$("#Mensaje-error").modal("hide"); // cierra modal error
+				});
+			}
+
+			window.location.href=('Inicio');
+
+		}
+	})
 }

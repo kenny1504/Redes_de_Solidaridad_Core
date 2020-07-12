@@ -159,5 +159,40 @@ namespace Redes_De_Solidaridad.Controllers
 
             return Json(data);
         }
+
+        public async Task<IActionResult> AgregarAsistencia( int [] idMatricula, int [] asistencia)
+        {
+            var p = 0;
+            //verifica que no exista no se repita una asistencia en esa fecha
+            var verificar = (from item in db.Matriculas
+                             join item2 in db.Asistencia on item.Id equals item2.IdMatricula
+                             where item2.IdMatricula == idMatricula[0] && item2.Fecha.Date == DateTime.Today.Date
+                             select new
+                             {
+                                 id = item2.IdMatricula
+                             }).Count();
+            if (verificar != 0)
+            {
+                return Json(0);
+            }
+            else
+            {
+                var fecha = DateTime.Today.Date;
+                Asistencia Asistencias;
+                for (int i = 0; i < idMatricula.Count(); i++)
+                {
+                    Asistencias = new Asistencia();
+                    Asistencias.Estado = (ulong)asistencia[i];
+                    Asistencias.Fecha = fecha;
+                    Asistencias.IdMatricula = idMatricula[i];
+                    db.Add(Asistencias);
+                    await db.SaveChangesAsync();
+                }
+                return Json(1);
+            }
+        }
+    
     }
+
+
 }

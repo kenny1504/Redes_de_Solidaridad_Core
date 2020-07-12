@@ -95,5 +95,46 @@ namespace Redes_De_Solidaridad.Controllers
 
             return Json(data);
         }
+
+
+        public async Task<ActionResult> AgregarTutor(string Cedula, string Nombre, string Apellido1, string Apellido2, string Sexo, string Direccion, string Correo, int Telefono, DateTime FechaNacimiento, int IdInstitucion, int OficiosId)
+        {
+            var persona = new Personas();
+            var tutor = new Tutores();
+
+            var verifica = _context.Personas.Where(x => x.Cedula == Cedula && x.IdInstitucion == IdInstitucion).FirstOrDefault();
+
+            if (verifica == null)
+            {
+                persona.Cedula = Cedula;
+                persona.Nombre = Nombre;
+                persona.Apellido1 = Apellido1;
+                persona.Apellido2 = Apellido2;
+                persona.Correo = Correo;
+                persona.Telefono = Telefono;
+                persona.Sexo = Sexo;
+                persona.IdInstitucion = IdInstitucion;
+                persona.Direccion = Direccion;
+                persona.FechaNacimiento = FechaNacimiento;
+
+                //Guarda en persona
+                _context.Add(persona);
+                await _context.SaveChangesAsync();
+
+
+                tutor.OficiosId = OficiosId;
+                tutor.PersonasId = persona.Id;
+
+                //Guarda en tutor
+                _context.Add(tutor);
+                await _context.SaveChangesAsync();
+
+                return Json(tutor.Id);
+
+            }
+            else
+                return Json(0);
+        }
+
     }
 }

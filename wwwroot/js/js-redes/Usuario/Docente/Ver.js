@@ -9,7 +9,6 @@
             data.forEach(element => {
                 var html = '<tr>'
                     + '<td>' + element.usuario + '</td>'
-                    + '<td>' + element.contraseña + '</td>'
                     + '<td>' + element.nombre + '</td>'
                     + '<td>' + element.institucion + '</td>'
                     + '<td style="padding-top:0.1%; padding-bottom:0.1%; id="' + element.idUsuario + '" >'

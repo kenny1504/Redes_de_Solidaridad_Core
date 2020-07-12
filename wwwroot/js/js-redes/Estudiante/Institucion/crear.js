@@ -75,6 +75,8 @@ function nuevo_estudiante() {
 	var Nombre = $('#NombreE').val();
 	var apellido1 = $('#Apellido1').val();
 	var apellido2 = $('#Apellido2').val();
+	if (apellido2 == "")
+		apellido2 = "-";
 	var sexo = $('#Sexo').val();
 	var tutor = $('#tutores').val();
 	var parentesco = $('#parent').val();
