@@ -13,7 +13,7 @@
 		<div class="box-tools pull-right" id="filtros-Usarios">
 			<div class="form-group">
 				<div class=" col-lg-3">
-					<a href="#" onclick="" class="btn btn-warning btn-sm" id="m2">Agregar Docente</a>
+					<a href="#" onclick="ingresar_docente()" class="btn btn-warning btn-sm" id="m2">Agregar Docente</a>
 				</div>
 				<div class=" col-lg-2">
 					<div class="input-group input-group-sm hidden-xs" style="width: 350px;">
@@ -129,10 +129,13 @@
 </style>
 
 <!--Modales-->
+@Html.Partial("~/Areas/Docente/Views/Agregar.cshtml")
+
 
 
 @section Scripts {
 
 	<script type="text/javascript" src="~/js/js-redes/Docente/ver.js"></script> <!-- script editar usuarios Docente-->
 	<script type="text/javascript" src="~/js/js-redes/Docente/buscar.js"></script>
+	<script type="text/javascript" src="~/js/js-redes/Docente/crear.js"></script>
 }

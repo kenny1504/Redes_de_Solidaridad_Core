@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Redes_De_Solidaridad.Context;
+using Redes_De_Solidaridad.Models;
 
 namespace Redes_De_Solidaridad.Controllers
 {
@@ -23,7 +24,7 @@ namespace Redes_De_Solidaridad.Controllers
                         join item2 in _context.Institucion.ToList() on item.IdInstitucion equals item2.Id
                         join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
                         join item4 in _context.Docentes.ToList() on item3.Id equals item4.PersonasId
-                        where item.Id == id && item.Cedula == item3.Cedula 
+                        where item.Id == id && item.Cedula == item3.Cedula
                         select new
                         {
                             cedula = item3.Cedula,
@@ -67,15 +68,15 @@ namespace Redes_De_Solidaridad.Controllers
         {
 
             var lista = _context.Ofertas.Join
-               (_context.Detalleofertasinstitucion.Where(i => i.IdInstitucion==id), o => o.Id, d => d.IdOferta, (p, d) => p)
+               (_context.Detalleofertasinstitucion.Where(i => i.IdInstitucion == id), o => o.Id, d => d.IdOferta, (p, d) => p)
                .Where(x => x.FechaOferta.Year == DateTime.Today.Year).ToList();
 
 
             var data = (from item2 in _context.Institucion.ToList()
                         join item3 in _context.Personas.ToList() on item2.Id equals item3.IdInstitucion
                         join item4 in _context.Docentes on item3.Id equals item4.PersonasId
-                        join item5 in _context.Ofertas.Where(x=> !lista.Select(l => l.DocentesId).Contains(x.DocentesId)).ToList() on item4.Id equals item5.DocentesId
-                        where  item4.Estado == 1 && item5.FechaOferta.Year == DateTime.Today.Year
+                        join item5 in _context.Ofertas.Where(x => !lista.Select(l => l.DocentesId).Contains(x.DocentesId)).ToList() on item4.Id equals item5.DocentesId
+                        where item4.Estado == 1 && item5.FechaOferta.Year == DateTime.Today.Year
                         select new
                         {
                             id = item4.Id,
@@ -107,7 +108,6 @@ namespace Redes_De_Solidaridad.Controllers
 
         }
 
-
         [Route("Docentes")]
         public IActionResult Index() //Envia vista de Mostrar usuarios
         {
@@ -130,5 +130,45 @@ namespace Redes_De_Solidaridad.Controllers
             else //si no existe una sesion retorna inicio de sesion 
                 return View("~/Areas/Inicio de sesion/Views/login.cshtml");
         }
+
+        public async Task<IActionResult> Agregar(string Cedula, string Nombre, string Apellido1, string Apellido2, string Sexo, string Direccion, string Correo, int Telefono, DateTime FechaNacimiento, int IdInstitucion, int Estado)
+        {
+            var persona = new Personas();
+            var docente = new Docentes();
+
+            var verifica = _context.Personas.Where(x => x.Cedula == Cedula && x.IdInstitucion == IdInstitucion).FirstOrDefault();
+
+            if (verifica == null)
+            {
+                persona.Cedula = Cedula;
+                persona.Nombre = Nombre;
+                persona.Apellido1 = Apellido1;
+                persona.Apellido2 = Apellido2;
+                persona.Correo = Correo;
+                persona.Telefono = Telefono;
+                persona.Sexo = Sexo;
+                persona.IdInstitucion = IdInstitucion;
+                persona.Direccion = Direccion;
+                persona.FechaNacimiento = FechaNacimiento;
+
+                //Guarda en persona
+                _context.Add(persona);
+                await _context.SaveChangesAsync();
+
+                docente.Estado = (ulong)Estado;
+                docente.PersonasId = persona.Id;
+
+                //Guarda en docente
+                _context.Add(docente);
+                await _context.SaveChangesAsync();
+
+                return Json(docente.Id);
+
+            }
+            else
+                return Json(0);
+
+        }
+
     }
 }
