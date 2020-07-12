@@ -156,7 +156,7 @@
                     "</span>"+
                 "</a>"+
                 "<ul class='treeview-menu'>"+
-                    "<li><a href='#' ><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"+
+                    "<li><a href='AgregarAsistencia' ><i class='fa fa-circle-o text-aqua'></i> Agregar</a></li>"+
                     "<li><a href='Asistencia' ><i class='fa fa-circle-o text-aqua'></i> Mostrar</a></li>"+
                 "</ul>"+
             "</li >" +

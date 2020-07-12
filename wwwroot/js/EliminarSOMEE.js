@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     SomeeAdsRemover();
     adsRemover();
+    $("body").removeAttr('style'); //Atributo para Que no haga el Padding-Right
 });
 
 function SomeeAdsRemover() {

@@ -131,7 +131,6 @@ function nuevo_estudiante() {
 					$("#exito").fadeTo(2000, 500).slideUp(450, function () {   // cierra la modal despues del tiempo determinado  
 						$("#exito").modal("hide"); // cierra modal
 					});
-					$("body").removeAttr('style'); //Atributo para Que no haga el Padding-Right
 				}
 
 			}

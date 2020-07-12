@@ -216,7 +216,7 @@ function Guardar_Notas() {
 			$("#Mensaje-error").modal("hide"); // cierra modal error
 		});
 	}
-
+	$("body").removeAttr('style'); //Atributo para Que no haga el Padding-Right
 
 }
 

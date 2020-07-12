@@ -112,4 +112,5 @@ function limpiar() {
 	$('#Telefono_Docente').val("");
 	$('#Direccion_Docente').val("")
 	$('#datepickerDocente').val(null);
+	$("body").removeAttr('style'); //Atributo para Que no haga el Padding-Right
 }

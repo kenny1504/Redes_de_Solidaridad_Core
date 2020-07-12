@@ -16,8 +16,43 @@ namespace Redes_De_Solidaridad.Controllers
         [Route("Asistencia")]
         public IActionResult Index()
         {
-            return View("~/Areas/Asistencia/Views/Mostrar.cshtml");
+            var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
+            string tipo = "0";
+
+            if (usuario != null)
+            {
+                tipo = (string)usuario[4];//conversiona  entero
+            }
+
+            if (usuario != null && tipo == "2") //Usuario tipo Docente
+            {
+                return View("~/Areas/Asistencia/Views/Mostrar.cshtml");
+            }
+            else //si no existe una sesion retorna inicio de sesion 
+                return View("~/Areas/Inicio de sesion/Views/login.cshtml");
+
+            
         }
+
+        [Route("AgregarAsistencia")]
+        public IActionResult Index2()
+        {
+            var usuario = (object[])TempData.Peek("Usuario"); //varible de sesion
+            string tipo = "0";
+
+            if (usuario != null)
+            {
+                tipo = (string)usuario[4];//conversiona  entero
+            }
+
+            if (usuario != null && tipo == "2") //Usuario tipo Docente
+            {
+                return View("~/Areas/Asistencia/Views/Agregar.cshtml");
+            }
+            else //si no existe una sesion retorna inicio de sesion 
+                return View("~/Areas/Inicio de sesion/Views/login.cshtml");
+        }
+
 
         //Peticiones Ver asistencias de estudiantes
         public async Task<IActionResult> Ver_Asistencia(int id, int grupo, int grado)
